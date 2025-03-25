@@ -1,0 +1,1509 @@
+{
+"fix_nationality": [
+	{
+		"fix_nationality_id" : "AF",
+		"description" : "AFGHAN (อัฟกานิสถาน) -เอเชียใต้",
+		"code_nationality" : "",
+		"rowid" : 1
+	},
+	{
+		"fix_nationality_id" : "AC",
+		"description" : "AFRICAN (แอฟริกา) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 2
+	},
+	{
+		"fix_nationality_id" : "AB",
+		"description" : "ALBANIAN (แอลเบเนีย) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 3
+	},
+	{
+		"fix_nationality_id" : "AL",
+		"description" : "ALGERIAN (แอลจีเรีย) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 4
+	},
+	{
+		"fix_nationality_id" : "US",
+		"description" : "AMERICAN (อเมริกา) -อเมริกาเหนือ",
+		"code_nationality" : "",
+		"rowid" : 5
+	},
+	{
+		"fix_nationality_id" : "AD",
+		"description" : "ANDORRAN (อันดอร์รา) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 6
+	},
+	{
+		"fix_nationality_id" : "AO",
+		"description" : "ANGOLAN (แองโกลา) -แอฟริกาใต้",
+		"code_nationality" : "",
+		"rowid" : 7
+	},
+	{
+		"fix_nationality_id" : "AE",
+		"description" : "ANTIGUA AND BARBUDA",
+		"code_nationality" : "",
+		"rowid" : 8
+	},
+	{
+		"fix_nationality_id" : "AG",
+		"description" : "ARGENTINIAN (อาร์เจนตินา) -อเมริกาใต้",
+		"code_nationality" : "",
+		"rowid" : 10
+	},
+	{
+		"fix_nationality_id" : "AM",
+		"description" : "ARMENIAN (อาร์เมเนีย) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 11
+	},
+	{
+		"fix_nationality_id" : "AU",
+		"description" : "AUSTRALIAN (ออสเตรเลีย) -ออสเตรเลีย",
+		"code_nationality" : "",
+		"rowid" : 12
+	},
+	{
+		"fix_nationality_id" : "AT",
+		"description" : "AUSTRIAN (ออสเตรีย) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 13
+	},
+	{
+		"fix_nationality_id" : "AZ",
+		"description" : "AZERBAIJAN (อาเซอร์โบจาน) -ตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 14
+	},
+	{
+		"fix_nationality_id" : "BS",
+		"description" : "BAHAMIAN(บาฮามัส) - อเมริกากลาง",
+		"code_nationality" : "",
+		"rowid" : 15
+	},
+	{
+		"fix_nationality_id" : "BH",
+		"description" : "BAHRAINI (บาห์เรน) -เอเชียตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 16
+	},
+	{
+		"fix_nationality_id" : "BD",
+		"description" : "BANGLADESHI (บังคลาเทศ) -เอเชียใต้",
+		"code_nationality" : "",
+		"rowid" : 17
+	},
+	{
+		"fix_nationality_id" : "BB",
+		"description" : "BARBADIAN (บาเบโดส) -แอตแลนติกเหนือ",
+		"code_nationality" : "",
+		"rowid" : 18
+	},
+	{
+		"fix_nationality_id" : "BA",
+		"description" : "BELARUSIAN (เบลาลุส)-ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 19
+	},
+	{
+		"fix_nationality_id" : "BE",
+		"description" : "BELGIUM (เบลเยียม) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 20
+	},
+	{
+		"fix_nationality_id" : "BL",
+		"description" : "BELIZEAN (เบลีซ) - อเมริกากลาง",
+		"code_nationality" : "",
+		"rowid" : 21
+	},
+	{
+		"fix_nationality_id" : "BJ",
+		"description" : "BENINESE (สาธารณรัฐเบนิน) - แอฟริกาตะวันตก",
+		"code_nationality" : "",
+		"rowid" : 22
+	},
+	{
+		"fix_nationality_id" : "BM",
+		"description" : "BERMUDIAN (เบอร์มิวดา) -มหาสมุทรแอตแลนติก",
+		"code_nationality" : "",
+		"rowid" : 23
+	},
+	{
+		"fix_nationality_id" : "BT",
+		"description" : "BHUTANI (ภูฏาน) -เอเชีย",
+		"code_nationality" : "",
+		"rowid" : 24
+	},
+	{
+		"fix_nationality_id" : "BO",
+		"description" : "BOLIVIAN (โบลิเวีย) -อเมริกาใต้",
+		"code_nationality" : "",
+		"rowid" : 25
+	},
+	{
+		"fix_nationality_id" : "BC",
+		"description" : "BOSNIA (บอสเนีย) ตะวันออกเฉียงใต้ - ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 26
+	},
+	{
+		"fix_nationality_id" : "BW",
+		"description" : "BOTSWANA (บอตสวานา) - แอฟริกาใต้",
+		"code_nationality" : "",
+		"rowid" : 27
+	},
+	{
+		"fix_nationality_id" : "BR",
+		"description" : "BRAZILIAN (บราซิล) -อเมริกาใต้",
+		"code_nationality" : "",
+		"rowid" : 28
+	},
+	{
+		"fix_nationality_id" : "GB",
+		"description" : "BRITISH (อังกฤษ) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 29
+	},
+	{
+		"fix_nationality_id" : "BN",
+		"description" : "BRUNEIAN (บรูไน) -เอเชียตะวันออกเฉียงใต้",
+		"code_nationality" : "",
+		"rowid" : 30
+	},
+	{
+		"fix_nationality_id" : "BU",
+		"description" : "BULGARIA (บัลกาเรีย) - ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 31
+	},
+	{
+		"fix_nationality_id" : "BF",
+		"description" : "BURKINA FASO (บูร์กินาฟาโซ) - แอฟริกาตะวันตก",
+		"code_nationality" : "",
+		"rowid" : 32
+	},
+	{
+		"fix_nationality_id" : "BI",
+		"description" : "BURUNDIAN (บุรุนดี) - แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 33
+	},
+	{
+		"fix_nationality_id" : "CB",
+		"description" : "CAMBODIAN (กัมพูชา) -เอเชียตะวันออกเฉียงใต้",
+		"code_nationality" : "",
+		"rowid" : 34
+	},
+	{
+		"fix_nationality_id" : "CM",
+		"description" : "CAMEROONIAN (แคเมอรูน) - แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 35
+	},
+	{
+		"fix_nationality_id" : "CA",
+		"description" : "CANADIAN (แคนาดา) -อเมริกาเหนือ",
+		"code_nationality" : "",
+		"rowid" : 36
+	},
+	{
+		"fix_nationality_id" : "CV",
+		"description" : "CAPE VERDEAN - แอฟริกาใต้",
+		"code_nationality" : "",
+		"rowid" : 37
+	},
+	{
+		"fix_nationality_id" : "KY",
+		"description" : "CAYMANIAN (หมู่เกาะเคย์แมน) - อเมริกาเหนือ",
+		"code_nationality" : "",
+		"rowid" : 38
+	},
+	{
+		"fix_nationality_id" : "CD",
+		"description" : "CHADIAN (ชาด) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 39
+	},
+	{
+		"fix_nationality_id" : "CL",
+		"description" : "CHILEAN (ชิลี) -อเมริกาใต้",
+		"code_nationality" : "",
+		"rowid" : 40
+	},
+	{
+		"fix_nationality_id" : "CNTH",
+		"description" : "CHINA-THAI (เชื้อชาติจีน สัญชาติไทย)",
+		"code_nationality" : "",
+		"rowid" : 41
+	},
+	{
+		"fix_nationality_id" : "CN",
+		"description" : "CHINESE (จีน) - เอเชียตะวันออก",
+		"code_nationality" : "",
+		"rowid" : 42
+	},
+	{
+		"fix_nationality_id" : "CO",
+		"description" : "COLOMBIAN (โคลัมเบีย) -อเมริกาใต้",
+		"code_nationality" : "",
+		"rowid" : 43
+	},
+	{
+		"fix_nationality_id" : "CI",
+		"description" : "COMORIENNE (โคโมเรี่ยน) - ตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 44
+	},
+	{
+		"fix_nationality_id" : "CG",
+		"description" : "CONGOLESE (คองโก) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 45
+	},
+	{
+		"fix_nationality_id" : "CRG",
+		"description" : "Co-operative Republic of Guyana (สาธารณรัฐสหกรณ์กายอานา) - อังกฤษ",
+		"code_nationality" : "",
+		"rowid" : 46
+	},
+	{
+		"fix_nationality_id" : "CT",
+		"description" : "COSTA RICAN (คอสตาริกา) -อเมริกากลาง",
+		"code_nationality" : "",
+		"rowid" : 47
+	},
+	{
+		"fix_nationality_id" : "CR",
+		"description" : "CROATIAN (โครเอเชีย) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 48
+	},
+	{
+		"fix_nationality_id" : "CU",
+		"description" : "CUBAN (คิวบา) - อเมริกากลาง",
+		"code_nationality" : "",
+		"rowid" : 49
+	},
+	{
+		"fix_nationality_id" : "CP",
+		"description" : "CYPRIOT (ไซปรัส)- ตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 50
+	},
+	{
+		"fix_nationality_id" : "CS",
+		"description" : "CZECH (สาธารณรัฐเช๊ค) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 51
+	},
+	{
+		"fix_nationality_id" : "DK",
+		"description" : "DANISH (เดนมาร์ก) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 52
+	},
+	{
+		"fix_nationality_id" : "DJ",
+		"description" : "DJIBOUTI (จิบูตี)-แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 53
+	},
+	{
+		"fix_nationality_id" : "DM",
+		"description" : "DOMINICAN (โดมินิกา) - อเมริกาใต้",
+		"code_nationality" : "",
+		"rowid" : 54
+	},
+	{
+		"fix_nationality_id" : "DU",
+		"description" : "DUTCH (เนเธอร์แลนด์) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 55
+	},
+	{
+		"fix_nationality_id" : "EC",
+		"description" : "ECUADORIAN (เอกวาดอร์) -อเมริกาใต้",
+		"code_nationality" : "",
+		"rowid" : 56
+	},
+	{
+		"fix_nationality_id" : "EG",
+		"description" : "EGYPTIAN (อียิปต์) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 57
+	},
+	{
+		"fix_nationality_id" : "EQ",
+		"description" : "EQUATORIAL GUINEA (กิวนี) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 58
+	},
+	{
+		"fix_nationality_id" : "ER",
+		"description" : "ERITREA (เอริเทรีย) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 59
+	},
+	{
+		"fix_nationality_id" : "EL",
+		"description" : "ESPANOLA (เอสปาโนลา) - ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 60
+	},
+	{
+		"fix_nationality_id" : "EA",
+		"description" : "ESTONIAN (เอสโทเนีย) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 61
+	},
+	{
+		"fix_nationality_id" : "ET",
+		"description" : "ETHIOPIAN (เอธิโอเปีย) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 62
+	},
+	{
+		"fix_nationality_id" : "FJ",
+		"description" : "FIJIAN (ฟิจิ) -มหาสมุทรแปซิฟิก",
+		"code_nationality" : "",
+		"rowid" : 63
+	},
+	{
+		"fix_nationality_id" : "PH",
+		"description" : "FILIPINO (ฟิลิปปินส์) -เอเชียตะวันออกเฉียงใต้",
+		"code_nationality" : "",
+		"rowid" : 64
+	},
+	{
+		"fix_nationality_id" : "FI",
+		"description" : "FINNISH (ฟินแลนด์) - ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 65
+	},
+	{
+		"fix_nationality_id" : "FR",
+		"description" : "FRENCH (ฝรั่งเศส) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 66
+	},
+	{
+		"fix_nationality_id" : "GO",
+		"description" : "GABONESE (กาบอนนิส)-แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 67
+	},
+	{
+		"fix_nationality_id" : "GM",
+		"description" : "GAMBIAN (แกมเบีย) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 68
+	},
+	{
+		"fix_nationality_id" : "GG",
+		"description" : "GEORGIAN (จอร์เจีย) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 69
+	},
+	{
+		"fix_nationality_id" : "GE",
+		"description" : "GERMAN (เยอรมัน) - ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 70
+	},
+	{
+		"fix_nationality_id" : "GH",
+		"description" : "GHANAIAN (กานา) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 71
+	},
+	{
+		"fix_nationality_id" : "GL",
+		"description" : "GREENLANDER (กรีนแลนด์) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 72
+	},
+	{
+		"fix_nationality_id" : "GT",
+		"description" : "GUATEMALAN (กัวเตมาลา) -อเมริกากลาง",
+		"code_nationality" : "",
+		"rowid" : 73
+	},
+	{
+		"fix_nationality_id" : "GU",
+		"description" : "GUINEA (ปาปัว นิว กินี) - ออสเตรเลีย",
+		"code_nationality" : "",
+		"rowid" : 74
+	},
+	{
+		"fix_nationality_id" : "GUN",
+		"description" : "GUINEAN (กีเนียน) -แอฟริกา ตะวันตก",
+		"code_nationality" : "",
+		"rowid" : 75
+	},
+	{
+		"fix_nationality_id" : "HT",
+		"description" : "HAITIAN (เฮติ) -อเมริกากลาง",
+		"code_nationality" : "",
+		"rowid" : 76
+	},
+	{
+		"fix_nationality_id" : "GR",
+		"description" : "Hellenic (greek) - ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 77
+	},
+	{
+		"fix_nationality_id" : "HD",
+		"description" : "HONDURAN (ฮอนดูรัส) -อเมริกากลาง",
+		"code_nationality" : "",
+		"rowid" : 78
+	},
+	{
+		"fix_nationality_id" : "HK",
+		"description" : "HONG KONG (ฮ่องกง) -เอเชียตะวันออก",
+		"code_nationality" : "",
+		"rowid" : 79
+	},
+	{
+		"fix_nationality_id" : "HU",
+		"description" : "HUNGARIAN (ฮังการี) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 80
+	},
+	{
+		"fix_nationality_id" : "IB",
+		"description" : "IBERIAN (ไอบีเรีย) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 81
+	},
+	{
+		"fix_nationality_id" : "IC",
+		"description" : "ICELANDIC (ไอซ์แลนด์) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 82
+	},
+	{
+		"fix_nationality_id" : "IN",
+		"description" : "INDIAN (อินเดีย) -เอเชียใต้",
+		"code_nationality" : "",
+		"rowid" : 83
+	},
+	{
+		"fix_nationality_id" : "INTH",
+		"description" : "INDIA-THAI (เชื้อชาติอินเดีย สัญชาติไทย)",
+		"code_nationality" : "",
+		"rowid" : 84
+	},
+	{
+		"fix_nationality_id" : "ID",
+		"description" : "INDONESIAN (อินโดนีเซีย) -เอเชียตะวันออกเฉียงใต้",
+		"code_nationality" : "",
+		"rowid" : 85
+	},
+	{
+		"fix_nationality_id" : "IR",
+		"description" : "IRANIAN (อิหร่าน) -ตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 86
+	},
+	{
+		"fix_nationality_id" : "IK",
+		"description" : "IRAQI (อิรัก) -ตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 87
+	},
+	{
+		"fix_nationality_id" : "IL",
+		"description" : "IRISH (สาธารณรัฐไอร์แลนด์) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 88
+	},
+	{
+		"fix_nationality_id" : "IS",
+		"description" : "ISRAELI (อิสราเอล) -ตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 89
+	},
+	{
+		"fix_nationality_id" : "IT",
+		"description" : "ITALIAN (อิตาลี) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 90
+	},
+	{
+		"fix_nationality_id" : "IV",
+		"description" : "IVORY COAST [IVORIAN] - แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 91
+	},
+	{
+		"fix_nationality_id" : "JM",
+		"description" : "JAMAICAN (จาเมกา) -อเมริกากลาง",
+		"code_nationality" : "",
+		"rowid" : 92
+	},
+	{
+		"fix_nationality_id" : "JP",
+		"description" : "JAPANESE (ญี่ปุ่น) -เอเชียตะวันออก",
+		"code_nationality" : "",
+		"rowid" : 93
+	},
+	{
+		"fix_nationality_id" : "JPTH",
+		"description" : "JAPAN-THAI (เชื้อชาติญี่ปุ่น สัญชาติไทย)",
+		"code_nationality" : "",
+		"rowid" : 94
+	},
+	{
+		"fix_nationality_id" : "JO",
+		"description" : "JORDANIAN (จอร์แดน) -ตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 95
+	},
+	{
+		"fix_nationality_id" : "KA",
+		"description" : "KAZAK (คาซักสถาน) -เอเชียตะวันตก",
+		"code_nationality" : "",
+		"rowid" : 96
+	},
+	{
+		"fix_nationality_id" : "KE",
+		"description" : "KENYAN (เคนยา) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 97
+	},
+	{
+		"fix_nationality_id" : "KN",
+		"description" : "KITTITIAN (s), NEVISIAN (s) (สหพันธรัฐเซนคิตส์ละเนวิส) - อเมริกากลาง",
+		"code_nationality" : "",
+		"rowid" : 98
+	},
+	{
+		"fix_nationality_id" : "KR",
+		"description" : "KOREAN NORTH (เกาหลีเหนือ) -เอเชียตะวันออก",
+		"code_nationality" : "",
+		"rowid" : 99
+	},
+	{
+		"fix_nationality_id" : "KP",
+		"description" : "KOREAN SOUTH (เกาหลีใต้) -เอเชียตะวันออก",
+		"code_nationality" : "",
+		"rowid" : 100
+	},
+	{
+		"fix_nationality_id" : "KO",
+		"description" : "KOSOVO (โคโซโว) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 101
+	},
+	{
+		"fix_nationality_id" : "KW",
+		"description" : "KUWAITI (คูเว็ต) -ตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 102
+	},
+	{
+		"fix_nationality_id" : "KG",
+		"description" : "KYRGYZ (คีร์กิซสถาน) -เอเชีย",
+		"code_nationality" : "",
+		"rowid" : 103
+	},
+	{
+		"fix_nationality_id" : "LH",
+		"description" : "Lahu (ลาหู่-ชาวไทยภูเขา) - เอเชียตะวันออกเฉียงใต้",
+		"code_nationality" : "",
+		"rowid" : 104
+	},
+	{
+		"fix_nationality_id" : "LA",
+		"description" : "LAOTIAN (ลาว) -เอเชียตะวันออกเฉียงใต้",
+		"code_nationality" : "",
+		"rowid" : 105
+	},
+	{
+		"fix_nationality_id" : "LV",
+		"description" : "LATVIAN (ลัตเวีย) - ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 106
+	},
+	{
+		"fix_nationality_id" : "LE",
+		"description" : "LEBANESE (เลบานอน) -ตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 107
+	},
+	{
+		"fix_nationality_id" : "LB",
+		"description" : "LIBERIAN (ไลบีเรีย) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 108
+	},
+	{
+		"fix_nationality_id" : "LI",
+		"description" : "LIBYAN (ลิเบีย) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 109
+	},
+	{
+		"fix_nationality_id" : "LIEC",
+		"description" : "LIECHTENSTEIN (ลิคเทนสไตน์) - ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 110
+	},
+	{
+		"fix_nationality_id" : "LT",
+		"description" : "LITHUANIAN (ลิทัวเนีย) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 111
+	},
+	{
+		"fix_nationality_id" : "LX",
+		"description" : "LUXEMBOURGER (ลักแซมเบิร์ก) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 112
+	},
+	{
+		"fix_nationality_id" : "MK",
+		"description" : "MACEDONIAN (มาซิโดเนีย) - ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 113
+	},
+	{
+		"fix_nationality_id" : "MG",
+		"description" : "MALAGASY (มาดากัสการ์) - แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 114
+	},
+	{
+		"fix_nationality_id" : "MW",
+		"description" : "MALAWIAN (มาลาวี) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 115
+	},
+	{
+		"fix_nationality_id" : "MY",
+		"description" : "MALAYSIAN (มาเลเซีย) -เอเชียตะวันออกเฉียงใต้",
+		"code_nationality" : "",
+		"rowid" : 116
+	},
+	{
+		"fix_nationality_id" : "MV",
+		"description" : "MALDIVIAN (มัลดีฟส์) -เอเชียใต้",
+		"code_nationality" : "",
+		"rowid" : 117
+	},
+	{
+		"fix_nationality_id" : "ML",
+		"description" : "MALIAN (มาลี) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 118
+	},
+	{
+		"fix_nationality_id" : "MT",
+		"description" : "MALTESE (มอลตา) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 119
+	},
+	{
+		"fix_nationality_id" : "MH",
+		"description" : "MASHALLESE(สาธารณรัฐหมู่เกาะมาร์แชลล์) - มหาสมุทรแปซิฟิก",
+		"code_nationality" : "",
+		"rowid" : 120
+	},
+	{
+		"fix_nationality_id" : "MN",
+		"description" : "MAURETANIAN (มอริเตเนีย) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 121
+	},
+	{
+		"fix_nationality_id" : "MU",
+		"description" : "MAURITIAN (มอริเซียส)) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 122
+	},
+	{
+		"fix_nationality_id" : "MX",
+		"description" : "MEXICAN (เม็กซิโก) -อเมริกาเหนือ",
+		"code_nationality" : "",
+		"rowid" : 123
+	},
+	{
+		"fix_nationality_id" : "FM",
+		"description" : "MICRONESIAN (ไมโครนีเซียน)-ออสเตรเลีย",
+		"code_nationality" : "",
+		"rowid" : 124
+	},
+	{
+		"fix_nationality_id" : "MD",
+		"description" : "MOLDOVAN(โมโดวา)-ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 125
+	},
+	{
+		"fix_nationality_id" : "MC",
+		"description" : "MONEGASQUE (โมนาโก) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 126
+	},
+	{
+		"fix_nationality_id" : "MO",
+		"description" : "MONGOLIAN (มองโกเลีย) -เอเชีย",
+		"code_nationality" : "",
+		"rowid" : 127
+	},
+	{
+		"fix_nationality_id" : "ME",
+		"description" : "MONTENEGRINS-ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 128
+	},
+	{
+		"fix_nationality_id" : "MA",
+		"description" : "MOROCCAN (โมร๊อกโก) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 129
+	},
+	{
+		"fix_nationality_id" : "LS",
+		"description" : "MOSOTHO (เลโซโท) – แอฟริกาใต้",
+		"code_nationality" : "",
+		"rowid" : 130
+	},
+	{
+		"fix_nationality_id" : "MZ",
+		"description" : "MOZAMBICAN (โมซัมบิก) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 131
+	},
+	{
+		"fix_nationality_id" : "MR",
+		"description" : "MYANMAR (พม่า) -เอเชียตะวันออกเฉียงใต้",
+		"code_nationality" : "",
+		"rowid" : 132
+	},
+	{
+		"fix_nationality_id" : "NA",
+		"description" : "NAMIBIAN(นามิเบีย)-แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 133
+	},
+	{
+		"fix_nationality_id" : "NE",
+		"description" : "NAURUAN (สาธารณรัฐนาอูรู) - มหาสมุทรแปซิฟิก",
+		"code_nationality" : "",
+		"rowid" : 134
+	},
+	{
+		"fix_nationality_id" : "NP",
+		"description" : "NEPALESE (เนปาล) -เอเชียใต้",
+		"code_nationality" : "",
+		"rowid" : 135
+	},
+	{
+		"fix_nationality_id" : "NZ",
+		"description" : "NEW ZEALANDER (นิวซีแลนด์) -ออสเตรเลีย",
+		"code_nationality" : "",
+		"rowid" : 136
+	},
+	{
+		"fix_nationality_id" : "NC",
+		"description" : "NICARAGUAN (นิการากัว) -อเมริกากลาง",
+		"code_nationality" : "",
+		"rowid" : 137
+	},
+	{
+		"fix_nationality_id" : "NG",
+		"description" : "NIGER (ไนเจอร์) - แอฟริกากลาง ตอนบน",
+		"code_nationality" : "",
+		"rowid" : 138
+	},
+	{
+		"fix_nationality_id" : "NR",
+		"description" : "NIGERIAN (ไนจีเรีย) - แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 139
+	},
+	{
+		"fix_nationality_id" : "NO",
+		"description" : "NORWEGIAN (นอร์เวย์) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 140
+	},
+	{
+		"fix_nationality_id" : "BG",
+		"description" : "BULGARIA",
+		"code_nationality" : "",
+		"rowid" : 214
+	},
+	{
+		"fix_nationality_id" : "OM",
+		"description" : "OMANI (โอมาน) -เอเชียตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 141
+	},
+	{
+		"fix_nationality_id" : "PK",
+		"description" : "PAKISTANI (ปากีสถาน) -เอเชียใต้",
+		"code_nationality" : "",
+		"rowid" : 142
+	},
+	{
+		"fix_nationality_id" : "PL",
+		"description" : "PALESTINIAN (ปาเลสไตน์) -ตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 143
+	},
+	{
+		"fix_nationality_id" : "PN",
+		"description" : "PANAMANIAN (ปานามา) -อเมริกากลาง",
+		"code_nationality" : "",
+		"rowid" : 144
+	},
+	{
+		"fix_nationality_id" : "PP",
+		"description" : "PAPUAN (ปาปัวนิวกินี) -ออสเตรเลีย",
+		"code_nationality" : "",
+		"rowid" : 145
+	},
+	{
+		"fix_nationality_id" : "PG",
+		"description" : "PARAQUAYAN (ปารากวัย) -อเมริกาใต้",
+		"code_nationality" : "",
+		"rowid" : 146
+	},
+	{
+		"fix_nationality_id" : "PR",
+		"description" : "PERUVIAN (เปรู) -อเมริกาใต้",
+		"code_nationality" : "",
+		"rowid" : 147
+	},
+	{
+		"fix_nationality_id" : "PO",
+		"description" : "POLISH (โปแลนด์) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 148
+	},
+	{
+		"fix_nationality_id" : "PT",
+		"description" : "PORTUGUESE (โปรตุเกส) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 149
+	},
+	{
+		"fix_nationality_id" : "PU",
+		"description" : "PUERTORICAN (เปอร์โตริโก) -อเมริกากลาง",
+		"code_nationality" : "",
+		"rowid" : 150
+	},
+	{
+		"fix_nationality_id" : "GA",
+		"description" : "QATARI (กาตาร์) -ตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 151
+	},
+	{
+		"fix_nationality_id" : "RSL",
+		"description" : "Republic of Sierra Leone (สาธารณรัฐเซียร์ราลีโอน) - อังกฤษ",
+		"code_nationality" : "",
+		"rowid" : 152
+	},
+	{
+		"fix_nationality_id" : "RM",
+		"description" : "Republica Moldova (สาธารณรัฐมอลโดวา) - โรมาเนีย",
+		"code_nationality" : "",
+		"rowid" : 153
+	},
+	{
+		"fix_nationality_id" : "RO",
+		"description" : "ROMANIAN (โรมาเนีย) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 154
+	},
+	{
+		"fix_nationality_id" : "RU",
+		"description" : "RUSSIAN (สหพันธรัฐรัสเซีย) - ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 155
+	},
+	{
+		"fix_nationality_id" : "RW",
+		"description" : "RWANDA (รวันดา) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 156
+	},
+	{
+		"fix_nationality_id" : "SKN",
+		"description" : "SAINT KITTS AND NEVIS (เซนต์คิตส์และเนวิส) - อังกฤษ",
+		"code_nationality" : "",
+		"rowid" : 157
+	},
+	{
+		"fix_nationality_id" : "SI",
+		"description" : "SALVADORAN (เอลซัลวาดอร์) - อเมริกาเหนือ",
+		"code_nationality" : "",
+		"rowid" : 158
+	},
+	{
+		"fix_nationality_id" : "SMR",
+		"description" : "Sammarinese (ซานมารีโน) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 159
+	},
+	{
+		"fix_nationality_id" : "SO",
+		"description" : "SAMOAN (ซามัวตะวันตก) -มหาสมุทรแปซิฟิก",
+		"code_nationality" : "",
+		"rowid" : 160
+	},
+	{
+		"fix_nationality_id" : "SA",
+		"description" : "SAUDI (ซาอุดีอาระเบีย) -ตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 161
+	},
+	{
+		"fix_nationality_id" : "SC",
+		"description" : "SCOTTISH (สกอตแลนด์) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 162
+	},
+	{
+		"fix_nationality_id" : "SN",
+		"description" : "SENEGALESE (เซเนกัล) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 163
+	},
+	{
+		"fix_nationality_id" : "SB",
+		"description" : "SERB (ยูโกสลาเวีย) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 164
+	},
+	{
+		"fix_nationality_id" : "RS",
+		"description" : "SERBIAN (เซอร์เบีย) - ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 165
+	},
+	{
+		"fix_nationality_id" : "SD",
+		"description" : "Seychellois (เชเชลวาซ์) - แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 166
+	},
+	{
+		"fix_nationality_id" : "SLE",
+		"description" : "SIERRA LEONEAN (เซียรา เลโอน ) - แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 167
+	},
+	{
+		"fix_nationality_id" : "SG",
+		"description" : "SINGAPOREAN (สิงคโปร์) -เอเชียตะวันออกเฉียงใต้",
+		"code_nationality" : "",
+		"rowid" : 168
+	},
+	{
+		"fix_nationality_id" : "SL",
+		"description" : "SLOVAK (สโลวะเกีย) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 169
+	},
+	{
+		"fix_nationality_id" : "SV",
+		"description" : "SLOVENE (สโลวีเนีย) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 170
+	},
+	{
+		"fix_nationality_id" : "SBM",
+		"description" : "SOLOMON ISLANDER (หมู่เกาะโซโลมอน) - มหาสมุทรแปซิฟิกตอนใต้",
+		"code_nationality" : "",
+		"rowid" : 171
+	},
+	{
+		"fix_nationality_id" : "SM",
+		"description" : "SOMALI (โซมาเลีย) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 172
+	},
+	{
+		"fix_nationality_id" : "ZA",
+		"description" : "SOUTH AFRICAN (แอฟริกาใต้) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 173
+	},
+	{
+		"fix_nationality_id" : "SS",
+		"description" : "SOUTH SUDAN (เซาท์ซูดาน) - แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 174
+	},
+	{
+		"fix_nationality_id" : "ES",
+		"description" : "SPANISH (สเปน) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 175
+	},
+	{
+		"fix_nationality_id" : "LK",
+		"description" : "SRILANKAN (ศรีลังกา) -เอเชียใต้",
+		"code_nationality" : "",
+		"rowid" : 176
+	},
+	{
+		"fix_nationality_id" : "SP",
+		"description" : "SRPSKO (เซอร์เบีย) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 177
+	},
+	{
+		"fix_nationality_id" : "SU",
+		"description" : "SUDANESE (ซูดาน) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 178
+	},
+	{
+		"fix_nationality_id" : "AS",
+		"description" : "SWAZILAND (สวาซิแลนด์) - แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 179
+	},
+	{
+		"fix_nationality_id" : "SE",
+		"description" : "SWEDISH (สวีเดน) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 180
+	},
+	{
+		"fix_nationality_id" : "CH",
+		"description" : "SWISS (สวิตเซอร์แลนด์) - ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 181
+	},
+	{
+		"fix_nationality_id" : "SY",
+		"description" : "SYRIA (ซีเรีย) -ตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 182
+	},
+	{
+		"fix_nationality_id" : "SR",
+		"description" : "SYRIAN (ซีเรีย) -ตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 183
+	},
+	{
+		"fix_nationality_id" : "TUTH",
+		"description" : "Tailue (ไทลื้อ- ชาวไทยภูเขา) - เอเชียตะวันออกเฉียงใต้",
+		"code_nationality" : "",
+		"rowid" : 184
+	},
+	{
+		"fix_nationality_id" : "TW",
+		"description" : "TAIWANESE (ไต้หวัน) -เอเชียตะวันออก",
+		"code_nationality" : "",
+		"rowid" : 185
+	},
+	{
+		"fix_nationality_id" : "TA",
+		"description" : "TAJIK (ทาจิสถาน) -เอเชีย",
+		"code_nationality" : "",
+		"rowid" : 186
+	},
+	{
+		"fix_nationality_id" : "TZ",
+		"description" : "TANZANIAN (แทนซาเนีย) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 187
+	},
+	{
+		"fix_nationality_id" : "TH",
+		"description" : "THAI (ไทย)",
+		"code_nationality" : "",
+		"rowid" : 188
+	},
+	{
+		"fix_nationality_id" : "TB",
+		"description" : "TIBETAN (ทิเบต) -เอเชียใต้",
+		"code_nationality" : "",
+		"rowid" : 189
+	},
+	{
+		"fix_nationality_id" : "TL",
+		"description" : "TIMORESE (ติมอร์) -เอเชียตะวันออกเฉียงใต้",
+		"code_nationality" : "",
+		"rowid" : 190
+	},
+	{
+		"fix_nationality_id" : "TO",
+		"description" : "TOGOLESE (ตองโกลิส) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 191
+	},
+	{
+		"fix_nationality_id" : "TG",
+		"description" : "TONGA (ตองกา) -มหาสมุทรแปซิฟิก",
+		"code_nationality" : "",
+		"rowid" : 192
+	},
+	{
+		"fix_nationality_id" : "TN",
+		"description" : "TRINIDADIAN (ทรินิเดียน) -อเมริกากลาง",
+		"code_nationality" : "",
+		"rowid" : 193
+	},
+	{
+		"fix_nationality_id" : "TR",
+		"description" : "TUNISIAN (ตูนิเซีย) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 194
+	},
+	{
+		"fix_nationality_id" : "TK",
+		"description" : "TURKISH (ตุรกี) - ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 195
+	},
+	{
+		"fix_nationality_id" : "TS",
+		"description" : "TURKMENISTAN (เติร์กเมนิสถาน)-เอเซียกลาง",
+		"code_nationality" : "",
+		"rowid" : 196
+	},
+	{
+		"fix_nationality_id" : "TV",
+		"description" : "TUVALUAN (ตูวาลู) - ออสเตรเลีย",
+		"code_nationality" : "",
+		"rowid" : 197
+	},
+	{
+		"fix_nationality_id" : "UG",
+		"description" : "UGANDAN (ยูกันดา) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 198
+	},
+	{
+		"fix_nationality_id" : "UK",
+		"description" : "UKRAINIAN (ยูเครน) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 199
+	},
+	{
+		"fix_nationality_id" : "UR",
+		"description" : "URUGUAYAN (อุรุกวัย) -อเมริกาใต้",
+		"code_nationality" : "",
+		"rowid" : 200
+	},
+	{
+		"fix_nationality_id" : "UZ",
+		"description" : "UZBEK (อุซเบกิสถาน) -เอเชียกลาง",
+		"code_nationality" : "",
+		"rowid" : 201
+	},
+	{
+		"fix_nationality_id" : "VU",
+		"description" : "VANUATU (วานูอาตู) - มหาสมุทรแปซิฟิก",
+		"code_nationality" : "",
+		"rowid" : 202
+	},
+	{
+		"fix_nationality_id" : "VT",
+		"description" : "VATICANIAN (วาติกันซิตี้) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 203
+	},
+	{
+		"fix_nationality_id" : "VZ",
+		"description" : "VENEZUELAN (เวเนซุเอลา) -อเมริกาใต้",
+		"code_nationality" : "",
+		"rowid" : 204
+	},
+	{
+		"fix_nationality_id" : "VN",
+		"description" : "VIETNAMESE (เวียดนาม) -เอเชียตะวันออกเฉียงใต้",
+		"code_nationality" : "",
+		"rowid" : 205
+	},
+	{
+		"fix_nationality_id" : "VC",
+		"description" : "VINCENTIAN (เซนต์วินเซนต์และเกรนาดีนส์) – อเมริกาเหนือ",
+		"code_nationality" : "",
+		"rowid" : 206
+	},
+	{
+		"fix_nationality_id" : "WE",
+		"description" : "WELSH (เวลส์) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 207
+	},
+	{
+		"fix_nationality_id" : "YM",
+		"description" : "YEMENI (เยเมน) -เอเชียตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 208
+	},
+	{
+		"fix_nationality_id" : "YG",
+		"description" : "YUGOSLAVIA (ยูโกสลาเวีย) -ยุโรป",
+		"code_nationality" : "",
+		"rowid" : 209
+	},
+	{
+		"fix_nationality_id" : "ZR",
+		"description" : "ZAIRESE -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 210
+	},
+	{
+		"fix_nationality_id" : "ZB",
+		"description" : "ZAMBIAN (แซมเบีย) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 211
+	},
+	{
+		"fix_nationality_id" : "ZW",
+		"description" : "ZIMBABWEAN (ซิมบับเว) -แอฟริกา",
+		"code_nationality" : "",
+		"rowid" : 212
+	},
+	{
+		"fix_nationality_id" : "ZZ",
+		"description" : "UNKNOWN",
+		"code_nationality" : "",
+		"rowid" : 213
+	},
+	{
+		"fix_nationality_id" : "BNO",
+		"description" : "BRITISH NATIONAL (OV)",
+		"code_nationality" : "",
+		"rowid" : 215
+	},
+	{
+		"fix_nationality_id" : "BY",
+		"description" : "BELARUSIAN",
+		"code_nationality" : "",
+		"rowid" : 216
+	},
+	{
+		"fix_nationality_id" : "CNT",
+		"description" : "CHINA-THAI (เชื้อชาติ)",
+		"code_nationality" : "",
+		"rowid" : 217
+	},
+	{
+		"fix_nationality_id" : "DB",
+		"description" : "DUBAI",
+		"code_nationality" : "",
+		"rowid" : 218
+	},
+	{
+		"fix_nationality_id" : "DE",
+		"description" : "DE",
+		"code_nationality" : "",
+		"rowid" : 219
+	},
+	{
+		"fix_nationality_id" : "DO",
+		"description" : "DOMINICAN-โดมินิกัน",
+		"code_nationality" : "",
+		"rowid" : 220
+	},
+	{
+		"fix_nationality_id" : "GD",
+		"description" : "GRENADIAN",
+		"code_nationality" : "",
+		"rowid" : 221
+	},
+	{
+		"fix_nationality_id" : "GN",
+		"description" : "GRENADIAN",
+		"code_nationality" : "",
+		"rowid" : 222
+	},
+	{
+		"fix_nationality_id" : "GY",
+		"description" : "GUYANA",
+		"code_nationality" : "",
+		"rowid" : 223
+	},
+	{
+		"fix_nationality_id" : "HE",
+		"description" : "HELLENIC",
+		"code_nationality" : "",
+		"rowid" : 224
+	},
+	{
+		"fix_nationality_id" : "HN",
+		"description" : "HELLENIC",
+		"code_nationality" : "",
+		"rowid" : 225
+	},
+	{
+		"fix_nationality_id" : "HTH",
+		"description" : "HTH",
+		"code_nationality" : "",
+		"rowid" : 226
+	},
+	{
+		"fix_nationality_id" : "INT",
+		"description" : "INDIA-THAI (เชื้อชาติ)",
+		"code_nationality" : "",
+		"rowid" : 227
+	},
+	{
+		"fix_nationality_id" : "JPT",
+		"description" : "JAPAN-THAI (เชื้อชาติ)",
+		"code_nationality" : "",
+		"rowid" : 228
+	},
+	{
+		"fix_nationality_id" : "KH",
+		"description" : "CAMBODIAN",
+		"code_nationality" : "",
+		"rowid" : 229
+	},
+	{
+		"fix_nationality_id" : "KHM",
+		"description" : "KHM",
+		"code_nationality" : "",
+		"rowid" : 230
+	},
+	{
+		"fix_nationality_id" : "KI",
+		"description" : "KIRIBATI",
+		"code_nationality" : "",
+		"rowid" : 231
+	},
+	{
+		"fix_nationality_id" : "KRT",
+		"description" : "KOREA-THAI (เชื้อชาติ)",
+		"code_nationality" : "",
+		"rowid" : 232
+	},
+	{
+		"fix_nationality_id" : "KRTH",
+		"description" : "KOREA-THAI",
+		"code_nationality" : "",
+		"rowid" : 233
+	},
+	{
+		"fix_nationality_id" : "KS",
+		"description" : "KASHMIRI",
+		"code_nationality" : "",
+		"rowid" : 234
+	},
+	{
+		"fix_nationality_id" : "LIE",
+		"description" : "LIE",
+		"code_nationality" : "",
+		"rowid" : 235
+	},
+	{
+		"fix_nationality_id" : "LST",
+		"description" : "Lesotho",
+		"code_nationality" : "",
+		"rowid" : 236
+	},
+	{
+		"fix_nationality_id" : "MB",
+		"description" : "MALBILIAN",
+		"code_nationality" : "",
+		"rowid" : 237
+	},
+	{
+		"fix_nationality_id" : "MGL",
+		"description" : "MONGOLIAN",
+		"code_nationality" : "",
+		"rowid" : 238
+	},
+	{
+		"fix_nationality_id" : "MM",
+		"description" : "MYANMAR",
+		"code_nationality" : "",
+		"rowid" : 239
+	},
+	{
+		"fix_nationality_id" : "N\/A",
+		"description" : "Not available",
+		"code_nationality" : "",
+		"rowid" : 240
+	},
+	{
+		"fix_nationality_id" : "PE",
+		"description" : "PUERTORICO",
+		"code_nationality" : "",
+		"rowid" : 241
+	},
+	{
+		"fix_nationality_id" : "QT",
+		"description" : "QATARI",
+		"code_nationality" : "",
+		"rowid" : 242
+	},
+	{
+		"fix_nationality_id" : "RPL",
+		"description" : "Republic of Palau",
+		"code_nationality" : "",
+		"rowid" : 243
+	},
+	{
+		"fix_nationality_id" : "RSR",
+		"description" : "SURINAAMSE",
+		"code_nationality" : "",
+		"rowid" : 244
+	},
+	{
+		"fix_nationality_id" : "SLC",
+		"description" : "SAINT LUCIAN",
+		"code_nationality" : "",
+		"rowid" : 245
+	},
+	{
+		"fix_nationality_id" : "SZ",
+		"description" : "SWISS",
+		"code_nationality" : "",
+		"rowid" : 246
+	},
+	{
+		"fix_nationality_id" : "TD",
+		"description" : "TRINIDADIAN",
+		"code_nationality" : "",
+		"rowid" : 247
+	},
+	{
+		"fix_nationality_id" : "TM",
+		"description" : "TURKMENISTAN",
+		"code_nationality" : "",
+		"rowid" : 248
+	},
+	{
+		"fix_nationality_id" : "TUT",
+		"description" : "Tailue",
+		"code_nationality" : "",
+		"rowid" : 249
+	},
+	{
+		"fix_nationality_id" : "UA",
+		"description" : "Ukraine",
+		"code_nationality" : "",
+		"rowid" : 250
+	},
+	{
+		"fix_nationality_id" : "ZC",
+		"description" : "ZCEHCOSLOVAKIA",
+		"code_nationality" : "",
+		"rowid" : 251
+	},
+	{
+		"fix_nationality_id" : "AR",
+		"description" : "UNITED ARAB EMIRATES (สหรัฐอาหรับเอมิเรตส์) -ตะวันออกกลาง",
+		"code_nationality" : "",
+		"rowid" : 9
+	}
+]}

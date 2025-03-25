@@ -1,0 +1,1006 @@
+[
+	{
+		"fix_nationality_id" : "AF",
+		"description" : "AFGHAN "		
+	},
+	{
+		"fix_nationality_id" : "AC",
+		"description" : "AFRICAN "		
+	},
+	{
+		"fix_nationality_id" : "AB",
+		"description" : "ALBANIAN "		
+	},
+	{
+		"fix_nationality_id" : "AL",
+		"description" : "ALGERIAN "		
+	},
+	{
+		"fix_nationality_id" : "US",
+		"description" : "AMERICAN "		
+	},
+	{
+		"fix_nationality_id" : "AD",
+		"description" : "ANDORRAN "		
+	},
+	{
+		"fix_nationality_id" : "AO",
+		"description" : "ANGOLAN "		
+	},
+	{
+		"fix_nationality_id" : "AE",
+		"description" : "ANTIGUA AND BARBUDA"		
+	},
+	{
+		"fix_nationality_id" : "AG",
+		"description" : "ARGENTINIAN "		
+	},
+	{
+		"fix_nationality_id" : "AM",
+		"description" : "ARMENIAN "		
+	},
+	{
+		"fix_nationality_id" : "AU",
+		"description" : "AUSTRALIAN "		
+	},
+	{
+		"fix_nationality_id" : "AT",
+		"description" : "AUSTRIAN "		
+	},
+	{
+		"fix_nationality_id" : "AZ",
+		"description" : "AZERBAIJAN "		
+	},
+	{
+		"fix_nationality_id" : "BS",
+		"description" : "BAHAMIAN"		
+	},
+	{
+		"fix_nationality_id" : "BH",
+		"description" : "BAHRAINI "		
+	},
+	{
+		"fix_nationality_id" : "BD",
+		"description" : "BANGLADESHI "		
+	},
+	{
+		"fix_nationality_id" : "BB",
+		"description" : "BARBADIAN "		
+	},
+	{
+		"fix_nationality_id" : "BA",
+		"description" : "BELARUSIAN "		
+	},
+	{
+		"fix_nationality_id" : "BE",
+		"description" : "BELGIUM "		
+	},
+	{
+		"fix_nationality_id" : "BL",
+		"description" : "BELIZEAN "		
+	},
+	{
+		"fix_nationality_id" : "BJ",
+		"description" : "BENINESE "		
+	},
+	{
+		"fix_nationality_id" : "BM",
+		"description" : "BERMUDIAN "		
+	},
+	{
+		"fix_nationality_id" : "BT",
+		"description" : "BHUTANI "		
+	},
+	{
+		"fix_nationality_id" : "BO",
+		"description" : "BOLIVIAN "		
+	},
+	{
+		"fix_nationality_id" : "BC",
+		"description" : "BOSNIA "		
+	},
+	{
+		"fix_nationality_id" : "BW",
+		"description" : "BOTSWANA "		
+	},
+	{
+		"fix_nationality_id" : "BR",
+		"description" : "BRAZILIAN "		
+	},
+	{
+		"fix_nationality_id" : "GB",
+		"description" : "BRITISH "		
+	},
+	{
+		"fix_nationality_id" : "BN",
+		"description" : "BRUNEIAN "		
+	},
+	{
+		"fix_nationality_id" : "BU",
+		"description" : "BULGARIA "		
+	},
+	{
+		"fix_nationality_id" : "BF",
+		"description" : "BURKINA FASO "		
+	},
+	{
+		"fix_nationality_id" : "BI",
+		"description" : "BURUNDIAN "		
+	},
+	{
+		"fix_nationality_id" : "CB",
+		"description" : "CAMBODIAN "		
+	},
+	{
+		"fix_nationality_id" : "CM",
+		"description" : "CAMEROONIAN "		
+	},
+	{
+		"fix_nationality_id" : "CA",
+		"description" : "CANADIAN "		
+	},
+	{
+		"fix_nationality_id" : "CV",
+		"description" : "CAPE VERDEAN"		
+	},
+	{
+		"fix_nationality_id" : "KY",
+		"description" : "CAYMANIAN "		
+	},
+	{
+		"fix_nationality_id" : "CD",
+		"description" : "CHADIAN "		
+	},
+	{
+		"fix_nationality_id" : "CL",
+		"description" : "CHILEAN "		
+	},
+	{
+		"fix_nationality_id" : "CNTH",
+		"description" : "CHINA-THAI"		
+	},
+	{
+		"fix_nationality_id" : "CN",
+		"description" : "CHINESE"		
+	},
+	{
+		"fix_nationality_id" : "CO",
+		"description" : "COLOMBIAN"		
+	},
+	{
+		"fix_nationality_id" : "CI",
+		"description" : "COMORIENNE "		
+	},
+	{
+		"fix_nationality_id" : "CG",
+		"description" : "CONGOLESE "		
+	},
+	{
+		"fix_nationality_id" : "CRG",
+		"description" : "Co-operative Republic of Guyana "		
+	},
+	{
+		"fix_nationality_id" : "CT",
+		"description" : "COSTA RICAN "		
+	},
+	{
+		"fix_nationality_id" : "CR",
+		"description" : "CROATIAN "		
+	},
+	{
+		"fix_nationality_id" : "CU",
+		"description" : "CUBAN "		
+	},
+	{
+		"fix_nationality_id" : "CP",
+		"description" : "CYPRIOT "		
+	},
+	{
+		"fix_nationality_id" : "CS",
+		"description" : "CZECH "		
+	},
+	{
+		"fix_nationality_id" : "DK",
+		"description" : "DANISH "		
+	},
+	{
+		"fix_nationality_id" : "DJ",
+		"description" : "DJIBOUTI "		
+	},
+	{
+		"fix_nationality_id" : "DM",
+		"description" : "DOMINICAN "		
+	},
+	{
+		"fix_nationality_id" : "DU",
+		"description" : "DUTCH "		
+	},
+	{
+		"fix_nationality_id" : "EC",
+		"description" : "ECUADORIAN "		
+	},
+	{
+		"fix_nationality_id" : "EG",
+		"description" : "EGYPTIAN "		
+	},
+	{
+		"fix_nationality_id" : "EQ",
+		"description" : "EQUATORIAL GUINEA "		
+	},
+	{
+		"fix_nationality_id" : "ER",
+		"description" : "ERITREA "		
+	},
+	{
+		"fix_nationality_id" : "EL",
+		"description" : "ESPANOLA "		
+	},
+	{
+		"fix_nationality_id" : "EA",
+		"description" : "ESTONIAN "		
+	},
+	{
+		"fix_nationality_id" : "ET",
+		"description" : "ETHIOPIAN "		
+	},
+	{
+		"fix_nationality_id" : "FJ",
+		"description" : "FIJIAN "		
+	},
+	{
+		"fix_nationality_id" : "PH",
+		"description" : "FILIPINO "		
+	},
+	{
+		"fix_nationality_id" : "FI",
+		"description" : "FINNISH "		
+	},
+	{
+		"fix_nationality_id" : "FR",
+		"description" : "FRENCH "		
+	},
+	{
+		"fix_nationality_id" : "GO",
+		"description" : "GABONESE"		
+	},
+	{
+		"fix_nationality_id" : "GM",
+		"description" : "GAMBIAN"		
+	},
+	{
+		"fix_nationality_id" : "GG",
+		"description" : "GEORGIAN"		
+	},
+	{
+		"fix_nationality_id" : "GE",
+		"description" : "GERMAN"		
+	},
+	{
+		"fix_nationality_id" : "GH",
+		"description" : "GHANAIAN"		
+	},
+	{
+		"fix_nationality_id" : "GL",
+		"description" : "GREENLANDER "		
+	},
+	{
+		"fix_nationality_id" : "GT",
+		"description" : "GUATEMALAN "		
+	},
+	{
+		"fix_nationality_id" : "GU",
+		"description" : "GUINEA "		
+	},
+	{
+		"fix_nationality_id" : "GUN",
+		"description" : "GUINEAN "		
+	},
+	{
+		"fix_nationality_id" : "HT",
+		"description" : "HAITIAN "		
+	},
+	{
+		"fix_nationality_id" : "GR",
+		"description" : "Hellenic (greek)"		
+	},
+	{
+		"fix_nationality_id" : "HD",
+		"description" : "HONDURAN "		
+	},
+	{
+		"fix_nationality_id" : "HK",
+		"description" : "HONG KONG "		
+	},
+	{
+		"fix_nationality_id" : "HU",
+		"description" : "HUNGARIAN "		
+	},
+	{
+		"fix_nationality_id" : "IB",
+		"description" : "IBERIAN "		
+	},
+	{
+		"fix_nationality_id" : "IC",
+		"description" : "ICELANDIC "		
+	},
+	{
+		"fix_nationality_id" : "IN",
+		"description" : "INDIAN "		
+	},
+	{
+		"fix_nationality_id" : "INTH",
+		"description" : "INDIA-THAI "		
+	},
+	{
+		"fix_nationality_id" : "ID",
+		"description" : "INDONESIAN "		
+	},
+	{
+		"fix_nationality_id" : "IR",
+		"description" : "IRANIAN "		
+	},
+	{
+		"fix_nationality_id" : "IK",
+		"description" : "IRAQI "		
+	},
+	{
+		"fix_nationality_id" : "IL",
+		"description" : "IRISH "		
+	},
+	{
+		"fix_nationality_id" : "IS",
+		"description" : "ISRAELI "		
+	},
+	{
+		"fix_nationality_id" : "IT",
+		"description" : "ITALIAN "		
+	},
+	{
+		"fix_nationality_id" : "IV",
+		"description" : "IVORY COAST [IVORIAN]"		
+	},
+	{
+		"fix_nationality_id" : "JM",
+		"description" : "JAMAICAN"		
+	},
+	{
+		"fix_nationality_id" : "JP",
+		"description" : "JAPANESE"		
+	},
+	{
+		"fix_nationality_id" : "JPTH",
+		"description" : "JAPAN-THAI"		
+	},
+	{
+		"fix_nationality_id" : "JO",
+		"description" : "JORDANIAN"		
+	},
+	{
+		"fix_nationality_id" : "KA",
+		"description" : "KAZAK"		
+	},
+	{
+		"fix_nationality_id" : "KE",
+		"description" : "KENYAN"		
+	},
+	{
+		"fix_nationality_id" : "KN",
+		"description" : "KITTITIAN (s), NEVISIAN (s) "		
+	},
+	{
+		"fix_nationality_id" : "KR",
+		"description" : "KOREAN NORTH "		
+	},
+	{
+		"fix_nationality_id" : "KP",
+		"description" : "KOREAN SOUTH "		
+	},
+	{
+		"fix_nationality_id" : "KO",
+		"description" : "KOSOVO"		
+	},
+	{
+		"fix_nationality_id" : "KW",
+		"description" : "KUWAITI"		
+	},
+	{
+		"fix_nationality_id" : "KG",
+		"description" : "KYRGYZ"		
+	},
+	{
+		"fix_nationality_id" : "LH",
+		"description" : "Lahu"		
+	},
+	{
+		"fix_nationality_id" : "LA",
+		"description" : "LAOTIAN "		
+	},
+	{
+		"fix_nationality_id" : "LV",
+		"description" : "LATVIAN "		
+	},
+	{
+		"fix_nationality_id" : "LE",
+		"description" : "LEBANESE "		
+	},
+	{
+		"fix_nationality_id" : "LB",
+		"description" : "LIBERIAN "		
+	},
+	{
+		"fix_nationality_id" : "LI",
+		"description" : "LIBYAN "		
+	},
+	{
+		"fix_nationality_id" : "LIEC",
+		"description" : "LIECHTENSTEIN "		
+	},
+	{
+		"fix_nationality_id" : "LT",
+		"description" : "LITHUANIAN "		
+	},
+	{
+		"fix_nationality_id" : "LX",
+		"description" : "LUXEMBOURGER "		
+	},
+	{
+		"fix_nationality_id" : "MK",
+		"description" : "MACEDONIAN "		
+	},
+	{
+		"fix_nationality_id" : "MG",
+		"description" : "MALAGASY "		
+	},
+	{
+		"fix_nationality_id" : "MW",
+		"description" : "MALAWIAN "		
+	},
+	{
+		"fix_nationality_id" : "MY",
+		"description" : "MALAYSIAN "		
+	},
+	{
+		"fix_nationality_id" : "MV",
+		"description" : "MALDIVIAN "		
+	},
+	{
+		"fix_nationality_id" : "ML",
+		"description" : "MALIAN "		
+	},
+	{
+		"fix_nationality_id" : "MT",
+		"description" : "MALTESE "		
+	},
+	{
+		"fix_nationality_id" : "MH",
+		"description" : "MASHALLESE"		
+	},
+	{
+		"fix_nationality_id" : "MN",
+		"description" : "MAURETANIAN "		
+	},
+	{
+		"fix_nationality_id" : "MU",
+		"description" : "MAURITIAN"		
+	},
+	{
+		"fix_nationality_id" : "MX",
+		"description" : "MEXICAN"		
+	},
+	{
+		"fix_nationality_id" : "FM",
+		"description" : "MICRONESIAN "		
+	},
+	{
+		"fix_nationality_id" : "MD",
+		"description" : "MOLDOVAN"		
+	},
+	{
+		"fix_nationality_id" : "MC",
+		"description" : "MONEGASQUE "		
+	},
+	{
+		"fix_nationality_id" : "MO",
+		"description" : "MONGOLIAN "		
+	},
+	{
+		"fix_nationality_id" : "ME",
+		"description" : "MONTENEGRINS"		
+	},
+	{
+		"fix_nationality_id" : "MA",
+		"description" : "MOROCCAN "		
+	},
+	{
+		"fix_nationality_id" : "LS",
+		"description" : "MOSOTHO "		
+	},
+	{
+		"fix_nationality_id" : "MZ",
+		"description" : "MOZAMBICAN "		
+	},
+	{
+		"fix_nationality_id" : "MR",
+		"description" : "MYANMAR "		
+	},
+	{
+		"fix_nationality_id" : "NA",
+		"description" : "NAMIBIAN"		
+	},
+	{
+		"fix_nationality_id" : "NE",
+		"description" : "NAURUAN "		
+	},
+	{
+		"fix_nationality_id" : "NP",
+		"description" : "NEPALESE "		
+	},
+	{
+		"fix_nationality_id" : "NZ",
+		"description" : "NEW ZEALANDER "		
+	},
+	{
+		"fix_nationality_id" : "NC",
+		"description" : "NICARAGUAN "		
+	},
+	{
+		"fix_nationality_id" : "NG",
+		"description" : "NIGER "		
+	},
+	{
+		"fix_nationality_id" : "NR",
+		"description" : "NIGERIAN "		
+	},
+	{
+		"fix_nationality_id" : "NO",
+		"description" : "NORWEGIAN "		
+	},
+	{
+		"fix_nationality_id" : "BG",
+		"description" : "BULGARIA"		
+	},
+	{
+		"fix_nationality_id" : "OM",
+		"description" : "OMANI "		
+	},
+	{
+		"fix_nationality_id" : "PK",
+		"description" : "PAKISTANI "		
+	},
+	{
+		"fix_nationality_id" : "PL",
+		"description" : "PALESTINIAN "		
+	},
+	{
+		"fix_nationality_id" : "PN",
+		"description" : "PANAMANIAN "		
+	},
+	{
+		"fix_nationality_id" : "PP",
+		"description" : "PAPUAN "		
+	},
+	{
+		"fix_nationality_id" : "PG",
+		"description" : "PARAQUAYAN "		
+	},
+	{
+		"fix_nationality_id" : "PR",
+		"description" : "PERUVIAN "		
+	},
+	{
+		"fix_nationality_id" : "PO",
+		"description" : "POLISH "		
+	},
+	{
+		"fix_nationality_id" : "PT",
+		"description" : "PORTUGUESE "		
+	},
+	{
+		"fix_nationality_id" : "PU",
+		"description" : "PUERTORICAN "		
+	},
+	{
+		"fix_nationality_id" : "GA",
+		"description" : "QATARI "		
+	},
+	{
+		"fix_nationality_id" : "RSL",
+		"description" : "Republic of Sierra Leone "		
+	},
+	{
+		"fix_nationality_id" : "RM",
+		"description" : "Republica Moldova "		
+	},
+	{
+		"fix_nationality_id" : "RO",
+		"description" : "ROMANIAN "		
+	},
+	{
+		"fix_nationality_id" : "RU",
+		"description" : "RUSSIAN "		
+	},
+	{
+		"fix_nationality_id" : "RW",
+		"description" : "RWANDA "		
+	},
+	{
+		"fix_nationality_id" : "SKN",
+		"description" : "SAINT KITTS AND NEVIS "		
+	},
+	{
+		"fix_nationality_id" : "SI",
+		"description" : "SALVADORAN "		
+	},
+	{
+		"fix_nationality_id" : "SMR",
+		"description" : "Sammarinese "		
+	},
+	{
+		"fix_nationality_id" : "SO",
+		"description" : "SAMOAN "		
+	},
+	{
+		"fix_nationality_id" : "SA",
+		"description" : "SAUDI "		
+	},
+	{
+		"fix_nationality_id" : "SC",
+		"description" : "SCOTTISH "		
+	},
+	{
+		"fix_nationality_id" : "SN",
+		"description" : "SENEGALESE "		
+	},
+	{
+		"fix_nationality_id" : "SB",
+		"description" : "SERB "		
+	},
+	{
+		"fix_nationality_id" : "RS",
+		"description" : "SERBIAN "		
+	},
+	{
+		"fix_nationality_id" : "SD",
+		"description" : "Seychellois "		
+	},
+	{
+		"fix_nationality_id" : "SLE",
+		"description" : "SIERRA LEONEAN"		
+	},
+	{
+		"fix_nationality_id" : "SG",
+		"description" : "SINGAPOREAN "		
+	},
+	{
+		"fix_nationality_id" : "SL",
+		"description" : "SLOVAK "		
+	},
+	{
+		"fix_nationality_id" : "SV",
+		"description" : "SLOVENE "		
+	},
+	{
+		"fix_nationality_id" : "SBM",
+		"description" : "SOLOMON ISLANDER "		
+	},
+	{
+		"fix_nationality_id" : "SM",
+		"description" : "SOMALI "		
+	},
+	{
+		"fix_nationality_id" : "ZA",
+		"description" : "SOUTH AFRICAN "		
+	},
+	{
+		"fix_nationality_id" : "SS",
+		"description" : "SOUTH SUDAN "		
+	},
+	{
+		"fix_nationality_id" : "ES",
+		"description" : "SPANISH "		
+	},
+	{
+		"fix_nationality_id" : "LK",
+		"description" : "SRILANKAN "		
+	},
+	{
+		"fix_nationality_id" : "SP",
+		"description" : "SRPSKO "		
+	},
+	{
+		"fix_nationality_id" : "SU",
+		"description" : "SUDANESE "		
+	},
+	{
+		"fix_nationality_id" : "AS",
+		"description" : "SWAZILAND "		
+	},
+	{
+		"fix_nationality_id" : "SE",
+		"description" : "SWEDISH "		
+	},
+	{
+		"fix_nationality_id" : "CH",
+		"description" : "SWISS "		
+	},
+	{
+		"fix_nationality_id" : "SY",
+		"description" : "SYRIA "		
+	},
+	{
+		"fix_nationality_id" : "SR",
+		"description" : "SYRIAN "		
+	},
+	{
+		"fix_nationality_id" : "TUTH",
+		"description" : "Tailue"		
+	},
+	{
+		"fix_nationality_id" : "TW",
+		"description" : "TAIWANESE "		
+	},
+	{
+		"fix_nationality_id" : "TA",
+		"description" : "TAJIK "		
+	},
+	{
+		"fix_nationality_id" : "TZ",
+		"description" : "TANZANIAN "		
+	},
+	{
+		"fix_nationality_id" : "TH",
+		"description" : "THAI "		
+	},
+	{
+		"fix_nationality_id" : "TB",
+		"description" : "TIBETAN "		
+	},
+	{
+		"fix_nationality_id" : "TL",
+		"description" : "TIMORESE "		
+	},
+	{
+		"fix_nationality_id" : "TO",
+		"description" : "TOGOLESE "		
+	},
+	{
+		"fix_nationality_id" : "TG",
+		"description" : "TONGA "		
+	},
+	{
+		"fix_nationality_id" : "TN",
+		"description" : "TRINIDADIAN "		
+	},
+	{
+		"fix_nationality_id" : "TR",
+		"description" : "TUNISIAN "		
+	},
+	{
+		"fix_nationality_id" : "TK",
+		"description" : "TURKISH "		
+	},
+	{
+		"fix_nationality_id" : "TS",
+		"description" : "TURKMENISTAN "		
+	},
+	{
+		"fix_nationality_id" : "TV",
+		"description" : "TUVALUAN "		
+	},
+	{
+		"fix_nationality_id" : "UG",
+		"description" : "UGANDAN "		
+	},
+	{
+		"fix_nationality_id" : "UK",
+		"description" : "UKRAINIAN "		
+	},
+	{
+		"fix_nationality_id" : "UR",
+		"description" : "URUGUAYAN "		
+	},
+	{
+		"fix_nationality_id" : "UZ",
+		"description" : "UZBEK "		
+	},
+	{
+		"fix_nationality_id" : "VU",
+		"description" : "VANUATU "		
+	},
+	{
+		"fix_nationality_id" : "VT",
+		"description" : "VATICANIAN "		
+	},
+	{
+		"fix_nationality_id" : "VZ",
+		"description" : "VENEZUELAN "		
+	},
+	{
+		"fix_nationality_id" : "VN",
+		"description" : "VIETNAMESE "		
+	},
+	{
+		"fix_nationality_id" : "VC",
+		"description" : "VINCENTIAN"		
+	},
+	{
+		"fix_nationality_id" : "WE",
+		"description" : "WELSH "		
+	},
+	{
+		"fix_nationality_id" : "YM",
+		"description" : "YEMENI "		
+	},
+	{
+		"fix_nationality_id" : "YG",
+		"description" : "YUGOSLAVIA "		
+	},
+	{
+		"fix_nationality_id" : "ZR",
+		"description" : "ZAIRESE"		
+	},
+	{
+		"fix_nationality_id" : "ZB",
+		"description" : "ZAMBIAN "		
+	},
+	{
+		"fix_nationality_id" : "ZW",
+		"description" : "ZIMBABWEAN "		
+	},
+	{
+		"fix_nationality_id" : "ZZ",
+		"description" : "UNKNOWN"		
+	},
+	{
+		"fix_nationality_id" : "BNO",
+		"description" : "BRITISH NATIONAL (OV)"		
+	},
+	{
+		"fix_nationality_id" : "BY",
+		"description" : "BELARUSIAN"		
+	},
+	{
+		"fix_nationality_id" : "CNT",
+		"description" : "CHINA-THAI "		
+	},
+	{
+		"fix_nationality_id" : "DB",
+		"description" : "DUBAI"		
+	},
+	{
+		"fix_nationality_id" : "DE",
+		"description" : "DE"		
+	},
+	{
+		"fix_nationality_id" : "DO",
+		"description" : "DOMINICAN-"		
+	},
+	{
+		"fix_nationality_id" : "GD",
+		"description" : "GRENADIAN"		
+	},
+	{
+		"fix_nationality_id" : "GN",
+		"description" : "GRENADIAN"		
+	},
+	{
+		"fix_nationality_id" : "GY",
+		"description" : "GUYANA"		
+	},
+	{
+		"fix_nationality_id" : "HE",
+		"description" : "HELLENIC"		
+	},
+	{
+		"fix_nationality_id" : "HN",
+		"description" : "HELLENIC"		
+	},
+	{
+		"fix_nationality_id" : "HTH",
+		"description" : "HTH"		
+	},
+	{
+		"fix_nationality_id" : "INT",
+		"description" : "INDIA-THAI "		
+	},
+	{
+		"fix_nationality_id" : "JPT",
+		"description" : "JAPAN-THAI "		
+	},
+	{
+		"fix_nationality_id" : "KH",
+		"description" : "CAMBODIAN"		
+	},
+	{
+		"fix_nationality_id" : "KHM",
+		"description" : "KHM"		
+	},
+	{
+		"fix_nationality_id" : "KI",
+		"description" : "KIRIBATI"		
+	},
+	{
+		"fix_nationality_id" : "KRT",
+		"description" : "KOREA-THAI "		
+	},
+	{
+		"fix_nationality_id" : "KRTH",
+		"description" : "KOREA-THAI"		
+	},
+	{
+		"fix_nationality_id" : "KS",
+		"description" : "KASHMIRI"		
+	},
+	{
+		"fix_nationality_id" : "LIE",
+		"description" : "LIE"		
+	},
+	{
+		"fix_nationality_id" : "LST",
+		"description" : "Lesotho"		
+	},
+	{
+		"fix_nationality_id" : "MB",
+		"description" : "MALBILIAN"		
+	},
+	{
+		"fix_nationality_id" : "MGL",
+		"description" : "MONGOLIAN"		
+	},
+	{
+		"fix_nationality_id" : "MM",
+		"description" : "MYANMAR"		
+	},
+	{
+		"fix_nationality_id" : "N\/A",
+		"description" : "Not available"		
+	},
+	{
+		"fix_nationality_id" : "PE",
+		"description" : "PUERTORICO"		
+	},
+	{
+		"fix_nationality_id" : "QT",
+		"description" : "QATARI"		
+	},
+	{
+		"fix_nationality_id" : "RPL",
+		"description" : "Republic of Palau"		
+	},
+	{
+		"fix_nationality_id" : "RSR",
+		"description" : "SURINAAMSE"		
+	},
+	{
+		"fix_nationality_id" : "SLC",
+		"description" : "SAINT LUCIAN"		
+	},
+	{
+		"fix_nationality_id" : "SZ",
+		"description" : "SWISS"		
+	},
+	{
+		"fix_nationality_id" : "TD",
+		"description" : "TRINIDADIAN"		
+	},
+	{
+		"fix_nationality_id" : "TM",
+		"description" : "TURKMENISTAN"		
+	},
+	{
+		"fix_nationality_id" : "TUT",
+		"description" : "Tailue"		
+	},
+	{
+		"fix_nationality_id" : "UA",
+		"description" : "Ukraine"		
+	},
+	{
+		"fix_nationality_id" : "ZC",
+		"description" : "ZCEHCOSLOVAKIA"		
+	},
+	{
+		"fix_nationality_id" : "AR",
+		"description" : "UNITED ARAB EMIRATES "		
+	}
+]
