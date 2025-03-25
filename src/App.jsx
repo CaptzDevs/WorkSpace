@@ -122,7 +122,7 @@ const App = () => {
   };
 
   return (
-    <main className="flex flex-col items-start justify-start w-screen min-h-screen h-fit  bg-natural-100 dark:bg-black/95 px-5 ">
+    <main className="flex flex-col items-start justify-start w-screen min-h-screen h-fit  bg-natural-100 dark:bg-black/95 px-2 md:px-5 ">
       <Header />
 
       <div className="flex flex-col items-start justify-start w-full h-fit gap-3 p-2 mb-[100px] px-0">

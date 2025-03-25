@@ -23,7 +23,8 @@ export const Dropdown = ({ children }) => {
       <CurrentTabContext.Provider value={{ currentTab }}>
         <span
           onMouseLeave={() => setAnimationDirection(null)}
-          className="relative flex h-fit gap-2"
+          className="relative hidden md:flex h-fit gap-2"
+          
         >
           {children}
         </span>
