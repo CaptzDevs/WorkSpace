@@ -20,7 +20,7 @@ const ExportToJSON = ({ data }) => {
   return (
     <Button
       onClick={exportJsonData}
-      className="text-blue-500  cursor-pointer text-xs"
+      className="  cursor-pointer text-xs"
     >
       <Share  /> JSON
     </Button>
