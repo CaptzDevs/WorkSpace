@@ -11,7 +11,12 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  base: './', // Important for relative paths
+  build: {
+    outDir: 'dist', // Output directory for Vercel
+  },
 })
+
 
 
 
