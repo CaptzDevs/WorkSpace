@@ -24,6 +24,7 @@ import useClickOutside from "@/hooks/useClickOutside";
 
 import { useDrag, useDrop, DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import ExportToJSON from "@/components/ExportToJSON";
 
 const CV_DATA = {
   sections: [
@@ -445,13 +446,15 @@ const EditableItem = ({
 
 
 const ToolBar = () =>{
-  const {setAllowCrossSectionDrag, allowCrossSectionDrag } = useSections();
-  return <div className="flex items-center justify-center w-full  p-3">
+  const {setAllowCrossSectionDrag, allowCrossSectionDrag , sections} = useSections();
+
+  return <div className="flex items-center justify-center w-full gap-3   p-3">
       <Checkbox checked={allowCrossSectionDrag} onChange={(e) => setAllowCrossSectionDrag(e.target.checked)}> 
-     <span className="dark:text-white " >
+     <span className="dark:text-white text-xs" >
            Allow Drag Cross Section 
       </span>
       </Checkbox>
+      <ExportToJSON data={sections}/>
   </div>
 }
 
