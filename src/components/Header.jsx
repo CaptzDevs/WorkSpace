@@ -1,22 +1,22 @@
 import { Dropdown, Tabs, Tab, TriggerWrapper, Trigger } from '@/components/lukacho/dropdown';
 import ThemeSwitch from './ThemeSwitch';
+import { Link } from 'react-router';
 
 
 const Header = () => {
     return (
         <header className="w-full flex items-center justify-between gap-2 py-3 px-3 z-50">
-        <div className="font-[500]">Work Space</div>
+        <Link to="/" className="font-[500]">Work Space</Link>
         <div className="flex justify-start items-center  text-neutral-200 md:justify-center gap-3">
+        <Link className='px-3' to={"../pricing"}>Pricing</Link>
+        <Link className='px-3' to={"../portfolio"}>Portfolio</Link>
         <Dropdown>
             <TriggerWrapper>
-            <Trigger>Pricing</Trigger>
             <Trigger>Components</Trigger>
             <Trigger>Blog</Trigger>
             </TriggerWrapper>
             <Tabs>
-            <Tab>
-                <OurServices />
-            </Tab>
+        
             <Tab>
                 <Components />
             </Tab>

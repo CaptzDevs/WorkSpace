@@ -61,13 +61,12 @@ a {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: start;
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
 }
 main{
+  width: 100%;
   overflow-x: hidden;
 
 }
@@ -75,6 +74,17 @@ main{
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+input:focus {
+  outline :none;
+  border: none;
+}
+
+
+textarea:focus {
+  outline :none;
+  border: none;
 }
 
 
