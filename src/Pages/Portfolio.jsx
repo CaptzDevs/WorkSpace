@@ -180,7 +180,7 @@ const ItemTypes = {
 
 const DraggableSection = ({ section, index, moveSection, children }) => {
   const ref = useRef(null);
-
+  const {enableDND} = useSections()
   const [, drop] = useDrop({
     accept: ItemTypes.SECTION,
     hover: (draggedItem) => {
@@ -197,6 +197,8 @@ const DraggableSection = ({ section, index, moveSection, children }) => {
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
+    canDrag : enableDND,
+
   });
 
   drag(drop(ref));
@@ -216,10 +218,17 @@ const DraggableItem = ({
   item,
   moveItem,
   allowCrossSectionDrag,
+
 }) => {
+  const {enableDND} = useSections()
+
   const [, dragRef] = useDrag({
     type: "ITEM",
     item: { sectionIndex, itemIndex },
+    collect: (monitor) => ({
+      isDragging: !monitor.isDragging(),
+    }),
+    canDrag : enableDND
   });
 
   const [, dropRef] = useDrop({
@@ -304,18 +313,56 @@ export default function Portfolio() {
   );
 }
 
-const Section = ({ children }) => {
+const Section = ({ children, sectionIndex }) => {
+  const [showDelete, setShowDelete] = useState(false);
+  const { removeSection, setSelected } = useSections();
+
+  // Select the section
+  const selectSection = () => {
+    setSelected((prev) => ({ ...prev, sectionIndex }));
+  };
+
   return (
-    <div className="w-full flex flex-col gap-4">
+    <div
+      className="w-full flex flex-col gap-4 relative"
+      onMouseOver={() => setShowDelete(true)}
+      onMouseLeave={() => setShowDelete(false)}
+      onClick={selectSection}
+    >
       <div className="w-full flex flex-col gap-3">{children}</div>
+
+      {showDelete && (
+        <div
+          className="flex items-center justify-center cursor-pointer absolute top-0 right-0 w-6 h-6"
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent section selection
+            removeSection(sectionIndex);
+          }}
+        >
+          <X />
+        </div>
+      )}
     </div>
   );
 };
 
-const SectionHeader = ({ children }) => {
+const SectionHeader = ({ children  ,title, sectionIndex }) => {
+  const [ isEditing , setIsEditing  ] = useState(false)
+
+  const {setSelected} = useSections();
+
+  const selectSection = () => {
+    setSelected({ sectionIndex , itemIndex: null });
+  };
+
+  const editData = (propName) => {
+    setIsEditing(true)
+    selectSection()
+  }
+  
   return (
-    <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide">
-      {children}
+    <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide" onClick={editData}>
+      {isEditing ? <EditableItem sectionIndex={sectionIndex} value={title} propName={"title"} className={"w-full"} /> : children}
     </span>
   );
 };
@@ -327,7 +374,7 @@ const SectionItem = ({
   years,
   header = false,
 }) => {
-  const { setSelected } = useSections();
+  const { setSelected , removeItem } = useSections();
   const [showDelete, setShowDelete] = useState(false);
 
   const selectSectionItem = () => {
@@ -341,7 +388,7 @@ const SectionItem = ({
       onMouseLeave={() => setShowDelete(false)}
     >
       <div
-        className="w-full flex items-start justify-start text-sm sm:text-base md:text-lg "
+        className="w-full flex items-start justify-start text-sm sm:text-base md:text-lg gap-3 "
         onClick={selectSectionItem}
       >
         <div
@@ -356,7 +403,7 @@ const SectionItem = ({
             className={"w-full"}
           />
         </div>
-        <div className="w-fit text-xs sm:text-sm md:text-base">
+        <div className="w-fit h-full text-xs sm:text-sm md:text-base">
           <EditableItem
             className={"w-max"}
             sectionIndex={sectionIndex}
@@ -366,12 +413,12 @@ const SectionItem = ({
           />
         </div>
       </div>
-      {/* 
-      {showDelete && (
-        <div className=" flex items-center justify-center   cursor-pointer ">
+      
+        <div className={cn(' flex items-center justify-center   cursor-pointer transition-all duration-75' , showDelete ? "opacity-100" : 'opacity-0')}
+          onClick={()=> removeItem(sectionIndex, itemIndex)}
+        >
           <X />
         </div>
-      )} */}
     </div>
   );
 };
@@ -391,20 +438,26 @@ const EditableItem = ({
     handleItemChange,
     saveItem,
     selected,
+    setEnableDND ,
   } = useSections();
 
   const inputRef = useClickOutside(() => {
     setIsEditing(false);
+    setEnableDND(true)
   });
-
+  
   const editData = (propName) => {
     setIsEditing(true);
+    setEnableDND(false)
+    
   };
-
+  
   const saveData = (e) => {
     if (e.key === "Enter") {
       setIsEditing(false);
+      addItem(sectionIndex);
     }
+    setEnableDND(true)
   };
 
   const autoResize = (textarea) => {
@@ -421,10 +474,11 @@ const EditableItem = ({
         inputRef.current.value.length
       ); // Move cursor to the end
     }
+    console.log(isEditing)
   }, [isEditing]);
 
   return (
-    <div className={className} onClick={() => editData(propName)}>
+    <div className={cn(className,'h-full')} onDoubleClick={() => editData(propName)}>
       {isEditing ? (
         <textarea
           ref={inputRef}
@@ -438,7 +492,7 @@ const EditableItem = ({
           onFocus={(e) => autoResize(e.target)}
         />
       ) : (
-        value || <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        value || <div className="w-full h-full hover:border-b border-white min-w-[80px]">&nbsp;</div>
       )}
     </div>
   );
@@ -446,10 +500,15 @@ const EditableItem = ({
 
 
 const ToolBar = () =>{
-  const {setAllowCrossSectionDrag, allowCrossSectionDrag , sections} = useSections();
+  const {setAllowCrossSectionDrag, allowCrossSectionDrag , enableDND, setEnableDND , sections} = useSections();
 
   return <div className="flex items-center justify-center w-full gap-3   p-3">
       <Checkbox checked={allowCrossSectionDrag} onChange={(e) => setAllowCrossSectionDrag(e.target.checked)}> 
+     <span className="dark:text-white text-xs" >
+           Allow Drag Cross Section 
+      </span>
+      </Checkbox>
+      <Checkbox checked={enableDND} onChange={(e) => setEnableDND(e.target.checked)}> 
      <span className="dark:text-white text-xs" >
            Allow Drag Cross Section 
       </span>
@@ -469,11 +528,36 @@ const RenderData = () => {
     reorderSection,
     allowCrossSectionDrag,
     setAllowCrossSectionDrag,
+    selected,
+    removeItem,
+    removeSection,
   } = useSections(); // Use context to manage sections and items
+
+  useEffect(() => {
+    const handleAddSection = (e) => {
+      if (e.key === "Enter" && selected.sectionIndex === null) {
+        addSection();
+      }
+      if (e.key === "Delete" ) {
+        if(selected.sectionIndex !== null && selected.itemIndex !== null){
+          removeItem(selected.sectionIndex, selected.itemIndex);
+        }else if(selected.sectionIndex !== null && selected.itemIndex === null){
+          removeSection(selected.sectionIndex);
+        }
+      }
+    };
+    
+    window.addEventListener("keydown", handleAddSection);
+  
+    return () => {
+      window.removeEventListener("keydown", handleAddSection);
+    };
+  }, [addSection]); // Ensure `addSection` is included in dependencies
+  
+
   return (
     <DndProvider backend={HTML5Backend}>
     
-
       <motion.div
         className="flex items-start justify-start flex-col w-full h-fit"
         {...sectionMotionProps}
@@ -486,8 +570,8 @@ const RenderData = () => {
             moveSection={reorderSection}
           >
             <motion.div {...sectionMotionProps} key={index}>
-              <Section>
-                <SectionHeader>{section.title}</SectionHeader>
+              <Section sectionIndex={index}>
+                <SectionHeader sectionIndex={index} title={section.title} >{section.title}</SectionHeader>
                 {section.items.map((item, itemIndex) => (
                   <DraggableItem
                     key={itemIndex}
@@ -497,60 +581,7 @@ const RenderData = () => {
                     moveItem={reorderItem}
                     allowCrossSectionDrag={allowCrossSectionDrag} // Pass the flag
                   >
-                    {item.isEditing ? (
-                      <div className="flex items-center justify-between w-full gap-5">
-                        <Checkbox
-                          checked={item.header}
-                          onChange={(e) =>
-                            handleItemChange(
-                              index,
-                              itemIndex,
-                              "header",
-                              e.target.checked
-                            )
-                          }
-                        >
-                          <span className="dark:text-white text-base">
-                            Header
-                          </span>
-                        </Checkbox>
-                        |
-                        <input
-                          className="w-full"
-                          type="text"
-                          placeholder="Title"
-                          value={item.title}
-                          onChange={(e) =>
-                            handleItemChange(
-                              index,
-                              itemIndex,
-                              "title",
-                              e.target.value
-                            )
-                          }
-                        />
-                        <input
-                          className=" w-1/3 "
-                          type="text"
-                          placeholder="Years"
-                          value={item.years}
-                          onChange={(e) =>
-                            handleItemChange(
-                              index,
-                              itemIndex,
-                              "years",
-                              e.target.value
-                            )
-                          }
-                        />
-                        <button
-                          className="w-full flex justify-end text-blue-400 hover:text-neutral-400 cursor-pointer rounded-sm"
-                          onClick={() => saveItem(index, itemIndex)}
-                        >
-                          Save Item
-                        </button>
-                      </div>
-                    ) : (
+               
                       <SectionItem
                         sectionIndex={index}
                         itemIndex={itemIndex}
@@ -558,7 +589,7 @@ const RenderData = () => {
                         years={item.years}
                         header={item.header}
                       />
-                    )}
+
                   </DraggableItem>
                 ))}
                 <button
@@ -582,3 +613,60 @@ const RenderData = () => {
     </DndProvider>
   );
 };
+
+
+const NewSectionItem = ( ) =>{
+  return  <div className="flex items-center justify-between w-full gap-5">
+  <Checkbox
+    checked={item.header}
+    onChange={(e) =>
+      handleItemChange(
+        index,
+        itemIndex,
+        "header",
+        e.target.checked
+      )
+    }
+  >
+    <span className="dark:text-white text-base">
+      Header
+    </span>
+  </Checkbox>
+  |
+  <input
+    className="w-full"
+    type="text"
+    placeholder="Title"
+    value={item.title}
+    autoFocus
+    onChange={(e) =>
+      handleItemChange(
+        index,
+        itemIndex,
+        "title",
+        e.target.value
+      )
+    }
+  />
+  <input
+    className=" w-1/3 "
+    type="text"
+    placeholder="Years"
+    value={item.years}
+    onChange={(e) =>
+      handleItemChange(
+        index,
+        itemIndex,
+        "years",
+        e.target.value
+      )
+    }
+  />
+  <button
+    className="w-full flex justify-end text-blue-400 hover:text-neutral-400 cursor-pointer rounded-sm"
+    onClick={() => saveItem(index, itemIndex)}
+  >
+    Save Item
+  </button>
+</div>
+}

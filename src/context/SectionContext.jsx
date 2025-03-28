@@ -14,12 +14,14 @@ export const SectionProvider = ({ data, children }) => {
     itemIndex: null,
   });
 
+  const [enableDND, setEnableDND] = useState(true);
+
   const [allowCrossSectionDrag, setAllowCrossSectionDrag] = useState(true);
 
   const addSection = () => {
     setSections((prevSections) => [
       ...prevSections,
-      { header: "New Section", items: [] },
+      { title: "New Section", items: [] },
     ]);
   };
 
@@ -34,10 +36,22 @@ export const SectionProvider = ({ data, children }) => {
     setSections(updatedSections);
   };
 
-  const handleItemChange = (sectionIndex, itemIndex, field, value) => {
+  const handleSectionHeaderChange = (sectionIndex, field, value) => {
     console.log(field, value);
     const updatedSections = [...sections];
-    updatedSections[sectionIndex].items[itemIndex][field] = value;
+    updatedSections[sectionIndex][field] = value;
+    setSections(updatedSections);
+  };
+
+  const handleItemChange = (sectionIndex, itemIndex, field, value) => {
+    console.log(sectionIndex, itemIndex);
+    const updatedSections = [...sections];
+    if(sectionIndex >= 0 && itemIndex >= 0){
+      updatedSections[sectionIndex].items[itemIndex][field] = value;
+    }else{
+      updatedSections[sectionIndex][field] = value;
+    }
+
     setSections(updatedSections);
   };
 
@@ -75,8 +89,20 @@ export const SectionProvider = ({ data, children }) => {
     setSections(updatedSections);
   };
 
+  const removeItem = (sectionIndex, itemIndex) => {
+    const updatedSections = [...sections];
+    updatedSections[sectionIndex].items.splice(itemIndex, 1);
+    setSections(updatedSections);
+  };
+
+  const removeSection = (sectionIndex) => {
+    const updatedSections = sections.filter((_, index) => index !== sectionIndex);
+    setSections(updatedSections);
+  };
+
+
   useEffect(() => {
-    console.log(selected);
+    console.log('selected' , selected);
   }, [selected]);
 
   return (
@@ -93,6 +119,10 @@ export const SectionProvider = ({ data, children }) => {
         reorderSection,
         allowCrossSectionDrag,
         setAllowCrossSectionDrag,
+        removeItem,
+        removeSection,
+        handleSectionHeaderChange,
+        enableDND, setEnableDND
       }}
     >
       {children}

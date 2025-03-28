@@ -13,7 +13,7 @@ export default function Layout() {
     <Header />
     <div className="min-h-screen flex flex-col items-center justify-start w-full h-fit gap-3 p-2 mb-[300px] px-0">
 
-            <Outlet/>
+      <Outlet/>
 
     </div>
     <footer className=" w-full">
