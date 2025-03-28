@@ -377,7 +377,7 @@ const SectionItem = ({
   header = false,
   isEditing,
 }) => {
-  const { setSelected , removeItem } = useSections();
+  const { setSelected , removeItem , focused} = useSections();
   const [showDelete, setShowDelete] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [isAbletoEdit, setIsAbletoEdit] = useState(isEditing);
@@ -392,6 +392,7 @@ const SectionItem = ({
         setIsAbletoEdit(true)
       }
   }
+  
 
   useEffect(()=>{
     setIsAbletoEdit(isEditing)
@@ -462,6 +463,8 @@ const EditableItem = ({
     saveItem,
     selected,
     setEnableDND ,
+    removeItem,
+    focused, setFocused
   } = useSections();
 
   useEffect(()=>{
@@ -480,7 +483,6 @@ const EditableItem = ({
   };
   const saveData = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
-      // Prevent the default Enter behavior (add new line)
       setIsEditing(false);
       setTimeout(() => {
         addItem(sectionIndex ,itemIndex);
@@ -488,6 +490,11 @@ const EditableItem = ({
       setEnableDND(true)
     }else if (e.key === "Escape" ) {
       setIsEditing(false)
+    }
+
+    if(e.key === 'Backspace' && e.target.value === '' ){
+      removeItem(sectionIndex, itemIndex)
+      
     }
   };
 
@@ -500,6 +507,7 @@ const EditableItem = ({
     setIsEditing(false)
     setEnableDND(true)
   }
+
 
 
   useEffect(() => {

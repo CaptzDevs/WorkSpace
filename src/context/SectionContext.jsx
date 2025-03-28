@@ -15,6 +15,7 @@ export const SectionProvider = ({ data, children }) => {
   });
 
   const [enableDND, setEnableDND] = useState(true);
+  const [focused, setFocused] = useState(false);
 
   const [allowCrossSectionDrag, setAllowCrossSectionDrag] = useState(true);
 
@@ -110,6 +111,10 @@ export const SectionProvider = ({ data, children }) => {
     const updatedSections = [...sections];
     updatedSections[sectionIndex].items.splice(itemIndex, 1);
     setSections(updatedSections);
+
+    if (itemIndex > 0) {
+      updatedSections[sectionIndex].items[itemIndex - 1].isEditing = true;
+    }
   };
 
   const removeSection = (sectionIndex) => {
@@ -139,7 +144,8 @@ export const SectionProvider = ({ data, children }) => {
         removeItem,
         removeSection,
         handleSectionHeaderChange,
-        enableDND, setEnableDND
+        enableDND, setEnableDND,
+        focused, setFocused
       }}
     >
       {children}
