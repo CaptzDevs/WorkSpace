@@ -318,13 +318,15 @@ const Section = ({ children, sectionIndex }) => {
   const { removeSection, setSelected } = useSections();
 
   // Select the section
+
+
   const selectSection = () => {
     setSelected((prev) => ({ ...prev, sectionIndex }));
   };
 
   return (
     <div
-      className="w-full flex flex-col gap-4 relative"
+      className="w-full flex flex-col gap-4 relative" 
       onMouseOver={() => setShowDelete(true)}
       onMouseLeave={() => setShowDelete(false)}
       onClick={selectSection}
@@ -373,19 +375,38 @@ const SectionItem = ({
   title,
   years,
   header = false,
+  isEditing,
 }) => {
   const { setSelected , removeItem } = useSections();
   const [showDelete, setShowDelete] = useState(false);
-
+  const [isFocused, setIsFocused] = useState(false);
+  const [isAbletoEdit, setIsAbletoEdit] = useState(isEditing);
   const selectSectionItem = () => {
     setSelected({ sectionIndex, itemIndex });
   };
 
+  const sectionItemRef = useClickOutside(() => setSelected( prev =>  ({...prev , sectionIndex: null , itemIndex: null }))) 
+  const editFocusedItem = (e) => {
+      if(e.key === 'Enter' && isFocused){
+        console.log('dasdaa')
+        setIsAbletoEdit(true)
+      }
+  }
+
+  useEffect(()=>{
+    setIsAbletoEdit(isEditing)
+  },[isEditing])
+  
   return (
     <div
-      className="w-full flex gap-3"
+      tabIndex={0}
+      className="w-full flex gap-3 "
+      ref={sectionItemRef}
       onMouseOver={() => setShowDelete(true)}
       onMouseLeave={() => setShowDelete(false)}
+      onFocus={()=>setIsFocused(true)}
+      onBlur={()=>setIsFocused(false)}
+      onKeyDown={(e) => editFocusedItem(e)}
     >
       <div
         className="w-full flex items-start justify-start text-sm sm:text-base md:text-lg gap-3 "
@@ -401,6 +422,7 @@ const SectionItem = ({
             value={title}
             propName={"title"}
             className={"w-full"}
+            isEdit = { isAbletoEdit  }
           />
         </div>
         <div className="w-fit h-full text-xs sm:text-sm md:text-base">
@@ -429,8 +451,9 @@ const EditableItem = ({
   value,
   propName,
   className,
+  isEdit
 }) => {
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(isEdit);
   const {
     sections,
     addSection,
@@ -440,6 +463,10 @@ const EditableItem = ({
     selected,
     setEnableDND ,
   } = useSections();
+
+  useEffect(()=>{
+    setIsEditing(isEdit)
+  },[isEdit])
 
   const inputRef = useClickOutside(() => {
     setIsEditing(false);
@@ -451,20 +478,29 @@ const EditableItem = ({
     setEnableDND(false)
     
   };
-  
   const saveData = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && !e.shiftKey) {
+      // Prevent the default Enter behavior (add new line)
       setIsEditing(false);
-      addItem(sectionIndex);
+      setTimeout(() => {
+        addItem(sectionIndex ,itemIndex);
+      }, 1);
+      setEnableDND(true)
+    }else if (e.key === "Escape" ) {
+      setIsEditing(false)
     }
-    setEnableDND(true)
   };
 
   const autoResize = (textarea) => {
     textarea.style.height = "auto"; // Reset height
-    textarea.style.overflowY = "hidden"; // Hide scrollbar
     textarea.style.height = `${textarea.scrollHeight}px`; // Adjust height based on content
   };
+
+  const handleOnBlur = (e) => {
+    setIsEditing(false)
+    setEnableDND(true)
+  }
+
 
   useEffect(() => {
     if (inputRef.current) {
@@ -474,26 +510,29 @@ const EditableItem = ({
         inputRef.current.value.length
       ); // Move cursor to the end
     }
-    console.log(isEditing)
   }, [isEditing]);
+  
 
   return (
     <div className={cn(className,'h-full')} onDoubleClick={() => editData(propName)}>
       {isEditing ? (
         <textarea
+          rows={1}
           ref={inputRef}
-          className="w-full overflow-visible text-start resize-none"
           defaultValue={value}
+          className="w-full  overflow-visible text-start resize-none "
           onChange={(e) => {
             handleItemChange(sectionIndex, itemIndex, propName, e.target.value);
             autoResize(e.target);
           }}
           onKeyDown={(e) => saveData(e)}
           onFocus={(e) => autoResize(e.target)}
+         onBlur={(e) =>  handleOnBlur(e) }
         />
-      ) : (
-        value || <div className="w-full h-full hover:border-b border-white min-w-[80px]">&nbsp;</div>
-      )}
+      ) : 
+        value ? <div className="whitespace-pre-wrap cursor-pointer">{value}</div> 
+        :   <div className="w-full h-full hover:border-b  border-white min-w-[80px] cursor-pointer">&nbsp;</div>
+      }
     </div>
   );
 };
@@ -503,16 +542,17 @@ const ToolBar = () =>{
   const {setAllowCrossSectionDrag, allowCrossSectionDrag , enableDND, setEnableDND , sections} = useSections();
 
   return <div className="flex items-center justify-center w-full gap-3   p-3">
-      <Checkbox checked={allowCrossSectionDrag} onChange={(e) => setAllowCrossSectionDrag(e.target.checked)}> 
+       <Checkbox checked={enableDND} onChange={(e) => setEnableDND(e.target.checked)}> 
+     <span className="dark:text-white text-xs" >
+           Allow Drag  
+      </span>
+      </Checkbox>
+      <Checkbox disabled={!enableDND} checked={allowCrossSectionDrag} onChange={(e) => setAllowCrossSectionDrag(e.target.checked)}> 
      <span className="dark:text-white text-xs" >
            Allow Drag Cross Section 
       </span>
       </Checkbox>
-      <Checkbox checked={enableDND} onChange={(e) => setEnableDND(e.target.checked)}> 
-     <span className="dark:text-white text-xs" >
-           Allow Drag Cross Section 
-      </span>
-      </Checkbox>
+  
       <ExportToJSON data={sections}/>
   </div>
 }
@@ -588,6 +628,7 @@ const RenderData = () => {
                         title={item.title}
                         years={item.years}
                         header={item.header}
+                        isEditing={item.isEditing}
                       />
 
                   </DraggableItem>

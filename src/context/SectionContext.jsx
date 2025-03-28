@@ -25,16 +25,33 @@ export const SectionProvider = ({ data, children }) => {
     ]);
   };
 
-  const addItem = (sectionIndex) => {
+  const addItem = (sectionIndex , itemIndex , title) => {
     const updatedSections = [...sections];
+    console.log(sectionIndex , itemIndex);
+    if(sectionIndex >= 0 && !itemIndex){
+      console.log('dada111')
     updatedSections[sectionIndex].items.push({
-      title: "",
+      title: title ?? "",
       years: "",
       header: false,
       isEditing: true,
     });
+  }else if (sectionIndex >= 0 && itemIndex >= 0){
+    console.log('dada222')
+
+    updatedSections[sectionIndex].items.splice(itemIndex+1, 0, {
+      title: title ?? "",
+      years: "",
+      header: false,
+      isEditing: true,
+    });
+  }
+
     setSections(updatedSections);
   };
+
+
+  
 
   const handleSectionHeaderChange = (sectionIndex, field, value) => {
     console.log(field, value);
