@@ -25,9 +25,35 @@ import useClickOutside from "@/hooks/useClickOutside";
 import { useDrag, useDrop, DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import ExportToJSON from "@/components/ExportToJSON";
+import { SectionContextMenu } from "@/components/SectionContextMenu";
+
+const TextStyle = {
+  pageHeader : 'text-2xl font-bold tracking-tighter md:text-5xl lg:text-5xl',
+  header : 'text-2xl font-bold tracking-tighter md:text-5xl lg:text-5xl',
+
+}
 
 const CV_DATA = {
+
   sections: [
+     {
+       title : "Captain Siwakorn",
+       pageHeader : true,
+       props : {
+        // className : "text-2xl font-bold tracking-tighter md:text-5xl lg:text-5xl",
+       },
+      items : [
+        {
+          title: "Developer",
+          header: true,
+      
+        },
+        {
+          title: "Code, collaborate, and build the future in an optimized environment with the best tools and resources.",
+          header: true,
+        },
+      ]
+    },
     {
       title: "Education",
       items: [
@@ -262,7 +288,7 @@ const sectionMotionProps = {
   className: "w-full",
   initial: { opacity: 0, y: 50 },
   whileInView: { opacity: 1, y: 0 },
-  transition: { duration: 0.8, ease: "easeOut" },
+  //transition: { duration: 0.8, ease: "easeOut" },
   viewport: { once: true }, // Ensures animation triggers only once
 };
 
@@ -271,7 +297,7 @@ export default function Portfolio() {
     <SectionProvider data={CV_DATA}>
       <ToolBar/>
       <div className="container w-full  md:w-3/4 flex flex-col md:scale-[.6] origin-[50%_0%] px-3">
-        <div className="w-full flex items-start justify-center flex-col  bg-natural-100 gap-3 py-10 rounded-md z-40">
+     {/*    <div className="w-full flex items-start justify-center flex-col  bg-natural-100 gap-3 py-10 rounded-md z-40">
           <div className="flex items-start justify-start  gap-3">
             <TextAnimate
               animation="blurInUp"
@@ -305,15 +331,29 @@ export default function Portfolio() {
             Code, collaborate, and build the future in an optimized environment
             with the best tools and resources.
           </TextAnimate>
-        </div>
-
+        </div> */}
+      
         <RenderData />
       </div>
     </SectionProvider>
   );
 }
 
-const Section = ({ children, sectionIndex }) => {
+const HeaderFile = ({title}) => {
+  return (
+    <div className="flex items-start justify-start  gap-3">
+    <div
+      className={
+        "text-2xl font-bold tracking-tighter md:text-5xl lg:text-5xl"
+      }
+    >
+      {title}
+    </div>
+  </div>
+  );
+}
+
+const Section = ({ children, sectionIndex , }) => {
   const [showDelete, setShowDelete] = useState(false);
   const { removeSection, setSelected } = useSections();
 
@@ -325,11 +365,13 @@ const Section = ({ children, sectionIndex }) => {
   };
 
   return (
+    <SectionContextMenu>
+
     <div
-      className="w-full flex flex-col gap-4 relative" 
-      onMouseOver={() => setShowDelete(true)}
-      onMouseLeave={() => setShowDelete(false)}
-      onClick={selectSection}
+    className="w-full flex flex-col gap-4 relative" 
+    onMouseOver={() => setShowDelete(true)}
+    onMouseLeave={() => setShowDelete(false)}
+    onClick={selectSection}
     >
       <div className="w-full flex flex-col gap-3">{children}</div>
 
@@ -345,11 +387,11 @@ const Section = ({ children, sectionIndex }) => {
         </div>
       )}
     </div>
+    </SectionContextMenu>
   );
 };
 
-const SectionHeader = ({ children  ,title, sectionIndex }) => {
-  const [ isEditing , setIsEditing  ] = useState(false)
+const SectionHeader = ({ children , item , sectionIndex  }) => {
 
   const {setSelected} = useSections();
 
@@ -358,14 +400,18 @@ const SectionHeader = ({ children  ,title, sectionIndex }) => {
   };
 
   const editData = (propName) => {
-    setIsEditing(true)
     selectSection()
   }
   
   return (
-    <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide" onClick={editData}>
-      {isEditing ? <EditableItem sectionIndex={sectionIndex} value={title} propName={"title"} className={"w-full"} /> : children}
-    </span>
+    <span className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide"
+     onClick={editData}
+     onContextMenu={selectSection}
+     >
+      {
+        <EditableItem item={item} sectionIndex={sectionIndex} value={item.title} propName={"title"} className={"w-full"} /> 
+      }
+      </span>
   );
 };
 
@@ -376,42 +422,29 @@ const SectionItem = ({
   years,
   header = false,
   isEditing,
+  item,
 }) => {
-  const { setSelected , removeItem , focused} = useSections();
+  const { setSelected , removeItem } = useSections();
   const [showDelete, setShowDelete] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
-  const [isAbletoEdit, setIsAbletoEdit] = useState(isEditing);
+
   const selectSectionItem = () => {
     setSelected({ sectionIndex, itemIndex });
   };
 
-  const sectionItemRef = useClickOutside(() => setSelected( prev =>  ({...prev , sectionIndex: null , itemIndex: null }))) 
-  const editFocusedItem = (e) => {
-      if(e.key === 'Enter' && isFocused){
-        console.log('dasdaa')
-        setIsAbletoEdit(true)
-      }
-  }
-  
-
-  useEffect(()=>{
-    setIsAbletoEdit(isEditing)
-  },[isEditing])
+  //const sectionItemRef = useClickOutside(() => setSelected( prev =>  ({...prev , sectionIndex: null , itemIndex: null }))) 
+  const sectionItemRef = useClickOutside(()=>{});
   
   return (
     <div
-      tabIndex={0}
       className="w-full flex gap-3 "
       ref={sectionItemRef}
       onMouseOver={() => setShowDelete(true)}
       onMouseLeave={() => setShowDelete(false)}
-      onFocus={()=>setIsFocused(true)}
-      onBlur={()=>setIsFocused(false)}
-      onKeyDown={(e) => editFocusedItem(e)}
+      onClick={selectSectionItem}
+      onContextMenu={selectSectionItem}
     >
       <div
         className="w-full flex items-start justify-start text-sm sm:text-base md:text-lg gap-3 "
-        onClick={selectSectionItem}
       >
         <div
           className={cn("w-full flex items-start ", header && "font-bold pr-0")}
@@ -423,7 +456,8 @@ const SectionItem = ({
             value={title}
             propName={"title"}
             className={"w-full"}
-            isEdit = { isAbletoEdit  }
+            isEdit = { isEditing  }
+            item={item}
           />
         </div>
         <div className="w-fit h-full text-xs sm:text-sm md:text-base">
@@ -433,6 +467,7 @@ const SectionItem = ({
             itemIndex={itemIndex}
             value={years}
             propName={"years"}
+            item={item}
           />
         </div>
       </div>
@@ -452,7 +487,8 @@ const EditableItem = ({
   value,
   propName,
   className,
-  isEdit
+  isEdit,
+  item,
 }) => {
   const [isEditing, setIsEditing] = useState(isEdit);
   const {
@@ -474,27 +510,36 @@ const EditableItem = ({
   const inputRef = useClickOutside(() => {
     setIsEditing(false);
     setEnableDND(true)
+    handleItemChange(sectionIndex, itemIndex, propName, inputRef.current.value);
   });
+
+  const containerRef = useClickOutside(() => {
+    setIsEditing(false);
+    setEnableDND(true)
+  });
+  
   
   const editData = (propName) => {
     setIsEditing(true);
     setEnableDND(false)
-    
   };
+
   const saveData = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       setIsEditing(false);
+      handleItemChange(sectionIndex, itemIndex, propName, e.target.value);
       setTimeout(() => {
         addItem(sectionIndex ,itemIndex);
       }, 1);
       setEnableDND(true)
     }else if (e.key === "Escape" ) {
       setIsEditing(false)
+      handleItemChange(sectionIndex, itemIndex, propName, e.target.value);
+
     }
 
     if(e.key === 'Backspace' && e.target.value === '' ){
       removeItem(sectionIndex, itemIndex)
-      
     }
   };
 
@@ -504,11 +549,10 @@ const EditableItem = ({
   };
 
   const handleOnBlur = (e) => {
+    handleItemChange(sectionIndex, itemIndex, propName, e.target.value);
     setIsEditing(false)
     setEnableDND(true)
   }
-
-
 
   useEffect(() => {
     if (inputRef.current) {
@@ -519,29 +563,53 @@ const EditableItem = ({
       ); // Move cursor to the end
     }
   }, [isEditing]);
+
+
+  const exceptionKey = ['Enter', 'Escape', 'Backspace'];
+
+  const editFocusedItem = (e) => {
+    if (!exceptionKey.includes(e.key) && !e.shiftKey) {
+      console.log('dadsada')
+      setIsEditing(true);
+    }
+    
+    if (e.key === 'Escape') {
+      containerRef.current.blur();
+    }
   
+  };
+
+
 
   return (
-    <div className={cn(className,'h-full')} onDoubleClick={() => editData(propName)}>
-      {isEditing ? (
-        <textarea
-          rows={1}
-          ref={inputRef}
-          defaultValue={value}
-          className="w-full  overflow-visible text-start resize-none "
-          onChange={(e) => {
-            handleItemChange(sectionIndex, itemIndex, propName, e.target.value);
-            autoResize(e.target);
-          }}
-          onKeyDown={(e) => saveData(e)}
-          onFocus={(e) => autoResize(e.target)}
-         onBlur={(e) =>  handleOnBlur(e) }
-        />
-      ) : 
-        value ? <div className="whitespace-pre-wrap cursor-pointer">{value}</div> 
-        :   <div className="w-full h-full hover:border-b  border-white min-w-[80px] cursor-pointer">&nbsp;</div>
-      }
+<div className={cn(className, 'h-full focus-within:border-b-2  border-neutral-400  focus:bg-neutral-100 dark:focus:bg-neutral-800')} 
+  tabIndex={0}
+  onDoubleClick={() => editData(propName)}  
+  onKeyDown={(e) => editFocusedItem(e)}
+  ref={containerRef}
+>
+  {isEditing ? (
+    <textarea
+      rows={1}
+      ref={inputRef}          
+      defaultValue={value}
+      className={cn(item?.props?.className, item.pageHeader && TextStyle['pageHeader'],  'w-full overflow-hidden text-start resize-none break-words whitespace-pre-wrap')}
+      onChange={(e) => {
+        autoResize(e.target);
+      }}
+      onKeyDown={(e) => saveData(e)}
+      onFocus={(e) => autoResize(e.target)}
+      onBlur={(e) => handleOnBlur(e)}
+    />
+  ) : value ? (
+    <div className={cn(item?.props?.className , item.pageHeader && TextStyle['pageHeader'], 'whitespace-pre-wrap cursor-pointer break-words overflow-hidden w-full')} style={item?.props?.style}>
+      {value}
     </div>
+  ) : (
+    <div className="w-full h-full hover:border-b border-white min-w-[80px] cursor-pointer">&nbsp;</div>
+  )}
+</div>
+
   );
 };
 
@@ -605,21 +673,32 @@ const RenderData = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-    
       <motion.div
         className="flex items-start justify-start flex-col w-full h-fit"
         {...sectionMotionProps}
-      >
+        
+        
+        >
         {sections.map((section, index) => (
           <DraggableSection
             key={index}
             section={section}
             index={index}
             moveSection={reorderSection}
-          >
-            <motion.div {...sectionMotionProps} key={index}>
+            >
+            <motion.div {...sectionMotionProps}
+             transition = { { duration: 0.8, ease: "easeOut" }}
+            key={index}>
+           
               <Section sectionIndex={index}>
-                <SectionHeader sectionIndex={index} title={section.title} >{section.title}</SectionHeader>
+                <SectionHeader 
+                  sectionIndex={index} 
+                  title={section.title} 
+                  pageHeader={section.pageHeader} 
+                  item={section} 
+                  >
+                    {section.title}
+                </SectionHeader>
                 {section.items.map((item, itemIndex) => (
                   <DraggableItem
                     key={itemIndex}
@@ -629,23 +708,23 @@ const RenderData = () => {
                     moveItem={reorderItem}
                     allowCrossSectionDrag={allowCrossSectionDrag} // Pass the flag
                   >
-               
                       <SectionItem
                         sectionIndex={index}
                         itemIndex={itemIndex}
                         title={item.title}
                         years={item.years}
-                        header={item.header}
+                        header={item?.props?.header || item?.header}
                         isEditing={item.isEditing}
+                        item={item}
                       />
 
                   </DraggableItem>
                 ))}
                 <button
+                  tabIndex={-1}
                   onClick={() => addItem(index)}
-                  className="text-blue-500 mt-2 cursor-pointer"
+                  className="text-blue-500 mt-2 cursor-pointer hover:bg-neutral-200 dark:hover:bg-neutral-800 h-10 rounded-sm transition-all duration-100"
                 >
-                  Add Item
                 </button>
               </Section>
               <Divider />
