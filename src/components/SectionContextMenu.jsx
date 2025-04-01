@@ -17,7 +17,7 @@ import { useSections } from "@/context/SectionContext";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 
-export function SectionContextMenu({ children }) {
+export function SectionContextMenu({ children , type }) {
   const {
     removeItem,
     selected,
@@ -78,14 +78,37 @@ export function SectionContextMenu({ children }) {
       <ContextMenuTrigger className='w-full ' >
         {children}
       </ContextMenuTrigger>
-
+    
       <ContextMenuContent className="w-64 ">
+        { type === '2' && <>
+            <ContextMenuItem
+            inset
+            className={"text-[.6rem]"}
+            onClick={() => addItem(selected.sectionIndex, selected.itemIndex)}
+          >
+            Calendar 
+            <ContextMenuShortcut>⌘</ContextMenuShortcut>
+          </ContextMenuItem>
+
+          <ContextMenuItem
+            inset
+            className={"text-[.6rem]"}
+            onClick={() => removeItem(selected.sectionIndex, selected.itemIndex)}
+          >
+            Remove
+            <ContextMenuShortcut>⌘R</ContextMenuShortcut>
+          </ContextMenuItem>
+          <ContextMenuSeparator />
+        </>
+        }
+
+
         <ContextMenuItem
           inset
           className={"text-[.6rem]"}
           onClick={() => addItem(selected.sectionIndex, selected.itemIndex)}
         >
-          New Block
+          New Block 
           <ContextMenuShortcut>⌘</ContextMenuShortcut>
         </ContextMenuItem>
 

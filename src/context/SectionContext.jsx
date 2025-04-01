@@ -18,6 +18,8 @@ export const SectionProvider = ({ data, children }) => {
   const [focused, setFocused] = useState(false);
   const [allowCrossSectionDrag, setAllowCrossSectionDrag] = useState(true);
   const [block , setBlock] = useState(null);
+  const [isDragging , setIsDragging] = useState(false);
+
 
   useEffect(()=>{
     const blockData = getBlockData(selected.sectionIndex,selected.itemIndex);
@@ -227,7 +229,8 @@ export const SectionProvider = ({ data, children }) => {
         focused, setFocused,
         editBlockStyle,
         getBlockData,
-        block,setBlock
+        block,setBlock,
+        isDragging , setIsDragging,
       }}
     >
       {children}
