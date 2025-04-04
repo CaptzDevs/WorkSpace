@@ -113,16 +113,13 @@ export const SectionProvider = ({ data, children }) => {
     const isSection = sectionIndex >= 0 && (itemIndex === null || itemIndex === undefined);
     const target = isSection ? updatedSections[sectionIndex] : updatedSections[sectionIndex].items[itemIndex];
 
-    // Ensure `props` exists
     target.props = target.props || {};
 
-    // Clone the `style` object before modifying it
     target.props.style = { ...(target.props.style || {}) };
 
-    // Now safely modify the cloned object
     target.props.style[propName] = value;
 
-    setSections(updatedSections); // Update state
+    setSections(updatedSections); 
 };
 
   

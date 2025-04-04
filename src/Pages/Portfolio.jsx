@@ -28,9 +28,8 @@ import ExportToJSON from "@/components/ExportToJSON";
 import { SectionContextMenu } from "@/components/SectionContextMenu";
 
 const TextStyle = {
-  pageHeader : 'text-2xl font-bold tracking-tighter md:text-5xl lg:text-5xl',
+  pageHeader : 'text-2xl font-bold tracking-tighter md:text-5xl lg:text-5xl pb-2',
   header : 'text-2xl font-bold tracking-tighter md:text-5xl lg:text-5xl',
-
 }
 
 const BLOCK_TYPE = {
@@ -69,6 +68,7 @@ const CV_DATA = {
        type : 'text',
        props : {
         // className : "text-2xl font-bold tracking-tighter md:text-5xl lg:text-5xl",
+       
        },
       items : [
         {
@@ -222,7 +222,6 @@ const CV_DATA = {
         {
           title: "TeleHealth",
           type : 'text',
-
           header: true,
         },
         {
@@ -233,7 +232,6 @@ const CV_DATA = {
         {
           title: "Ped Vaccine",
           type : 'text',
-
           header: true,
         },
         {
@@ -244,7 +242,6 @@ const CV_DATA = {
         {
           title: "Pre-Visit Registration",
           type : 'text',
-
           header: true,
         },
         {
@@ -265,7 +262,6 @@ const CV_DATA = {
         {
           title: "Insurance Request",
           type : 'text',
-
           header: true,
         },
         {
@@ -285,6 +281,7 @@ const ItemTypes = {
 
 const DraggableSection = ({ section, index, moveSection, children }) => {
   const ref = useRef(null);
+  const dragHandleRef = useRef(null);
   const { enableDND, setIsDragging } = useSections();
 
   const [, drop] = useDrop({
@@ -297,18 +294,24 @@ const DraggableSection = ({ section, index, moveSection, children }) => {
     },
   });
 
-  const [{ isDragging }, drag,previewRef] = useDrag({
-    
+  const [{ isDragging }, drag, preview] = useDrag({
     type: ItemTypes.SECTION,
     item: { index },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
-    canDrag : enableDND,
-
+    canDrag: enableDND,
   });
 
-  drag(drop(ref));
+  // Connect drop to whole section
+  drop(ref);
+
+  // Connect drag only to the handle
+  useEffect(() => {
+    if (dragHandleRef.current) {
+      drag(dragHandleRef);
+    }
+  }, [drag]);
 
   useEffect(() => {
     if (setIsDragging) {
@@ -317,21 +320,36 @@ const DraggableSection = ({ section, index, moveSection, children }) => {
   }, [isDragging, setIsDragging]);
 
   useEffect(() => {
-    if (previewRef) {
-      previewRef(getEmptyImage(), { captureDraggingState: true }); // Hide default preview
+    if (preview) {
+      preview(getEmptyImage(), { captureDraggingState: true });
     }
-  }, [previewRef]);
+  }, [preview]);
 
   return (
-    <div ref={ref} className={`opacity-${isDragging ? "50" : "100"} `}>
-      {children}
+    <div
+      ref={ref}
+      className={`draggable-section  p-2 mb-2 rounded-xl  ${
+        isDragging ? "opacity-50" : "opacity-100"
+      }`}
+    >
+      <div className="flex items-start gap-2 group">
+        <div
+          ref={dragHandleRef}
+          className="cursor-grab p-2 rounded opacity-0 group-hover:opacity-100"
+          onMouseDown={(e) => e.stopPropagation()}
+        >
+          ☰
+        </div>
+        <div
+          className="flex-1"
+          onMouseDown={(e) => e.stopPropagation()}
+        >
+          {children}
+        </div>
+      </div>
     </div>
-
-    
-    
   );
 };
-
 const DraggableItem = ({
   children,
   sectionIndex,
@@ -386,13 +404,13 @@ const DraggableItem = ({
   return (
     <div
       ref={dropRef}
-      className={`draggable-item flex items-center gap-2 group-hover: ${
+      className={`draggable-item flex items-center gap-2 group ${
         isDragging ? "opacity-50" : ""
       }`}
     >
       <div
         ref={dragRef}
-        className="cursor-grab p-2  rounded absolute left-[-50px]"
+        className="cursor-grab  rounded opacity-0 group-hover:opacity-100 px-2"
         onMouseDown={(e) => e.stopPropagation()} // Prevents drag from children clicks
       >
         ☰ 
@@ -420,7 +438,7 @@ export default function Portfolio() {
   return (
     <SectionProvider data={CV_DATA}>
       <ToolBar/>
-      <div className="container w-full  md:w-3/4 flex flex-col md:scale-[.6] origin-[50%_0%] px-3">
+      <div className=" w-full md:w-full flex flex-col md:scale-[.6] origin-[50%_0%] px-3">
      {/*    <div className="w-full flex items-start justify-center flex-col  bg-natural-100 gap-3 py-10 rounded-md z-40">
           <div className="flex items-start justify-start  gap-3">
             <TextAnimate
@@ -963,9 +981,9 @@ const EditableItem = ({
       return modifiedText;
   };
 
-  useEffect(()=>{
-    console.log(isDragging,'dddd')
-  },[isDragging])
+
+  const styleClasses = Object.values(item?.props?.style || {}).join(' ');
+
 
   return (
 <div className={cn(className, 'h-full relative focus:border-b-2 min-w-[30px] flex items-center justify-end   border-neutral-400  focus:bg-neutral-100 dark:focus:bg-neutral-800')} 
@@ -977,11 +995,11 @@ const EditableItem = ({
   ref={containerRef}
 >
   
-  <SectionDropdown value={item} isOpen={isFocused && !isEditing && !isDragging} onClose={()=> {
+{/*   <SectionDropdown value={item} isOpen={isFocused && !isEditing && !isDragging} onClose={()=> {
     console.log('dada')
     setIsFocused(false)
   }} />
-
+ */}
   {isEditing ? (<>
     <textarea
       rows={1}
@@ -1001,7 +1019,14 @@ const EditableItem = ({
 
       </>
   ) : value ? (
-    <div className={cn(item?.props?.className , item.pageHeader && TextStyle['pageHeader'], 'w-full whitespace-pre-wrap cursor-pointer break-words overflow-hidden ')} style={item?.props?.style}>
+    <div 
+      className={
+      cn(
+        item?.props?.className,
+        item.pageHeader && TextStyle['pageHeader'], 
+        styleClasses,
+        'w-full whitespace-pre-wrap cursor-pointer break-words overflow-hidden ')} 
+    >
       {value}
     </div>
   ) : (

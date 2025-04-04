@@ -22,6 +22,7 @@ const Data = {
     section : [
         {
             title 
+            
             items : [
                 title,
                 years,
@@ -29,4 +30,17 @@ const Data = {
             ]
         }
     ]
+}
+
+# Atomic Structure 
+
+    {
+       "title": "Code, collaborate.",
+       "header": true,
+       "type": "text",
+       "props": {
+         "style": {
+           "background": "bg-rose-400"
+         }
+    }
 }
