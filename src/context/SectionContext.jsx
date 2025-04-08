@@ -8,11 +8,13 @@ export const useSections = () => {
 };
 
 export const SectionProvider = ({ data, children }) => {
-  const [sections, setSections] = useState(data.sections);
+  const [sections, setSections] = useState();
   const [selected, setSelected] = useState({
     sectionIndex: null,
     itemIndex: null,
   });
+
+  const [selectedBlock, setSelectedBlock] = useState(null);
 
   const [enableDND, setEnableDND] = useState(true);
   const [focused, setFocused] = useState(false);
@@ -20,129 +22,245 @@ export const SectionProvider = ({ data, children }) => {
   const [block , setBlock] = useState(null);
   const [isDragging , setIsDragging] = useState(false);
 
+  const TextStyles = {
+    PageHeader: "text-2xl font-bold tracking-tighter md:text-5xl lg:text-5xl pb-2 text-emerald-400",
+    SectionHeader: " text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide text-teal-400",
+    Header : "text-sm sm:text-base md:text-lg text-blue-400",
+    Text : "text-sm sm:text-base py-1 text-purple-400 ",
+  };
 
-  useEffect(()=>{
-    const blockData = getBlockData(selected.sectionIndex,selected.itemIndex);
-    console.log(blockData,'dasdsada')
-    setBlock(blockData);
-  },[selected])
 
+  function getAllChildren() {
+    let result = [];
+  
+    function recurse(items) {
+      if (!items) return;
+      for (const item of items) {
+        if (item.children) {
+          result.push(...item.children);
+          recurse(item.children);
+        }
+        if (item.items) {
+          recurse(item.items);
+        }
+      }
+    }
+  
+    recurse(sections);
+    return result;
+  }
+  
+    // Rule 
+    useEffect(() => {
+      const sectionData = JSON.parse(JSON.stringify(data.sections));
+      console.log(sectionData,'sectionData')
+
+      sectionData.forEach((section, index) => {
+        const props = section.props ?? (section.props = {});
+        const style = props.style ?? (props.style = {});
+        style.text = index === 0 ? 'PageHeader' : 'SectionHeader';
+
+
+        section.items.forEach((item, itemIndex) => {
+          const props = item.props ?? (item.props = {});
+          const style = props.style ?? (props.style = {});
+          style.text = item?.items?.length > 0 ? 'Header' : 'Header';
+
+        });
+      });
+      
+   /*    const children = getAllChildren()
+
+      children.forEach((child, index) => {
+        const props = child.props ?? (child.props = {});
+        const style = props.style ?? (props.style = {});
+        style.text = 'Text' ;
+      }); */
+
+      
+      setSections(sectionData);
+    }, []);
+
+
+
+    const getBlock = (path, data = sections) => {
+      let current = data;
+ 
+    
+      // No path or invalid path
+      if (!Array.isArray(path) || path.length === 0) return null;
+    
+      // Traverse to the second last path
+      for (let i = 0; i < path.length - 1; i++) {
+        const { key, index } = path[i];
+        if (key === 'section') {
+          current = current?.[index];
+        } else {
+          current = current?.[key]?.[index];
+        }
+    
+        if (!current) return null; // Stop if any step is invalid
+      }
+    
+      const last = path[path.length - 1];
+      const block = last.key === 'section'
+        ? current?.[last.index]
+        : current?.[last.key]?.[last.index];
+    
+      return { data, block , parent : current };
+    };
+    
+    
+  
   const addSection = () => {
     setSections((prevSections) => [
       ...prevSections,
-      { title: "New Section", items: [] },
+      { value: "New Section", items: [] },
     ]);
   };
 
-  const addItem = (sectionIndex , itemIndex , title) => {
-    const updatedSections = [...sections];
-    console.log(sectionIndex , itemIndex,"<<<");
-    if(sectionIndex >= 0 && (itemIndex === null || itemIndex === undefined)){
-      console.log('dada111')
-    updatedSections[sectionIndex].items.push({
-      title: title ?? "",
-      years: "",
-      header: false,
-      isEditing: true,
-    });
-  }else if (sectionIndex >= 0 && itemIndex >= 0){
-    console.log('dada222')
+  const addItem = (path  , title) => {
 
-    updatedSections[sectionIndex].items.splice(itemIndex+1, 0, {
-      title: title ?? "",
-      years: "",
-      header: false,
-      isEditing: true,
-    });
-  }
+      const {data , block, parent} = getBlock(path ,sections);
+          console.log(parent,block,'dasdas1141')
+            block.items ?? (block.items = []);
+            block.items.push({
+              value: title ?? "", 
+              isEditing: true,
+              props : {
+                style : {
+                  text :   block.items.length > 1 ? 'Header' : 'Text'
+                }
+              },
+              children : [{
+                value : '-',
+                type : "text",
+              }]
+            });
 
-    setSections(updatedSections);
+        setSections(data);
   };
+
+  
+  const addIChild = (path , title) => {
+
+    const {data , block} = getBlock(path ,sections);
+        console.log(block,'dasdas1141')
+          block.children ?? (block.children = []);
+          block.children.push({
+            value: title ?? "", 
+            isEditing: true,
+          });
+            setSections(data);
+      };
 
 
   const handleSectionHeaderChange = (sectionIndex, field, value) => {
-    console.log(field, value);
     const updatedSections = [...sections];
     updatedSections[sectionIndex][field] = value;
     console.log(updatedSections);
     setSections(updatedSections);
   };
 
-  const _editBlockStyle = (sectionIndex, itemIndex, value, removeClass = false , removeClasss = []) => {
-    const updatedSections = [...sections];
-    const isSection = sectionIndex >= 0 && (itemIndex === null || itemIndex === undefined);
+
+  function updateDeep(obj, path, value) {
+    const keys = path
+      .replace(/\[(\d*)\]/g, (_, index) => index ? `.${index}` : '[]') // [] means push
+      .split('.');
   
-    const updateClassName = (target) => {
-      // Ensure `props` exists
-      target['props'] = target['props'] || {};
-      // Ensure `className` exists
-      target['props']['className'] = target['props']['className'] || '';
+    let current = obj;
   
-      let className = target['props']['className'];
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
   
-      if (removeClass) {
-        // Remove classes that match any prefix in removeClasss, but don't remove 'hover:' classes
-        target['props']['className'] = className
-          .split(' ') // Split into array of classes
-          .filter(cls => {
-            // Check if the class starts with any of the removeClasss prefixes and does not start with 'hover:'
-            return !removeClasss.some(rmcls => cls.startsWith(rmcls)) || cls.startsWith('hover:');
-          }) // Keep classes that don't match any prefix or are 'hover:'
-          .join(' '); // Rejoin into string
-      } else {
-        // Add class if it doesn't exist
-        if (!className.split(' ').includes(value)) {
-          target['props']['className'] = className + ' ' + value;
-        }
+      // Push mode
+      if (key === '[]') {
+        if (!Array.isArray(current)) throw new Error('Cannot push to non-array');
+        current.push(value);
+        return;
       }
-    };
   
-    if (isSection) {
-      updateClassName(updatedSections[sectionIndex]);
-    } else {
-      updateClassName(updatedSections[sectionIndex].items[itemIndex]);
+      // Last key
+      if (i === keys.length - 1) {
+        if (value === '__remove__') {
+          if (Array.isArray(current)) {
+            current.splice(key, 1);
+          } else {
+            delete current[key];
+          }
+        } else {
+          current[key] = value;
+        }
+      } else {
+        // Create next container if missing
+        const nextKey = keys[i + 1];
+        if (!(key in current)) {
+          current[key] = /^\d+$/.test(nextKey) ? [] : {};
+        }
+        current = current[key];
+      }
     }
+  }
   
-    console.log(updatedSections);
-    setSections(updatedSections);
+  
+  const editBlockProps = (path, propPath, value) => {
+    const { data, block } = getBlock(path, sections);
+    block.props ??= {};
+  
+    updateDeep(block, propPath, value);
+    setSections(data);
   };
   
+  const editBlockStyle = (path, propName, value) => {
 
-  const editBlockStyle = (sectionIndex, itemIndex, propName, value) => {
-    const updatedSections = [...sections];
-    const isSection = sectionIndex >= 0 && (itemIndex === null || itemIndex === undefined);
-    const target = isSection ? updatedSections[sectionIndex] : updatedSections[sectionIndex].items[itemIndex];
+    const { data , block} = getBlock(path ,sections);
 
-    target.props = target.props || {};
+    block.props ?? (block.props = {});
+    block.props.style = block.props.style ?? {}
+    block.props.style[propName] = value;
 
-    target.props.style = { ...(target.props.style || {}) };
+    setSections(data); 
 
-    target.props.style[propName] = value;
-
-    setSections(updatedSections); 
 };
 
   
 
-  const handleItemChange = (sectionIndex, itemIndex, field, value) => {
-    console.log(sectionIndex, itemIndex , field ,value);
-    const updatedSections = [...sections];
-    const isSection = sectionIndex >= 0 && (itemIndex === null || itemIndex === undefined);
-
-    if(isSection){
-      updatedSections[sectionIndex][field] = value;
-    }else{
-      updatedSections[sectionIndex].items[itemIndex][field] = value;
+  const nomalizePath = (path) => {
+    const normalizedPath = path.map((item) => {
+      const { key, index } = item;
+      return index;
+    });
+    return normalizedPath;
+  }
+  const handleItemChange = (path, field, value) => {
+    console.log(path, field, value,'gsjaisf');
+    const updatedSections = structuredClone(sections);
+    let current = updatedSections;
+  
+    for (let i = 0; i < path.length - 1; i++) {
+      const { key, index } = path[i];
+      current = key === "section" ? current[index] : current[key]?.[index];
     }
-
+  
+    const { key, index } = path.at(-1);
+    if (key === "section") {
+      current[index][field] = value;
+    } else {
+      current[key][index][field] = value;
+    }
+  
     setSections(updatedSections);
   };
+  
+  
 
   const saveItem = (sectionIndex, itemIndex) => {
     const updatedSections = [...sections];
     updatedSections[sectionIndex].items[itemIndex].isEditing = false;
     setSections(updatedSections);
   };
+
+  
 
   // Function to reorder items within a section
   const reorderItem = (
@@ -152,18 +270,42 @@ export const SectionProvider = ({ data, children }) => {
     toItemIndex
   ) => {
     const updatedSections = [...sections];
-
-    // Remove item from the source section
-    const [movedItem] = updatedSections[fromSectionIndex].items.splice(
-      fromItemIndex,
-      1
-    );
-
-    // Add the item to the target section
-    updatedSections[toSectionIndex].items.splice(toItemIndex, 0, movedItem);
-
+  
+    const fromList = updatedSections[fromSectionIndex].items;
+    const toList = updatedSections[toSectionIndex].items;
+  
+    const [movedItem] = fromList.splice(fromItemIndex, 1);
+    toList.splice(toItemIndex, 0, movedItem);
+  
     setSections(updatedSections);
   };
+  
+
+
+  const moveItem = (sourcePath, targetPath) => {
+    const updatedSections = [...sections];
+  
+    const source = getBlock(sourcePath, updatedSections);
+    const target = getBlock(targetPath, updatedSections);
+  
+    if (!source || !target) return;
+  
+    // Remove the item from source
+    const removedItem = source.parent[source.key].splice(source.index, 1)[0];
+  
+    // Ensure target array exists
+    if (!Array.isArray(target.parent[target.key])) {
+      target.parent[target.key] = [];
+    }
+  
+    // Insert into target
+    target.parent[target.key].splice(target.index, 0, removedItem);
+  
+    setSections(updatedSections);
+  };
+  
+  
+
   // Function to reorder sections
   const reorderSection = (fromIndex, toIndex) => {
     const updatedSections = [...sections];
@@ -172,38 +314,38 @@ export const SectionProvider = ({ data, children }) => {
     setSections(updatedSections);
   };
 
-  const removeItem = (sectionIndex, itemIndex) => {
-    console.log(sectionIndex, itemIndex);
-    if(sectionIndex < 0 || itemIndex < 0) return
-    const updatedSections = [...sections];
-    updatedSections[sectionIndex].items.splice(itemIndex, 1);
-    setSections(updatedSections);
+  
 
-    if (itemIndex > 0) {
-      updatedSections[sectionIndex].items[itemIndex - 1].isEditing = true;
+  function removeItem(path) {
+    console.log(path);
+  
+    const updatedSections = structuredClone(sections);
+    let current = updatedSections;
+  
+    for (let i = 0; i < path.length - 1; i++) {
+      const { key, index } = path[i];
+      current = key === 'section' ? current[index] : current[key][index];
     }
-  };
+  
+    const last = path[path.length - 1];
+    const { key, index } = last;
+  
+    // Remove the item at the final location
+    if(key === 'section'){
+      updatedSections.splice(index, 1);
+    }
+    else if (Array.isArray(current[key])) {
+      current[key].splice(index, 1);
+    }
+  
+    setSections(updatedSections);
+  }
 
   const removeSection = (sectionIndex) => {
     const updatedSections = sections.filter((_, index) => index !== sectionIndex);
     setSections(updatedSections);
   };
 
-  const getBlockData = (sectionIndex, itemIndex) =>{
-    console.log(sectionIndex, itemIndex);
-    const isSection = sectionIndex >= 0 && (itemIndex === null || itemIndex === undefined);
-    
-    if(isSection){
-      return sections[sectionIndex];
-    }else{
-      return sections[sectionIndex].items[itemIndex];
-    }
-
-  }
-
-  useEffect(() => {
-    console.log('selected' , selected);
-  }, [selected]);
 
   return (
     <SectionContext.Provider
@@ -211,6 +353,7 @@ export const SectionProvider = ({ data, children }) => {
         sections,
         addSection,
         addItem,
+        addIChild,
         handleItemChange,
         saveItem,
         selected,
@@ -220,14 +363,17 @@ export const SectionProvider = ({ data, children }) => {
         allowCrossSectionDrag,
         setAllowCrossSectionDrag,
         removeItem,
+        moveItem,
         removeSection,
         handleSectionHeaderChange,
         enableDND, setEnableDND,
         focused, setFocused,
         editBlockStyle,
-        getBlockData,
+        editBlockProps,
         block,setBlock,
         isDragging , setIsDragging,
+        selectedBlock, setSelectedBlock,
+        getBlock,
       }}
     >
       {children}

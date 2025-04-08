@@ -52,18 +52,22 @@
 
 * {
   box-sizing: border-box;
+  outline: none;
 }
+
 
 a {
   font-weight: 500;
   text-decoration: inherit;
 }
 
+
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
+
 }
 main{
   width: 100%;

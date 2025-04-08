@@ -15,44 +15,61 @@ import {
 } from "@/components/ui/context-menu";
 import { useSections } from "@/context/SectionContext";
 import { cn } from "@/lib/utils";
+import {
+  AlignLeft,
+  CalendarDays,
+  CalendarRange,
+  Hash,
+  User,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 
-export function SectionContextMenu({ children , type }) {
+export function SectionContextMenu({ children, type, path }) {
   const {
     removeItem,
     selected,
     addItem,
+    addIChild,
     editBlockStyle,
+    editBlockProps,
     sections,
     handleItemChange,
-    block,
+    getBlock,
   } = useSections();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [blockData, setBlockData] = useState(null);
 
+  useEffect(() => {
+    if (isOpen) {
+      const d = getBlock(path).block;
+      setBlockData(d);
+      console.log(d, "pfsafjas");
+    }
+  }, [isOpen]);
 
   const colors = [
-      { name: "default", value: "default", isClear: true, label: "Default" },
-      { name: "red", value: "text-red-400" },
-      { name: "orange", value: "text-orange-400" },
-      { name: "amber", value: "text-amber-400" },
-      { name: "yellow", value: "text-yellow-400" },
-      { name: "lime", value: "text-lime-400" },
-      { name: "green", value: "text-green-400" },
-      { name: "emerald", value: "text-emerald-400" },
-      { name: "teal", value: "text-teal-400" },
-      { name: "cyan", value: "text-cyan-400" },
-      { name: "sky", value: "text-sky-400" },
-      { name: "blue", value: "text-blue-400" },
-      { name: "indigo", value: "text-indigo-400" },
-      { name: "violet", value: "text-violet-400" },
-      { name: "purple", value: "text-purple-400" },
-      { name: "fuchsia", value: "text-fuchsia-400" },
-      { name: "pink", value: "text-pink-400" },
-      { name: "rose", value: "text-rose-400" },
-      { name: "white", value: "text-white" },
-      { name: "black", value: "text-black" },
-    ];
+    { name: "default", value: "default", isClear: true, label: "Default" },
+    { name: "red", value: "text-red-400" },
+    { name: "orange", value: "text-orange-400" },
+    { name: "amber", value: "text-amber-400" },
+    { name: "yellow", value: "text-yellow-400" },
+    { name: "lime", value: "text-lime-400" },
+    { name: "green", value: "text-green-400" },
+    { name: "emerald", value: "text-emerald-400" },
+    { name: "teal", value: "text-teal-400" },
+    { name: "cyan", value: "text-cyan-400" },
+    { name: "sky", value: "text-sky-400" },
+    { name: "blue", value: "text-blue-400" },
+    { name: "indigo", value: "text-indigo-400" },
+    { name: "violet", value: "text-violet-400" },
+    { name: "purple", value: "text-purple-400" },
+    { name: "fuchsia", value: "text-fuchsia-400" },
+    { name: "pink", value: "text-pink-400" },
+    { name: "rose", value: "text-rose-400" },
+    { name: "white", value: "text-white" },
+    { name: "black", value: "text-black" },
+  ];
 
   const backgroundColors = [
     { name: "default", value: "default", isClear: true, label: "Default" },
@@ -77,77 +94,106 @@ export function SectionContextMenu({ children , type }) {
     { name: "black", value: "bg-black" },
   ];
 
-
-  const textStyle = [
+  const x_textStyle = [
     {
-      name: 'pageHeader',
-      label : 'Page Header',
-      value : 'text-2xl font-bold tracking-tighter md:text-5xl lg:text-5xl pb-2',
+      name: "pageHeader",
+      label: "Page Header",
+      value: "text-2xl font-bold tracking-tighter md:text-5xl lg:text-5xl pb-2",
     },
     {
-      name: 'header',
-      label : 'Header' ,
-      value : 'text-2xl font-bold tracking-tighter md:text-5xl lg:text-5xl',
-    }
-  ]
+      name: "header",
+      label: "Header",
+      value: "text-2xl font-bold tracking-tighter md:text-5xl lg:text-5xl",
+    },
+  ];
+
+  const BlockType = [
+    {
+      name: "Text",
+      value: "text",
+      icon: <AlignLeft style={{ width: "14px" }} />,
+      description: "Plain text block for entering and formatting text.",
+    },
+    {
+      name: "Number",
+      value: "number",
+      icon: <Hash style={{ width: "14px" }} />,
+      description: "Numeric block for storing and calculating numbers.",
+    },
+    {
+      name: "Calendar",
+      value: "calendar",
+      icon: <CalendarDays style={{ width: "14px" }} />,
+      description: "Date selector for scheduling or timestamping events.",
+    },
+    {
+      name: "Calendar Range",
+      value: "calendar-range",
+      icon: <CalendarRange style={{ width: "14px" }} />,
+      description: "Code block for syntax-highlighted programming snippets.",
+    },
+  ];
+  
 
   const setStyle = (propName, value) => {
-    editBlockStyle(selected.sectionIndex, selected.itemIndex, propName, value);
+    editBlockProps(path, propName, value);
   };
 
   const resetStyle = (propsName) => {
     if (Array.isArray(propsName)) {
       propsName.forEach((prop) => {
-        editBlockStyle(selected.sectionIndex, selected.itemIndex, prop, "");
+        editBlockStyle(path, prop, "");
       });
     } else {
-      editBlockStyle(selected.sectionIndex, selected.itemIndex, propsName, "");
+      editBlockStyle(path, propsName, "");
     }
   };
 
   return (
-    <ContextMenu onOpenChange={setIsOpen} className="hover:outline-none">
-      <ContextMenuTrigger className='w-full ' >
-        {children}
-      </ContextMenuTrigger>
-    
-      <ContextMenuContent className="w-64 ">
-        { type === '2' && <>
-            <ContextMenuItem
-            inset
-            className={"text-[.6rem]"}
-            onClick={() => addItem(selected.sectionIndex, selected.itemIndex)}
-          >
-            Calendar 
-            <ContextMenuShortcut>⌘</ContextMenuShortcut>
-          </ContextMenuItem>
+    <ContextMenu onOpenChange={setIsOpen} className="hover:outline-none ">
+      <ContextMenuTrigger>{children}</ContextMenuTrigger>
 
+      <ContextMenuContent className="w-64 ">
+        {BlockType.map((item, i) => (
           <ContextMenuItem
             inset
-            className={"text-[.6rem]"}
-            onClick={() => removeItem(selected.sectionIndex, selected.itemIndex)}
+            value={item.value}
+            className={cn(
+              "text-[.6rem] flex gap-2 cursor-pointer",
+              blockData?.type === item.value &&
+                "text-bold underline underline-offset-4"
+            )}
+            onClick={() => editBlockProps(path, "type", item.value)}
           >
-            Remove
-            <ContextMenuShortcut>⌘R</ContextMenuShortcut>
+            <div className={cn("absolute left-2 h-4 w-4")}>{item.icon}</div>
+            {item.name} 
           </ContextMenuItem>
-          <ContextMenuSeparator />
-        </>
-        }
+        ))}
 
+        <ContextMenuSeparator />
 
         <ContextMenuItem
           inset
           className={"text-[.6rem]"}
-          onClick={() => addItem(selected.sectionIndex, selected.itemIndex)}
+          onClick={() => addItem(path)}
         >
-          New Block 
+          Add Block
           <ContextMenuShortcut>⌘</ContextMenuShortcut>
         </ContextMenuItem>
 
         <ContextMenuItem
           inset
           className={"text-[.6rem]"}
-          onClick={() => removeItem(selected.sectionIndex, selected.itemIndex)}
+          onClick={() => addIChild(path)}
+        >
+          Add Child
+          <ContextMenuShortcut>⌘</ContextMenuShortcut>
+        </ContextMenuItem>
+
+        <ContextMenuItem
+          inset
+          className={"text-[.6rem]"}
+          onClick={() => removeItem(path)}
         >
           Remove
           <ContextMenuShortcut>⌘R</ContextMenuShortcut>
@@ -163,7 +209,7 @@ export function SectionContextMenu({ children , type }) {
         </ContextMenuItem>
 
         <ContextMenuSeparator />
-       {/*  <ContextMenuCheckboxItem
+        {/*  <ContextMenuCheckboxItem
           className={"text-[.6rem]"}
           checked={block?.pageHeader}
           onClick={() =>
@@ -195,12 +241,14 @@ export function SectionContextMenu({ children , type }) {
         </ContextMenuCheckboxItem> */}
 
         <ContextMenuSub>
-          <ContextMenuSubTrigger className={'text-[.6rem]'} inset>Text</ContextMenuSubTrigger>
+          <ContextMenuSubTrigger className={"text-[.6rem]"} inset>
+            Text
+          </ContextMenuSubTrigger>
           <ContextMenuSubContent className="w-48">
             <ContextMenuRadioGroup
-              value={block?.props?.style?.color ?? "default"}
+              value={blockData?.props?.style?.color ?? "default"}
             >
-              {textStyle.map((text) => (
+              {x_textStyle.map((text) => (
                 <TextBlock
                   key={text.name}
                   varient={"text"}
@@ -218,12 +266,13 @@ export function SectionContextMenu({ children , type }) {
           </ContextMenuSubContent>
         </ContextMenuSub>
 
-
         <ContextMenuSub>
-          <ContextMenuSubTrigger className={'text-[.6rem]'} inset>Color</ContextMenuSubTrigger>
+          <ContextMenuSubTrigger className={"text-[.6rem]"} inset>
+            Color
+          </ContextMenuSubTrigger>
           <ContextMenuSubContent className="w-48">
             <ContextMenuRadioGroup
-              value={block?.props?.style?.color ?? "default"}
+              value={blockData?.props?.style?.color ?? "default"}
             >
               {colors.map((color) => (
                 <ColorBlock
@@ -235,8 +284,7 @@ export function SectionContextMenu({ children , type }) {
                   onClick={() =>
                     color.isClear
                       ? resetStyle("color")
-                      : setStyle("color", `text-${color.name}-400`)
-
+                      : setStyle("props.style.color", `text-${color.name}-400`)
                   }
                 />
               ))}
@@ -245,10 +293,12 @@ export function SectionContextMenu({ children , type }) {
         </ContextMenuSub>
 
         <ContextMenuSub>
-          <ContextMenuSubTrigger className={'text-[.6rem]'} inset>Background</ContextMenuSubTrigger>
+          <ContextMenuSubTrigger className={"text-[.6rem]"} inset>
+            Background
+          </ContextMenuSubTrigger>
           <ContextMenuSubContent className="w-48">
             <ContextMenuRadioGroup
-              value={block?.props?.style?.background ?? "default"}
+              value={blockData?.props?.style?.background ?? "default"}
             >
               {backgroundColors.map((color) => (
                 <ColorBlock
@@ -260,7 +310,7 @@ export function SectionContextMenu({ children , type }) {
                   onClick={() =>
                     color.isClear
                       ? resetStyle("background")
-                      : setStyle("background", color.value)
+                      : setStyle("props.style.background", color.value)
                   }
                 />
               ))}
@@ -272,7 +322,7 @@ export function SectionContextMenu({ children , type }) {
   );
 }
 
-const ColorBlock = ({ value, onClick, varient, label , colorName }) => {
+const ColorBlock = ({ value, onClick, varient, label, colorName }) => {
   return (
     <ContextMenuRadioItem
       value={value}
@@ -280,41 +330,27 @@ const ColorBlock = ({ value, onClick, varient, label , colorName }) => {
       className={"text-[.6rem]"}
     >
       {varient === "text" ? (
-        <div className={cn("rounded-full ",value)}>
-          
+        <div className={cn("rounded-full ", value)}>
           {label || "Aa"} {label ? null : colorName}
         </div>
       ) : (
-      <div className="flex gap-2 items-center justify-center">
-          <div
-          className={cn("w-3 h-3 rounded-full ",value)}
-        >
-          {label} 
+        <div className="flex gap-2 items-center justify-center">
+          <div className={cn("w-3 h-3 rounded-full ", value)}>{label}</div>
+          <span style={{ color: value }}>{label ? null : colorName}</span>
         </div>
-        <span
-          style={{ color: value }}
-          >
-            {label ? null : colorName}
-            </span> 
-      </div>
       )}
     </ContextMenuRadioItem>
   );
 };
 
-
-const TextBlock = ({ value, onClick, varient, label  }) => {
+const TextBlock = ({ value, onClick, varient, label }) => {
   return (
     <ContextMenuRadioItem
       value={value}
       onClick={onClick}
       className={"text-[.6rem]"}
     >
-        <div className={cn("rounded-full ")}>
-          
-        Aa {label} 
-        </div>
-        
+      <div className={cn("rounded-full ")}>Aa {label}</div>
     </ContextMenuRadioItem>
   );
 };
