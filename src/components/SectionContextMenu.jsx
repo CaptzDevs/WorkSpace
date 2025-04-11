@@ -35,6 +35,8 @@ export function SectionContextMenu({ children, type, path }) {
     sections,
     handleItemChange,
     getBlock,
+    colors,
+    backgroundColors
   } = useSections();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -48,51 +50,7 @@ export function SectionContextMenu({ children, type, path }) {
     }
   }, [isOpen]);
 
-  const colors = [
-    { name: "default", value: "default", isClear: true, label: "Default" },
-    { name: "red", value: "text-red-400" },
-    { name: "orange", value: "text-orange-400" },
-    { name: "amber", value: "text-amber-400" },
-    { name: "yellow", value: "text-yellow-400" },
-    { name: "lime", value: "text-lime-400" },
-    { name: "green", value: "text-green-400" },
-    { name: "emerald", value: "text-emerald-400" },
-    { name: "teal", value: "text-teal-400" },
-    { name: "cyan", value: "text-cyan-400" },
-    { name: "sky", value: "text-sky-400" },
-    { name: "blue", value: "text-blue-400" },
-    { name: "indigo", value: "text-indigo-400" },
-    { name: "violet", value: "text-violet-400" },
-    { name: "purple", value: "text-purple-400" },
-    { name: "fuchsia", value: "text-fuchsia-400" },
-    { name: "pink", value: "text-pink-400" },
-    { name: "rose", value: "text-rose-400" },
-    { name: "white", value: "text-white" },
-    { name: "black", value: "text-black" },
-  ];
-
-  const backgroundColors = [
-    { name: "default", value: "default", isClear: true, label: "Default" },
-    { name: "red", value: "bg-red-400" },
-    { name: "orange", value: "bg-orange-400" },
-    { name: "amber", value: "bg-amber-400" },
-    { name: "yellow", value: "bg-yellow-400" },
-    { name: "lime", value: "bg-lime-400" },
-    { name: "green", value: "bg-green-400" },
-    { name: "emerald", value: "bg-emerald-400" },
-    { name: "teal", value: "bg-teal-400" },
-    { name: "cyan", value: "bg-cyan-400" },
-    { name: "sky", value: "bg-sky-400" },
-    { name: "blue", value: "bg-blue-400" },
-    { name: "indigo", value: "bg-indigo-400" },
-    { name: "violet", value: "bg-violet-400" },
-    { name: "purple", value: "bg-purple-400" },
-    { name: "fuchsia", value: "bg-fuchsia-400" },
-    { name: "pink", value: "bg-pink-400" },
-    { name: "rose", value: "bg-rose-400" },
-    { name: "white", value: "bg-white" },
-    { name: "black", value: "bg-black" },
-  ];
+  
 
   const x_textStyle = [
     {

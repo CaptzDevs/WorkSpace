@@ -45,6 +45,7 @@ import { HTML5Backend, getEmptyImage } from "react-dnd-html5-backend";
 import ExportToJSON from "@/components/ExportToJSON";
 import { SectionContextMenu } from "@/components/SectionContextMenu";
 import { SectionDropdown } from "@/components/SectionDropdown";
+import { PopoverToolItem } from "@/components/PopoverToolItem";
 
 const TEXT_STYLES = {
   PageHeader: "text-2xl font-bold tracking-tighter md:text-5xl lg:text-5xl pb-2 text-emerald-400",
@@ -1143,51 +1144,55 @@ const ToolBar = ({asChild = false}) => {
 
 
   const [blockData ,setBlockData] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(()=>{
     if(selectedBlock){
       setBlockData(getBlock(selectedBlock)?.block)
+      setIsOpen(true)
+    }else{
+      setIsOpen(false)
     }
-  },[selectedBlock])
+  },[selectedBlock,sections])
 
   const tools = {
       textAlign : [
         {
           name : 'Left',
           value : 'text-start',
-          icon : <AlignLeft  style={{width : "16px"}}/>,
+          icon : <AlignLeft  style={{width : "12px"}}/>,
         },
         {
           name : 'Center',
           value : 'text-center',
-          icon : <AlignCenter  style={{width : "16px"}}/>,
+          icon : <AlignCenter  style={{width : "12px"}}/>,
         },
         {
           name : 'Right',
           value : 'text-end',
-          icon : <AlignRight  style={{width : "16px"}}/>
+          icon : <AlignRight  style={{width : "12px"}}/>
         }
       ],
       style : [
         {
           name : 'Background',
           value : 'background',
-          icon : <Baseline style={{width : "16px"}}/>,
+          icon : <Baseline style={{width : "12px"}}/>,
         },
         {
           name : 'Color',
           value : 'color',
-          icon : <Baseline style={{width : "16px"}}/>,
+          icon : <Baseline style={{width : "12px"}}/>,
         },
         {
           name : 'Underline',
           value : 'underline',
-          icon : <Underline style={{width : "16px"}}/>,
+          icon : <Underline style={{width : "12px"}}/>,
         },
         {
           name : 'Italic',
           value : 'italic',
-          icon : <Italic style={{width : "16px"}}/>,
+          icon : <Italic style={{width : "12px"}}/>,
         },
       ],
       fontSize : [
@@ -1230,21 +1235,23 @@ const ToolBar = ({asChild = false}) => {
 
 
   return (
-    <div className={cn(classes[asChild ? 'asChild' : 'default'] , 'bg-neutral-100 dark:bg-neutral-800 border' )}>
+    <div className={cn(classes[asChild ? 'asChild' : 'default'] , 'bg-neutral-100 dark:bg-neutral-800 border transition-all duration-150', isOpen ? "opacity-100" : 'opacity-0'  )}>
     {Object.keys(tools).map((tool, i) => (
       <React.Fragment key={i}>
         <div className="flex items-center justify-center gap-2">
           {tools[tool].map((item, j) => (
-            <button key={j}  
-            className={cn(
-             isMatch(tool,item.value) && 'dark:bg-neutral-700', 
-             "hover:bg-neutral-400 dark:hover:bg-neutral-700",
-             blockData?.props?.style?.[item.value],
-             'flex items-center justify-center gap-3 px-3 py-2 rounded-md  cursor-pointer ' )}>
-              <span >
-                {item.icon}
-              </span>
-            </button>
+            <PopoverToolItem>
+              <button key={j}  
+              className={cn(
+              isMatch(tool,item.value) && 'dark:bg-neutral-700', 
+              "hover:bg-neutral-400 dark:hover:bg-neutral-700",
+              blockData?.props?.style?.[item.value],
+              'flex items-center justify-center gap-3 px-3 py-2 rounded-md  cursor-pointer ' )}>
+                <span >
+                  {item.icon}
+                </span>
+              </button>
+          </PopoverToolItem>
           ))}
         </div>
         {i < Object.keys(tools).length - 1 && <div className="text-neutral-500">|</div>}
