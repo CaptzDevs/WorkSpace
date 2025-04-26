@@ -61,11 +61,9 @@ export const SectionProvider = ({ data, children }) => {
   });
 
   const [selectedBlock, setSelectedBlock] = useState(null);
-
   const [enableDND, setEnableDND] = useState(true);
   const [focused, setFocused] = useState(false);
   const [allowCrossSectionDrag, setAllowCrossSectionDrag] = useState(true);
-  const [block , setBlock] = useState(null);
   const [isDragging , setIsDragging] = useState(false);
 
   const TextStyles = {
@@ -125,7 +123,7 @@ export const SectionProvider = ({ data, children }) => {
 
       
       setSections(sectionData);
-    }, []);
+    }, [data.sections]);
 
 
 
@@ -165,26 +163,59 @@ export const SectionProvider = ({ data, children }) => {
     ]);
   };
 
-  const addItem = (path  , title) => {
+  const addItem = (path  , title , mode = 1) => {
 
-      const {data , block, parent} = getBlock(path ,sections);
-          console.log(parent,block,'dasdas1141')
-            block.items ?? (block.items = []);
-            block.items.push({
-              value: title ?? "", 
-              isEditing: true,
-              props : {
-                style : {
-                  text :   block.items.length > 1 ? 'Header' : 'Text'
+            const updatedSections = structuredClone(sections);
+            let current = updatedSections;
+
+            /* 
+                1 Add to Next Item
+                2 Add to Last Item
+                3 Add to Sub Item
+
+            */
+
+                let parent = null;
+
+                for (let i = 0; i < path.length; i++) {
+                  const { key, index } = path[i];
+                
+                  parent = current; // update parent *before* going deeper
+                  current = key === "section" ? current[index] : current[key]?.[index];
                 }
-              },
-              children : [{
-                value : '-',
-                type : "text",
-              }]
-            });
+     
 
-        setSections(data);
+            console.log('curren11t',parent,current);
+            current.items ?? (current.items = []);
+
+            const Block = {
+              value: title ?? "",
+              isEditing: true,
+              props: {
+                style: {
+                  text:  "Header",
+                },
+              },
+              children: [{
+                value: "-",
+                type: "text",
+              }],
+            }
+
+            if(mode === 1){
+              parent.items 
+              ? parent.items.splice(path[path.length - 1].index+1 , 0, Block) 
+              : current.items.splice(current.items.length , 0, Block) 
+            }
+            if(mode === 2){
+              parent.items.push(Block);
+            }
+            if(mode === 3){
+              current.items.push(Block);
+            }
+          
+            setSections(updatedSections);
+            
   };
 
   
@@ -199,14 +230,6 @@ export const SectionProvider = ({ data, children }) => {
           });
             setSections(data);
       };
-
-
-  const handleSectionHeaderChange = (sectionIndex, field, value) => {
-    const updatedSections = [...sections];
-    updatedSections[sectionIndex][field] = value;
-    console.log(updatedSections);
-    setSections(updatedSections);
-  };
 
 
   function updateDeep(obj, path, value) {
@@ -248,15 +271,15 @@ export const SectionProvider = ({ data, children }) => {
     }
   }
   
-  
   const editBlockProps = (path, propPath, value) => {
     console.log(path, propPath, value)
     const { data, block } = getBlock(path, sections);
     block.props ??= {};
   
     updateDeep(block, propPath, value);
-    console.log(data,'dddd')
-    setSections(data);
+    
+    setSections(JSON.parse(JSON.stringify(data)));
+
   };
   
   const editBlockStyle = (path, propName, value) => {
@@ -271,7 +294,6 @@ export const SectionProvider = ({ data, children }) => {
 
 };
 
-  
 
   const nomalizePath = (path) => {
     const normalizedPath = path.map((item) => {
@@ -280,8 +302,9 @@ export const SectionProvider = ({ data, children }) => {
     });
     return normalizedPath;
   }
+
+
   const handleItemChange = (path, field, value) => {
-    console.log(path, field, value,'gsjaisf');
     const updatedSections = structuredClone(sections);
     let current = updatedSections;
   
@@ -296,20 +319,15 @@ export const SectionProvider = ({ data, children }) => {
     } else {
       current[key][index][field] = value;
     }
+    console.log(path, field, value,'gsjaisf');
   
     setSections(updatedSections);
   };
-  
-  
 
-  const saveItem = (sectionIndex, itemIndex) => {
-    const updatedSections = [...sections];
-    updatedSections[sectionIndex].items[itemIndex].isEditing = false;
-    setSections(updatedSections);
-  };
-
+  useEffect(()=>{
+    console.log('sections change' , sections)
+  },[sections])
   
-
   // Function to reorder items within a section
   const reorderItem = (
     fromSectionIndex,
@@ -327,7 +345,6 @@ export const SectionProvider = ({ data, children }) => {
   
     setSections(updatedSections);
   };
-  
 
 
   const moveItem = (sourcePath, targetPath) => {
@@ -353,7 +370,6 @@ export const SectionProvider = ({ data, children }) => {
   };
   
   
-
   // Function to reorder sections
   const reorderSection = (fromIndex, toIndex) => {
     const updatedSections = [...sections];
@@ -364,9 +380,7 @@ export const SectionProvider = ({ data, children }) => {
 
   
 
-  function removeItem(path) {
-    console.log(path);
-  
+  function removeBlock(path) {
     const updatedSections = structuredClone(sections);
     let current = updatedSections;
   
@@ -389,11 +403,11 @@ export const SectionProvider = ({ data, children }) => {
     setSections(updatedSections);
   }
 
-  const removeSection = (sectionIndex) => {
+/*   const removeBlock = (sectionIndex) => {
     const updatedSections = sections.filter((_, index) => index !== sectionIndex);
     setSections(updatedSections);
   };
-
+ */
 
   return (
     <SectionContext.Provider
@@ -403,22 +417,18 @@ export const SectionProvider = ({ data, children }) => {
         addItem,
         addIChild,
         handleItemChange,
-        saveItem,
         selected,
         setSelected,
         reorderItem,
         reorderSection,
         allowCrossSectionDrag,
         setAllowCrossSectionDrag,
-        removeItem,
         moveItem,
-        removeSection,
-        handleSectionHeaderChange,
+        removeBlock,
         enableDND, setEnableDND,
         focused, setFocused,
         editBlockStyle,
         editBlockProps,
-        block,setBlock,
         isDragging , setIsDragging,
         selectedBlock, setSelectedBlock,
         getBlock,

@@ -26,7 +26,7 @@ import { useState, useEffect } from "react";
 
 export function SectionContextMenu({ children, type, path }) {
   const {
-    removeItem,
+    removeBlock,
     selected,
     addItem,
     addIChild,
@@ -151,7 +151,7 @@ export function SectionContextMenu({ children, type, path }) {
         <ContextMenuItem
           inset
           className={"text-[.6rem]"}
-          onClick={() => removeItem(path)}
+          onClick={() => removeBlock(path)}
         >
           Remove
           <ContextMenuShortcut>⌘R</ContextMenuShortcut>

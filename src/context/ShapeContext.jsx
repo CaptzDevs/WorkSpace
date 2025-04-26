@@ -231,8 +231,8 @@ export const ShapesProvider = ({ children }) => {
   const clearCanvas = () => {
     setElems([]);
     setLines([]);
-    localStorage.removeItem("shapes");
-    localStorage.removeItem("lines");
+    localStorage.removeBlock("shapes");
+    localStorage.removeBlock("lines");
   };
 
   const updateShapeText = (shapeId, newText) =>  {

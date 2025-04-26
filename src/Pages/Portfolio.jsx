@@ -16,6 +16,8 @@ import {
   Underline,
   Italic,
   Palette,
+  Circle,
+  PaintBucket,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router";
@@ -98,7 +100,7 @@ const CV_DATA = {
         },
         {
           value:
-            "Code, collaborate, and build the future in an optimized environment with the best tools and resources.",
+            "Code, collaborate, and build the future in an optimized environment with the best tools and technologies.",
           header: true,
           type: "text",
         },
@@ -543,7 +545,7 @@ export default function Portfolio() {
   return (
     <SectionProvider data={CV_DATA}>
       <SettingBar />
-      <div className=" relative w-full md:w-full flex flex-col md:scale-[.6] origin-[50%_0%] px-3">
+      <div className=" relative w-full max-w-[1800px] md:w-full flex flex-col md:scale-[.6] origin-[50%_0%] px-3">
         {/*    <div className="w-full flex items-start justify-center flex-col  bg-natural-100 gap-3 py-10 rounded-md z-40">
           <div className="flex items-start justify-start  gap-3">
             <TextAnimate
@@ -603,7 +605,7 @@ const HeaderFile = ({ title }) => {
 
 const Section = ({ children, sectionIndex }) => {
   const [showDelete, setShowDelete] = useState(false);
-  const { removeSection, setSelected } = useSections();
+  const {  setSelected } = useSections();
 
   // Select the section
 
@@ -625,7 +627,7 @@ const Section = ({ children, sectionIndex }) => {
           className="flex items-center justify-center cursor-pointer absolute top-0 right-0 w-6 h-6"
           onClick={(e) => {
             e.stopPropagation(); // Prevent section selection
-            removeSection(sectionIndex);
+            removeBlock(sectionIndex);
           }}
         >
           <X />
@@ -786,7 +788,7 @@ const SectionItem = ({
   item,
   onClick,
 }) => {
-  const { setSelected, removeItem } = useSections();
+  const {sections, setSelected, removeBlock } = useSections();
   const [showDelete, setShowDelete] = useState(false);
 
   const selectSectionItem = () => {
@@ -803,6 +805,7 @@ const SectionItem = ({
   const sectionItemRef = useClickOutside(() => {});
 
   const styleClasses = getBlockStyle(item , 'text')
+
  
   return (
     
@@ -839,8 +842,8 @@ const SectionItem = ({
           return (
           <div className="w-fit h-full  ">
          
-   
-              <SectionContextMenu type="children" path={[...path, { key: "children", index }]}>
+            <SectionContextMenu type="children" path={[...path, { key: "children", index }]}>
+              
             <EditableItem
               className={"w-max"}
               value={child.value}
@@ -863,7 +866,7 @@ const SectionItem = ({
           " flex items-center justify-center   cursor-pointer transition-all duration-75",
           showDelete ? "opacity-100" : "opacity-0"
         )}
-        onClick={() => removeItem(path)}
+        onClick={() => removeBlock(path)}
       >
         <X />
       </div>
@@ -891,19 +894,46 @@ const EditableItem = ({
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
 
   const {
-    sections,
-    addSection,
     addItem,
     handleItemChange,
-    saveItem,
-    selected,
     setEnableDND,
-    removeItem,
-    focused,
     setFocused,
-    isDragging,
     setSelectedBlock,
+    removeBlock,
   } = useSections();
+
+  const applyRules = (text) => {
+    let modifiedText = text;
+
+    // Apply custom rules if they exist
+    if (rules.maxLength && modifiedText.length > rules.maxLength) {
+      modifiedText = modifiedText.slice(0, rules.maxLength);
+    }
+
+    if (rules.toUpperCase) {
+      modifiedText = modifiedText.toUpperCase();
+    }
+
+    if (rules.replaceWords) {
+      Object.entries(rules.replaceWords).forEach(([key, value]) => {
+        modifiedText = modifiedText.replace(new RegExp(key, "g"), value);
+      });
+    }
+    // Apply format rule (e.g., only numbers)
+    if (rules.format === "number") {
+      modifiedText = modifiedText.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+    }
+
+    if (rules.format === "decimal") {
+      modifiedText = modifiedText.replace(/[^0-9.]/g, ""); // Allow only numbers and dots
+    }
+
+    if (rules.format === "alphanumeric") {
+      modifiedText = modifiedText.replace(/[^a-zA-Z0-9]/g, ""); // Allow only letters and numbers
+    }
+    return modifiedText;
+  };
+ 
 
   useEffect(() => {
     setIsEditing(isEdit);
@@ -924,34 +954,9 @@ const EditableItem = ({
     containerRef.current.blur();
   });
 
-  const editData = (propName) => {
+  const editData = () => {
     setIsEditing(true);
     setEnableDND(false);
-  };
-
-  const saveData = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      handleItemChange(path, 'value', e.target.value);
-      setIsEditing(false);
-      containerRef.current.blur();
-      inputRef.current.blur();
-
-      setTimeout(() => {
-         addItem(path);
-      }, 1);
-
-      setEnableDND(true);
-    } else if (e.key === "Escape") {
-      setIsEditing(false);
-      handleItemChange(path, 'value', e.target.value);
-    }
-    if (e.key === "Backspace" && e.target.value === "") {
-      //! removeItem(path)
-      setIsEditing(true);
-
-    }
-
-
   };
 
   const autoResize = (textarea) => {
@@ -966,94 +971,84 @@ const EditableItem = ({
     setFocused(false);
   };
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-      inputRef.current.setSelectionRange(
-        inputRef.current.value.length,
-        inputRef.current.value.length
-      ); // Move cursor to the end
-    }
-  }, [isEditing]);
-
   const exceptionKey = ["Enter", "Escape"];
 
-  const editFocusedItem = (e) => {
-    if (!exceptionKey.includes(e.key) && !e.shiftKey) {
-      console.log("dadsada");
-      setIsEditing(true);
-    }
-
-    if (e.key === "Escape") {
-      containerRef.current.blur();
-    }
+  const onKeydownContainer = (e) => {
+      if(!exceptionKey.includes(e.key)){
+        setIsEditing(true);
+      }
   };
 
-  const applyRules = (text) => {
-    let modifiedText = text;
-
-    // Apply custom rules if they exist
-    if (rules.maxLength && modifiedText.length > rules.maxLength) {
-      modifiedText = modifiedText.slice(0, rules.maxLength);
-    }
-
-    if (rules.toUpperCase) {
-      modifiedText = modifiedText.toUpperCase();
-    }
-
-    if (rules.replaceWords) {
-      Object.entries(rules.replaceWords).forEach(([key, value]) => {
-        modifiedText = modifiedText.replace(new RegExp(key, "g"), value);
-      });
-    }
-
-    // Apply format rule (e.g., only numbers)
-    if (rules.format === "number") {
-      modifiedText = modifiedText.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-    }
-
-    if (rules.format === "decimal") {
-      modifiedText = modifiedText.replace(/[^0-9.]/g, ""); // Allow only numbers and dots
-    }
-
-    if (rules.format === "alphanumeric") {
-      modifiedText = modifiedText.replace(/[^a-zA-Z0-9]/g, ""); // Allow only letters and numbers
-    }
-
-    return modifiedText;
-  };
- 
   const onClickContainer = () =>{
     setSelectedBlock(path);
     setIsOpenDropdown(true)
+
+    setIsEditing(true);
+    setEnableDND(false);
   }
 
   const onFocusContainer = () =>{
     setIsFocused(true);
     //setSelectedBlock(path);
+  }
+  const onBlurContainer = () => {
+  }
+
+
+  const onKeyDownInput = (e) => {
+    console.log(e.target.value)
+    if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+
+       /*  setIsEditing(false); */
+        handleItemChange(path, 'value', e.target.value);
+      /*   containerRef.current.focus();
+        inputRef.current.blur();  */
+
+        addItem(path);
+    }
+
+    if(e.key === "Escape"){
+      e.preventDefault();
+
+      setIsEditing(false);
+      handleItemChange(path, 'value', e.target.value);
+      containerRef.current.focus();
+      inputRef.current.blur(); 
+    }
+
+    if(e.key === "Backspace" && e.target.value === "") {
+      e.preventDefault();
+      setIsEditing(true);
+      removeBlock(path);
+    }
     
   }
 
+  const eventClass = {
+    'border-b-2-': isEditing,
+  }
 
   return (
     <div
       className={cn(
         className,
-        "h-full relative min-w-[30px] flex items-center justify-end  focus:border-b-2  border-neutral-400  focus:bg-neutral-100 dark:focus:bg-neutral-800"
+        "h-full relative min-w-[30px] flex items-center justify-end  focus:border-b-2  border-neutral-400  focus:bg-neutral-100 dark:focus:bg-neutral-800",
+        eventClass
       )}
       tabIndex={0}
-      onClick={onClickContainer}
-      onDoubleClick={() => editData(propName)}
-      onKeyDown={(e) => editFocusedItem(e)}
-      onFocus={onFocusContainer}
+      onClick={()=> onClickContainer()}
+      onKeyDown={(e) => onKeydownContainer(e)}
+      onFocus={()=> onFocusContainer()}
+      onBlur={()=> onBlurContainer()}
       ref={containerRef}
     >
 
     <SectionDropdown_ value={item} isOpen={isEditing}  />
  
-    <SectionDropdown path={path} open={isOpenDropdown} onOpenChange={(isOpen) => setIsOpenDropdown(isOpen)}  >
+   {/*  <SectionDropdown path={path} open={isOpenDropdown} onOpenChange={(isOpen) => setIsOpenDropdown(isOpen)}  >
             <div></div>
-    </SectionDropdown>
+    </SectionDropdown> */}
 
       {isEditing ? (
         <>
@@ -1071,8 +1066,8 @@ const EditableItem = ({
               const newValue = applyRules(e.target.value); // Apply rules on change
               e.target.value = newValue;
               autoResize(e.target);
-            }}
-            onKeyUp={(e) => saveData(e)}
+            }} 
+            onKeyDown={(e) => onKeyDownInput(e)}
             onFocus={(e) => autoResize(e.target)}
             onBlur={(e) => handleOnBlur(e)}
           />
@@ -1133,15 +1128,10 @@ const SettingBar = () => {
 
 const ToolBar = ({asChild = false}) => {
   const {
-    setAllowCrossSectionDrag,
-    allowCrossSectionDrag,
-    enableDND,
-    setEnableDND,
     sections,
     selectedBlock,
     getBlock
   } = useSections();
-
 
   const [blockData ,setBlockData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -1177,14 +1167,16 @@ const ToolBar = ({asChild = false}) => {
         {
           name : 'Background',
           value : 'background',
-          icon : <Baseline style={{width : "12px"}}/>,
+          icon : <PaintBucket style={{width : "12px"}}/>,
+          popover : true,
         },
         {
           name : 'Color',
           value : 'color',
           icon : <Baseline style={{width : "12px"}}/>,
+          popover : true,
         },
-        {
+      /*   {
           name : 'Underline',
           value : 'underline',
           icon : <Underline style={{width : "12px"}}/>,
@@ -1193,7 +1185,7 @@ const ToolBar = ({asChild = false}) => {
           name : 'Italic',
           value : 'italic',
           icon : <Italic style={{width : "12px"}}/>,
-        },
+        }, */
       ],
       fontSize : [
         {
@@ -1240,15 +1232,15 @@ const ToolBar = ({asChild = false}) => {
       <React.Fragment key={i}>
         <div className="flex items-center justify-center gap-2">
           {tools[tool].map((item, j) => (
-            <PopoverToolItem>
+            <PopoverToolItem type={item.value} disabled={item.popover}>
               <button key={j}  
               className={cn(
               isMatch(tool,item.value) && 'dark:bg-neutral-700', 
-              "hover:bg-neutral-400 dark:hover:bg-neutral-700",
+              !blockData?.props?.style?.[item.value] && "hover:bg-neutral-400 dark:hover:bg-neutral-700",
               blockData?.props?.style?.[item.value],
               'flex items-center justify-center gap-3 px-3 py-2 rounded-md  cursor-pointer ' )}>
                 <span >
-                  {item.icon}
+                  {item.icon} 
                 </span>
               </button>
           </PopoverToolItem>
@@ -1257,7 +1249,7 @@ const ToolBar = ({asChild = false}) => {
         {i < Object.keys(tools).length - 1 && <div className="text-neutral-500">|</div>}
       </React.Fragment>
     ))}
-   {/*  <pre className="text-[.5rem]"> {JSON.stringify(blockData,null ,2)}</pre> */}
+  {/*   <pre className="text-[.5rem]"> {JSON.stringify(blockData,null ,2)}</pre> */}
   </div>
   
   );
@@ -1277,9 +1269,7 @@ const SectionDropdown_ = ({ isOpen, value, onClose, onClick }) => {
     };
   }, [isOpen]);
 
-  const handleClickItem = () => {
-    onClose(); 
-  };
+
   if (!isOpen || isDragging) return null;
 
   return (
@@ -1291,9 +1281,9 @@ const SectionDropdown_ = ({ isOpen, value, onClose, onClick }) => {
         transition={{ duration: 0.2, ease: "easeOut" }}
         className="absolute bottom-[120%] left-[0%] p-3 bg-neutral-900 flex z-30 gap-3 rounded-md"
       >
-            <ToolBar asChild />
+      <ToolBar asChild />
 
-{/*         {Object.keys(BLOCK_TYPE).map((key) => {
+       {/*  {Object.keys(BLOCK_TYPE).map((key) => {
           const blockType = BLOCK_TYPE[key];
           const icon =
             typeof blockType.icon === "string" ? (
@@ -1328,25 +1318,13 @@ const RenderData = () => {
     sections,
     addSection,
     addItem,
-    handleItemChange,
-    saveItem,
     reorderItem,
     reorderSection,
     allowCrossSectionDrag,
-    setAllowCrossSectionDrag,
     selected,
-    removeItem,
-    removeSection,
-    isDragging,
-    setSelectedBlock,
+    removeBlock,
   } = useSections(); // Use context to manage sections and items
 
- /*  const handleItemClick = (itemPath) => {
-    const fullPath = [...itemPath];
-    console.log("Full Path of Indices:", fullPath);
-    setSelectedBlock(fullPath);
-  };
- */
   useEffect(() => {
     const handleAddSection = (e) => {
       if (e.key === "Enter" && selected.sectionIndex === null) {
@@ -1354,12 +1332,12 @@ const RenderData = () => {
       }
       if (e.key === "Delete") {
         if (selected.sectionIndex !== null && selected.itemIndex !== null) {
-          removeItem(selected.sectionIndex, selected.itemIndex);
+          removeBlock(selected.sectionIndex, selected.itemIndex);
         } else if (
           selected.sectionIndex !== null &&
           selected.itemIndex === null
         ) {
-          removeSection(selected.sectionIndex);
+          removeBlock(selected.sectionIndex);
         }
       }
     };
@@ -1369,17 +1347,14 @@ const RenderData = () => {
     return () => {
       window.removeEventListener("keydown", handleAddSection);
     };
-  }, [addSection]); // Ensure `addSection` is included in dependencies
+  }, [addSection]); 
 
-  // Recursive function to render items and their children
   const renderItems = (items, sectionIndex, parentPath = []) => {
     return items.map((item, itemIndex) => {
       const currentPath = [...parentPath, { key: "items", index: itemIndex }];
 
       return (
         <>
-      
-
         <DraggableItem
           path={currentPath}
           key={itemIndex}
@@ -1396,10 +1371,8 @@ const RenderData = () => {
             isEditing={item.isEditing}
             item={item}
           />
-          {/* Recursively render nested items if they exist */}
           {item.items &&
             renderItems(item.items, sectionIndex, currentPath)}{" "}
-          {/* Passing the current path */}
         </DraggableItem>
           </>
       );
