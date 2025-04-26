@@ -100,7 +100,7 @@ const CV_DATA = {
         },
         {
           value:
-            "Code, collaborate, and build the future in an optimized environment with the best tools and technologies.",
+            "Code, collaborate, and build the future in an optimized environment with the best tools and <u>technologies</u>.",
           header: true,
           type: "text",
         },
@@ -811,7 +811,7 @@ const SectionItem = ({
     
     <SectionContextMenu type="item" path={path}>
     <div
-      className="w-full flex gap-3 "
+      className="w-full flex gap-3 items-start "
       ref={sectionItemRef}
       onMouseOver={() => setShowDelete(true)}
       onMouseLeave={() => setShowDelete(false)}
@@ -820,7 +820,7 @@ const SectionItem = ({
     >
       <div className="w-full flex items-start justify-start  gap-3 ">
         <div
-          className={cn("w-full flex items-start ")}
+          className={cn("w-full flex")}
         >
           {!header && <div className="pr-3">•</div>}
 
@@ -900,6 +900,7 @@ const EditableItem = ({
     setFocused,
     setSelectedBlock,
     removeBlock,
+    setTextSelectionInfo,
   } = useSections();
 
   const applyRules = (text) => {
@@ -939,11 +940,27 @@ const EditableItem = ({
     setIsEditing(isEdit);
   }, [isEdit]);
 
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.innerHTML = value || ""; // ⬅️ Set initial content
+  
+      // Move cursor to the end
+      requestAnimationFrame(() => {
+        const range = document.createRange();
+        const selection = window.getSelection();
+        range.selectNodeContents(inputRef.current);
+        range.collapse(false);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      });
+    }
+  }, [isEditing]);
+
   const inputRef = useClickOutside(() => {
     setIsEditing(false);
     setEnableDND(true);
     setIsFocused(false);
-    handleItemChange(path, 'value', inputRef.current.value);
+    handleItemChange(path, 'value', inputRef.current.innerHTML);
     inputRef.current.blur();
   });
 
@@ -959,13 +976,16 @@ const EditableItem = ({
     setEnableDND(false);
   };
 
-  const autoResize = (textarea) => {
-    textarea.style.height = "auto"; // Reset height
-    textarea.style.height = `${textarea.scrollHeight}px`; // Adjust height based on content
+  const autoResize = (el) => {
+  /*   setTimeout(() => {
+      el.style.height = 'auto';
+      el.style.height = `${el.scrollHeight}px`;
+    }, 0); */
   };
+  
 
   const handleOnBlur = (e) => {
-    handleItemChange(path, 'value', e.target.value);
+    handleItemChange(path, 'value', e.target.innerHTML);
     setIsEditing(false);
     setEnableDND(true);
     setFocused(false);
@@ -989,6 +1009,7 @@ const EditableItem = ({
 
   const onFocusContainer = () =>{
     setIsFocused(true);
+    setSelectedBlock(path);
     //setSelectedBlock(path);
   }
   const onBlurContainer = () => {
@@ -996,12 +1017,12 @@ const EditableItem = ({
 
 
   const onKeyDownInput = (e) => {
-    console.log(e.target.value)
+    console.log(e.target.innerHTML)
     if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
 
        /*  setIsEditing(false); */
-        handleItemChange(path, 'value', e.target.value);
+        handleItemChange(path, 'value', e.target.innerHTML);
       /*   containerRef.current.focus();
         inputRef.current.blur();  */
 
@@ -1012,12 +1033,12 @@ const EditableItem = ({
       e.preventDefault();
 
       setIsEditing(false);
-      handleItemChange(path, 'value', e.target.value);
+      handleItemChange(path, 'value', e.target.innerHTML);
       containerRef.current.focus();
       inputRef.current.blur(); 
     }
 
-    if(e.key === "Backspace" && e.target.value === "") {
+    if(e.key === "Backspace" && e.target.innerHTML === "") {
       e.preventDefault();
       setIsEditing(true);
       removeBlock(path);
@@ -1029,11 +1050,77 @@ const EditableItem = ({
     'border-b-2-': isEditing,
   }
 
+  const getSelectionInfo = (element) => {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return { text: '', tag: null, start: -1, end: -1 };
+  
+    const range = selection.getRangeAt(0);
+    const container = range.commonAncestorContainer;
+  
+    if (!element.contains(container)) return { text: '', tag: null, start: -1, end: -1 };
+  
+    const selectedText = selection.toString();
+  
+    // Get index in plain text
+    const text = element.innerText;
+    const indexInText = text.indexOf(selectedText);
+    if (indexInText === -1) return { text, selectedText, tag: null, start: -1, end: -1 };
+  
+    const html = element.innerHTML;
+    let textIndex = 0;
+    let htmlIndex = 0;
+    let start = -1;
+    let end = -1;
+  
+    // Walk through HTML and count visible characters
+    while (htmlIndex < html.length) {
+      if (html[htmlIndex] === '<') {
+        while (html[htmlIndex] !== '>' && htmlIndex < html.length) {
+          htmlIndex++;
+        }
+        htmlIndex++; // skip '>'
+      } else {
+        if (textIndex === indexInText) start = htmlIndex;
+        if (textIndex === indexInText + selectedText.length) {
+          end = htmlIndex;
+          break;
+        }
+        textIndex++;
+        htmlIndex++;
+      }
+    }
+  
+    // If text ends at the end of the content
+    if (end === -1 && textIndex === indexInText + selectedText.length) {
+      end = html.length;
+    }
+  
+    // Traverse up to find formatting tag
+    let el = container.nodeType === 3 ? container.parentElement : container;
+    while (el && el !== element) {
+      if (["B", "I", "U", "SPAN", "MARK"].includes(el.tagName)) {
+        return { text: html, selectedText, tag: el, start, end };
+      }
+      el = el.parentElement;
+    }
+  
+    return { text: html, selectedText, tag: null, start, end };
+  };
+  
+
+  const onSelectionText = () => {
+    const textSelectionInfo = getSelectionInfo(inputRef.current);
+    const selectedText = getSelectionInfo(inputRef.current);
+    setTextSelectionInfo(textSelectionInfo)
+    console.log('Selected:', selectedText);
+  }
+  
+
   return (
     <div
       className={cn(
         className,
-        "h-full relative min-w-[30px] flex items-center justify-end  focus:border-b-2  border-neutral-400  focus:bg-neutral-100 dark:focus:bg-neutral-800",
+        "h-full relative min-w-[30px] max-w-[1400px]  flex items-center justify-start  focus:border-b-2  border-neutral-400  focus:bg-neutral-100 dark:focus:bg-neutral-800",
         eventClass
       )}
       tabIndex={0}
@@ -1044,7 +1131,9 @@ const EditableItem = ({
       ref={containerRef}
     >
 
+      {isEditing && 
     <SectionDropdown_ value={item} isOpen={isEditing}  />
+      }
  
    {/*  <SectionDropdown path={path} open={isOpenDropdown} onOpenChange={(isOpen) => setIsOpenDropdown(isOpen)}  >
             <div></div>
@@ -1052,28 +1141,26 @@ const EditableItem = ({
 
       {isEditing ? (
         <>
-          <textarea
-            rows={1}
-            ref={inputRef}
-            defaultValue={value}
-            className={cn(
-              item?.props?.className,
-              textStyle,
-              styleClasses,
-              "  w-full whitespace-pre-wrap  resize-none break-words  overflow-hidden "
-            )}
-            onChange={(e) => {
-              const newValue = applyRules(e.target.value); // Apply rules on change
-              e.target.value = newValue;
-              autoResize(e.target);
-            }} 
-            onKeyDown={(e) => onKeyDownInput(e)}
-            onFocus={(e) => autoResize(e.target)}
-            onBlur={(e) => handleOnBlur(e)}
-          />
+       <div
+          contentEditable
+          ref={inputRef}
+          suppressContentEditableWarning
+          className={cn(
+            item?.props?.className,
+            textStyle,
+            styleClasses,
+            'w-full whitespace-pre-wrap cursor-pointer break-words'
+          )}
+          onKeyDown={(e) => onKeyDownInput(e)}
+          onFocus={(e) => autoResize(e.target)}
+          onBlur={(e) => handleOnBlur(e)}
+          onMouseUp={() => onSelectionText()}
+        />
+
         </>
       ) : value ? (
         <div
+          dangerouslySetInnerHTML={{ __html: value }}
           className={cn(
             item?.props?.className,
             textStyle,
@@ -1081,8 +1168,6 @@ const EditableItem = ({
             "w-full whitespace-pre-wrap cursor-pointer break-words overflow-hidden "
           )}
         >
-      {/*     <SectionDropdown path={path} ><div >{value}</div></SectionDropdown> */}
-          {value}
         </div>
       ) : (
         <div className="w-full h-full hover:border-b border-white min-w-[80px] cursor-pointer">
@@ -1130,7 +1215,10 @@ const ToolBar = ({asChild = false}) => {
   const {
     sections,
     selectedBlock,
-    getBlock
+    getBlock,
+    textSelectionInfo,
+    setTextSelectionInfo,
+    wrapSelectedTextWithTag,
   } = useSections();
 
   const [blockData ,setBlockData] = useState(null);
@@ -1176,16 +1264,23 @@ const ToolBar = ({asChild = false}) => {
           icon : <Baseline style={{width : "12px"}}/>,
           popover : true,
         },
-      /*   {
+        {
           name : 'Underline',
           value : 'underline',
           icon : <Underline style={{width : "12px"}}/>,
+          onClick : () => {
+              wrapSelectedTextWithTag(blockData,'u');
+              setTextSelectionInfo({})
+          }
         },
         {
           name : 'Italic',
           value : 'italic',
           icon : <Italic style={{width : "12px"}}/>,
-        }, */
+          onClick : () => {
+              wrapSelectedTextWithTag(blockData,'i');
+          }
+        },
       ],
       fontSize : [
         {
@@ -1231,20 +1326,29 @@ const ToolBar = ({asChild = false}) => {
     {Object.keys(tools).map((tool, i) => (
       <React.Fragment key={i}>
         <div className="flex items-center justify-center gap-2">
-          {tools[tool].map((item, j) => (
-            <PopoverToolItem type={item.value} disabled={item.popover}>
-              <button key={j}  
-              className={cn(
-              isMatch(tool,item.value) && 'dark:bg-neutral-700', 
-              !blockData?.props?.style?.[item.value] && "hover:bg-neutral-400 dark:hover:bg-neutral-700",
-              blockData?.props?.style?.[item.value],
-              'flex items-center justify-center gap-3 px-3 py-2 rounded-md  cursor-pointer ' )}>
-                <span >
-                  {item.icon} 
-                </span>
+           {tools[tool].map((item, j) => {
+            const ToolButton = (
+              <button
+                key={j}
+                onClick={item?.onClick}
+                className={cn(
+                  isMatch(tool, item.value) && 'dark:bg-neutral-700',
+                  !blockData?.props?.style?.[item.value] && 'hover:bg-neutral-400 dark:hover:bg-neutral-700',
+                  blockData?.props?.style?.[item.value],
+                  'flex items-center justify-center gap-3 px-3 py-2 rounded-md cursor-pointer'
+                )}
+              >
+                <span>{item.icon}</span>
               </button>
-          </PopoverToolItem>
-          ))}
+            );
+          
+            return item.popover ? (
+              <PopoverToolItem key={j} type={item.value}>{ToolButton}</PopoverToolItem>
+            ) : (
+              ToolButton
+            );
+          })}
+          
         </div>
         {i < Object.keys(tools).length - 1 && <div className="text-neutral-500">|</div>}
       </React.Fragment>

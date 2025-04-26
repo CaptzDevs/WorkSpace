@@ -8,10 +8,10 @@ import { useSections } from "@/context/SectionContext"
 import { cn } from "@/lib/utils"
 import { useEffect, useState } from "react"
 
-export function PopoverToolItem({ children , type , disabled }) {
+export function PopoverToolItem({ children , type }) {
   return (
     <Popover>
-      <PopoverTrigger asChild disabled={!disabled}>
+      <PopoverTrigger asChild >
         {children}
       </PopoverTrigger>
       <PopoverContent className="w-fit" sideOffset={10}>

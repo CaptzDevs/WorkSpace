@@ -66,6 +66,8 @@ export const SectionProvider = ({ data, children }) => {
   const [allowCrossSectionDrag, setAllowCrossSectionDrag] = useState(true);
   const [isDragging , setIsDragging] = useState(false);
 
+  const [textSelectionInfo , setTextSelectionInfo] = useState({});
+
   const TextStyles = {
     PageHeader: "text-2xl font-bold tracking-tighter md:text-5xl lg:text-5xl pb-2 text-emerald-400",
     SectionHeader: " text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-wide text-teal-400",
@@ -294,6 +296,31 @@ export const SectionProvider = ({ data, children }) => {
 
 };
 
+    const wrapSelectedTextWithTag = (blockData,tag = 'u') => {
+      const { selectedText, start, end } = textSelectionInfo;
+      if (selectedText) {
+        const html = blockData.value;
+        const openTag = `<${tag}>`;
+        const closeTag = `</${tag}>`;
+
+        const updatedHTML =
+          html.slice(0, start) +
+          openTag + selectedText + closeTag +
+          html.slice(end);
+
+        editBlockProps(selectedBlock, 'value', updatedHTML);
+      }else{
+        const html = blockData.value;
+        const openTag = `<${tag}>`;
+        const closeTag = `</${tag}>`;
+        console.log(html,'dadsa')
+
+        const updatedHTML = openTag + html + closeTag 
+        editBlockProps(selectedBlock, 'value', updatedHTML);
+      }
+    };
+
+
 
   const nomalizePath = (path) => {
     const normalizedPath = path.map((item) => {
@@ -434,6 +461,8 @@ export const SectionProvider = ({ data, children }) => {
         getBlock,
         colors,
         backgroundColors,
+        textSelectionInfo , setTextSelectionInfo,
+        wrapSelectedTextWithTag,
       }}
     >
       {children}
