@@ -115,6 +115,7 @@ export function SectionContextMenu({ children, type, path }) {
         {BlockType.map((item, i) => (
           <ContextMenuItem
             inset
+            key={'context-menu-item-' + i}
             value={item.value}
             className={cn(
               "text-[.6rem] flex gap-2 cursor-pointer",

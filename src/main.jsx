@@ -5,7 +5,7 @@ import './index.css'
 import App from './App.jsx'
 import Pricing from './Pages/Pricing';
 import Layout from './Pages/Layout';
-import Portfolio from './Pages/Portfolio';
+import Portfolio from './Pages/Portfolio/Portfolio';
 import '@ant-design/v5-patch-for-react-19';
 const router = createBrowserRouter([
   {

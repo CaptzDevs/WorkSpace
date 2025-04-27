@@ -76,6 +76,94 @@ export const SectionProvider = ({ data, children }) => {
   };
 
 
+
+  const getSelectionInfo = () => {
+    const selection = window.getSelection();
+    if (!selection || !selection.rangeCount) return { text: '', selectedText: '', tag: null, start: -1, end: -1 };
+  
+    const range = selection.getRangeAt(0);
+    const container = range.commonAncestorContainer;
+  
+    // If container is a text node, get its parent element
+    const element = container.nodeType === 3 ? container.parentElement : container;
+    if (!element) return { text: '', selectedText: '', tag: null, start: -1, end: -1 };
+  
+    const selectedText = selection.toString();
+    if (!selectedText) return { text: '', selectedText: '', tag: null, start: -1, end: -1 };
+  
+    // Get plain text of the element
+    const text = element.innerText;
+    const indexInText = text.indexOf(selectedText);
+    if (indexInText === -1) return { text, selectedText, tag: null, start: -1, end: -1 };
+  
+    const html = element.innerHTML;
+    let textIndex = 0;
+    let htmlIndex = 0;
+    let start = -1;
+    let end = -1;
+  
+    // Walk through HTML to find start/end positions
+    while (htmlIndex < html.length) {
+      if (html[htmlIndex] === '<') {
+        while (html[htmlIndex] !== '>' && htmlIndex < html.length) {
+          htmlIndex++;
+        }
+        htmlIndex++; // skip '>'
+      } else {
+        if (textIndex === indexInText) start = htmlIndex;
+        if (textIndex === indexInText + selectedText.length) {
+          end = htmlIndex;
+          break;
+        }
+        textIndex++;
+        htmlIndex++;
+      }
+    }
+  
+    if (end === -1 && textIndex === indexInText + selectedText.length) {
+      end = html.length;
+    }
+  
+    // Find formatting tag by traversing up DOM
+    let el = container.nodeType === 3 ? container.parentElement : container;
+    while (el && el !== element) {
+      if (["B", "I", "U", "SPAN", "MARK"].includes(el.tagName)) {
+        return { text: html, selectedText, tag: el, start, end };
+      }
+      el = el.parentElement;
+    }
+  
+    return { text: html, selectedText, tag: null, start, end };
+  };
+  
+    
+
+ useEffect(() => {
+    function handleSelection() {
+      const info = getSelectionInfo();
+      if(!info.selectedText){
+        setTimeout(() => {
+          setTextSelectionInfo(info);
+        }, 500);
+      }else{
+        setTextSelectionInfo(info);
+      }
+    }
+
+    document.addEventListener("mouseup", handleSelection);
+    document.addEventListener("keyup", handleSelection);
+
+    return () => {
+      document.removeEventListener("mouseup", handleSelection);
+      document.removeEventListener("keyup", handleSelection);
+    };
+  }, []);
+  
+
+  useEffect(()=>{
+    console.log(textSelectionInfo ,selectedBlock,'selectedText')
+  },[textSelectionInfo])
+
   function getAllChildren() {
     let result = [];
   
@@ -298,6 +386,8 @@ export const SectionProvider = ({ data, children }) => {
 
     const wrapSelectedTextWithTag = (blockData,tag = 'u') => {
       const { selectedText, start, end } = textSelectionInfo;
+    console.log(textSelectionInfo,'Adasdafasfa')
+
       if (selectedText) {
         const html = blockData.value;
         const openTag = `<${tag}>`;
@@ -321,6 +411,33 @@ export const SectionProvider = ({ data, children }) => {
     };
 
 
+    function removeTagFromSelection(blockData , tag = 'u') {
+      const { start, end } = textSelectionInfo;
+      if (start === -1 || end === -1) return; // invalid selection
+    
+      const html = blockData.value;
+      const selectedHtml = html.slice(start, end);
+    
+      // Regex to match opening and closing tag (ignore attributes in opening tag)
+      const regex = new RegExp(`^<${tag}[^>]*>([\\s\\S]*)<\\/${tag}>$`, 'i');
+    
+      const match = selectedHtml.match(regex);
+      if (match) {
+        const innerContent = match[1]; // content inside <u>...</u>
+    
+        // Replace selectedHtml with innerContent (unwrap)
+        const updatedHTML =
+          html.slice(0, start) +
+          innerContent +
+          html.slice(end);
+    
+        editBlockProps(selectedBlock, 'value', updatedHTML);
+      } else {
+        // No wrapping tag found, maybe do nothing or notify
+        console.log('No wrapping tag found for selected text');
+      }
+    }
+    
 
   const nomalizePath = (path) => {
     const normalizedPath = path.map((item) => {
@@ -463,6 +580,7 @@ export const SectionProvider = ({ data, children }) => {
         backgroundColors,
         textSelectionInfo , setTextSelectionInfo,
         wrapSelectedTextWithTag,
+        removeTagFromSelection,
       }}
     >
       {children}

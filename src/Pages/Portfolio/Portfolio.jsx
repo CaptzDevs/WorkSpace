@@ -835,12 +835,13 @@ const SectionItem = ({
             textStyle={TEXT_STYLES[item?.props?.style?.text || "Text"]}
           />
         </div>
+
         {item?.children?.map((child, index) => {
          
           const styleChildClasses = getBlockStyle(child , 'text')
 
           return (
-          <div className="w-fit h-full  ">
+          <div className="w-fit h-full" key={'editable'+index+'child'}>
          
             <SectionContextMenu type="children" path={[...path, { key: "children", index }]}>
               
@@ -890,10 +891,10 @@ const EditableItem = ({
   },
 }) => {
   const [isEditing, setIsEditing] = useState(isEdit);
-  const [isFocused, setIsFocused] = useState(isEdit);
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
 
   const {
+    sections,
     addItem,
     handleItemChange,
     setEnableDND,
@@ -934,18 +935,44 @@ const EditableItem = ({
     }
     return modifiedText;
   };
- 
-
+  
   useEffect(() => {
     setIsEditing(isEdit);
   }, [isEdit]);
 
   useEffect(() => {
-    if (isEditing && inputRef.current) {
+    if(!isEditing){
       inputRef.current.innerHTML = value || ""; // ⬅️ Set initial content
+    }
+    isEdit && isEditing && inputRef.current.focus();
+  }, [isEdit,isEditing, sections]);
+
+  const inputRef = useClickOutside(() => {
+    setIsEditing(false);
+    handleItemChange(path, 'value', inputRef.current.innerHTML);
+    inputRef.current.blur();
+  });
+
+  const containerRef = useClickOutside(() => {
+ /*    setIsEditing(false);
+    setEnableDND(true);
+    setIsFocused(false);
+    containerRef.current.blur(); */
+  });
+
+
+  const onFocusInput = () => {
+    setSelectedBlock(path);
+    setIsEditing(true)
+    setIsOpenDropdown(true)
+    console.log('das--faff');
   
-      // Move cursor to the end
-      requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {  // double frame
+        if (!inputRef.current) return;
+  
+        inputRef.current.focus();
+  
         const range = document.createRange();
         const selection = window.getSelection();
         range.selectNodeContents(inputRef.current);
@@ -953,227 +980,125 @@ const EditableItem = ({
         selection.removeAllRanges();
         selection.addRange(range);
       });
-    }
-  }, [isEditing]);
-
-  const inputRef = useClickOutside(() => {
-    setIsEditing(false);
-    setEnableDND(true);
-    setIsFocused(false);
-    handleItemChange(path, 'value', inputRef.current.innerHTML);
-    inputRef.current.blur();
-  });
-
-  const containerRef = useClickOutside(() => {
-    setIsEditing(false);
-    setEnableDND(true);
-    setIsFocused(false);
-    containerRef.current.blur();
-  });
-
-  const editData = () => {
-    setIsEditing(true);
-    setEnableDND(false);
-  };
-
-  const autoResize = (el) => {
-  /*   setTimeout(() => {
-      el.style.height = 'auto';
-      el.style.height = `${el.scrollHeight}px`;
-    }, 0); */
+    });
   };
   
-
   const handleOnBlur = (e) => {
     handleItemChange(path, 'value', e.target.innerHTML);
     setIsEditing(false);
     setEnableDND(true);
-    setFocused(false);
   };
 
-  const exceptionKey = ["Enter", "Escape"];
 
-  const onKeydownContainer = (e) => {
-      if(!exceptionKey.includes(e.key)){
-        setIsEditing(true);
-      }
-  };
-
-  const onClickContainer = () =>{
+  const onClickInput = () =>{
     setSelectedBlock(path);
-    setIsOpenDropdown(true)
 
     setIsEditing(true);
     setEnableDND(false);
   }
 
-  const onFocusContainer = () =>{
-    setIsFocused(true);
-    setSelectedBlock(path);
-    //setSelectedBlock(path);
-  }
-  const onBlurContainer = () => {
-  }
-
-
   const onKeyDownInput = (e) => {
     console.log(e.target.innerHTML)
+    setIsOpenDropdown(false)
+    const exceptionKey = ["Enter", "Escape"];
+
+    if(!exceptionKey.includes(e.key)){
+        setIsEditing(true);
+    }
+
     if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-
-       /*  setIsEditing(false); */
-        handleItemChange(path, 'value', e.target.innerHTML);
-      /*   containerRef.current.focus();
-        inputRef.current.blur();  */
-
-        addItem(path);
+      e.preventDefault();
+      handleItemChange(path, 'value', e.target.innerHTML);
+      inputRef.current.blur(); 
+      setIsEditing(false);
+   
+      addItem(path);
     }
 
     if(e.key === "Escape"){
-      e.preventDefault();
-
       setIsEditing(false);
       handleItemChange(path, 'value', e.target.innerHTML);
-      containerRef.current.focus();
       inputRef.current.blur(); 
     }
 
     if(e.key === "Backspace" && e.target.innerHTML === "") {
-      e.preventDefault();
       setIsEditing(true);
       removeBlock(path);
     }
+  }
+
+  const timeoutRef = useRef(null);
+  const saveTimeoutRef = useRef(null);
+  const onKeyUpInput = (e) => {
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      setIsOpenDropdown(true);
+    }, 500);
+
+    clearTimeout(saveTimeoutRef.current);
+    saveTimeoutRef.current = setTimeout(() => {
+      handleItemChange(path, 'value', e.target.innerHTML);
+    }, 100);
+  };
+
+  
+
+  const onSelectionText = () => {
+
     
+    setTimeout(() => {
+      setIsOpenDropdown(true)
+    }, 1000);
   }
 
   const eventClass = {
     'border-b-2-': isEditing,
   }
 
-  const getSelectionInfo = (element) => {
-    const selection = window.getSelection();
-    if (!selection.rangeCount) return { text: '', tag: null, start: -1, end: -1 };
-  
-    const range = selection.getRangeAt(0);
-    const container = range.commonAncestorContainer;
-  
-    if (!element.contains(container)) return { text: '', tag: null, start: -1, end: -1 };
-  
-    const selectedText = selection.toString();
-  
-    // Get index in plain text
-    const text = element.innerText;
-    const indexInText = text.indexOf(selectedText);
-    if (indexInText === -1) return { text, selectedText, tag: null, start: -1, end: -1 };
-  
-    const html = element.innerHTML;
-    let textIndex = 0;
-    let htmlIndex = 0;
-    let start = -1;
-    let end = -1;
-  
-    // Walk through HTML and count visible characters
-    while (htmlIndex < html.length) {
-      if (html[htmlIndex] === '<') {
-        while (html[htmlIndex] !== '>' && htmlIndex < html.length) {
-          htmlIndex++;
-        }
-        htmlIndex++; // skip '>'
-      } else {
-        if (textIndex === indexInText) start = htmlIndex;
-        if (textIndex === indexInText + selectedText.length) {
-          end = htmlIndex;
-          break;
-        }
-        textIndex++;
-        htmlIndex++;
-      }
-    }
-  
-    // If text ends at the end of the content
-    if (end === -1 && textIndex === indexInText + selectedText.length) {
-      end = html.length;
-    }
-  
-    // Traverse up to find formatting tag
-    let el = container.nodeType === 3 ? container.parentElement : container;
-    while (el && el !== element) {
-      if (["B", "I", "U", "SPAN", "MARK"].includes(el.tagName)) {
-        return { text: html, selectedText, tag: el, start, end };
-      }
-      el = el.parentElement;
-    }
-  
-    return { text: html, selectedText, tag: null, start, end };
-  };
-  
 
-  const onSelectionText = () => {
-    const textSelectionInfo = getSelectionInfo(inputRef.current);
-    const selectedText = getSelectionInfo(inputRef.current);
-    setTextSelectionInfo(textSelectionInfo)
-    console.log('Selected:', selectedText);
-  }
-  
+ 
 
   return (
     <div
       className={cn(
         className,
-        "h-full relative min-w-[30px] max-w-[1400px]  flex items-center justify-start  focus:border-b-2  border-neutral-400  focus:bg-neutral-100 dark:focus:bg-neutral-800",
+        `h-full relative min-w-[30px] max-w-[1400px]  flex items-center justify-start 
+        focus:border-b-2  border-neutral-400  focus:bg-neutral-100 dark:focus:bg-neutral-800`,
         eventClass
       )}
-      tabIndex={0}
-      onClick={()=> onClickContainer()}
-      onKeyDown={(e) => onKeydownContainer(e)}
-      onFocus={()=> onFocusContainer()}
-      onBlur={()=> onBlurContainer()}
       ref={containerRef}
+
+
     >
 
       {isEditing && 
-    <SectionDropdown_ value={item} isOpen={isEditing}  />
+          <SectionDropdown_ value={item} isOpen={isEditing && isOpenDropdown} onOpenChange={(isOpen) => setIsOpenDropdown(isOpen)}  />
       }
- 
+
+       <div
+        contentEditable
+        ref={inputRef}
+        tabIndex={0}
+        suppressContentEditableWarning
+        className={cn(
+          item?.props?.className,
+          textStyle,
+          styleClasses,
+          'w-full whitespace-pre-wrap cursor-pointer break-words'
+        )}
+        onClick={onClickInput}
+        onKeyDown={onKeyDownInput}
+        onKeyUp={onKeyUpInput}
+        onFocus={onFocusInput}
+        onBlur={handleOnBlur}
+        onMouseUp={onSelectionText}
+      />
+
+       
    {/*  <SectionDropdown path={path} open={isOpenDropdown} onOpenChange={(isOpen) => setIsOpenDropdown(isOpen)}  >
             <div></div>
     </SectionDropdown> */}
-
-      {isEditing ? (
-        <>
-       <div
-          contentEditable
-          ref={inputRef}
-          suppressContentEditableWarning
-          className={cn(
-            item?.props?.className,
-            textStyle,
-            styleClasses,
-            'w-full whitespace-pre-wrap cursor-pointer break-words'
-          )}
-          onKeyDown={(e) => onKeyDownInput(e)}
-          onFocus={(e) => autoResize(e.target)}
-          onBlur={(e) => handleOnBlur(e)}
-          onMouseUp={() => onSelectionText()}
-        />
-
-        </>
-      ) : value ? (
-        <div
-          dangerouslySetInnerHTML={{ __html: value }}
-          className={cn(
-            item?.props?.className,
-            textStyle,
-            styleClasses,
-            "w-full whitespace-pre-wrap cursor-pointer break-words overflow-hidden "
-          )}
-        >
-        </div>
-      ) : (
-        <div className="w-full h-full hover:border-b border-white min-w-[80px] cursor-pointer">
-          &nbsp;
-        </div>
-      )}
+      
     </div>
 
   );
@@ -1219,6 +1144,7 @@ const ToolBar = ({asChild = false}) => {
     textSelectionInfo,
     setTextSelectionInfo,
     wrapSelectedTextWithTag,
+    removeTagFromSelection,
   } = useSections();
 
   const [blockData ,setBlockData] = useState(null);
@@ -1270,7 +1196,16 @@ const ToolBar = ({asChild = false}) => {
           icon : <Underline style={{width : "12px"}}/>,
           onClick : () => {
               wrapSelectedTextWithTag(blockData,'u');
-              setTextSelectionInfo({})
+            /*   setTextSelectionInfo({}) */
+          }
+        },
+        {
+          name : 'Underline x',
+          value : 'underlinex',
+          icon : <><Underline style={{width : "12px"}}/> X</> ,
+          onClick : () => {
+              removeTagFromSelection(blockData,'u');
+
           }
         },
         {
@@ -1491,7 +1426,7 @@ const RenderData = () => {
       >
         {sections?.map((section, index) => (
           <DraggableSection
-            key={index}
+            key={'drag-section-' + index}
             section={section}
             index={index}
             moveSection={reorderSection}
@@ -1500,9 +1435,8 @@ const RenderData = () => {
             <motion.div
               {...sectionMotionProps}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              key={index}
             >
-              <Section sectionIndex={index}>
+              <Section sectionIndex={index} key={`section-${index}`}>
                 <SectionItem 
                     item={section}
                     path={[ { key: "section", index: index }]}
